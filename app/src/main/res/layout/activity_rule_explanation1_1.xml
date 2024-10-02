@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- 背景画像 -->
+    <ImageView
+        android:id="@+id/backgroundImage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/game1_1" />
+
+    <!-- タイトル -->
+    <TextView
+        android:id="@+id/gameTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="説明を見ますか"
+        android:textSize="24sp"
+        android:textColor="@android:color/black" /><!-- 黒に設定 -->
+
+
+    <!-- 選択説明テキスト -->
+    <TextView
+        android:id="@+id/selectionText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/gameTitle"
+        android:layout_centerHorizontal="true"
+        android:text="ひとりプレイ"
+        android:textSize="18sp"
+        android:textColor="@android:color/black"/> <!-- 黒に設定 -->
+
+    <!-- あそぶボタン -->
+    <Button
+        android:id="@+id/playButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:text="はい"
+        android:layout_marginBottom="90dp"/>
+
+    <!-- あそぶボタン -->
+    <Button
+        android:id="@+id/playButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:text="いいえ"
+        android:layout_marginBottom="32dp"/>
+</RelativeLayout>
