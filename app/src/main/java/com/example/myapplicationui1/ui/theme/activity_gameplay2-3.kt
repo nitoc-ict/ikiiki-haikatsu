@@ -1,4 +1,4 @@
-package com.example.myapplicationui1.ui.theme
+package com.example.myapplicationui1
 
-class activity_gameplay2-3 {
+class GamePlay23Activity {
 }

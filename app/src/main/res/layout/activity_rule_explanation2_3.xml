@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@drawable/ゲーム画面2_3" />
+        android:src="@drawable/game2_3" />
 
     <!-- タイトル -->
     <TextView
@@ -35,7 +35,7 @@
 
     <!-- はいボタン -->
     <Button
-        android:id="@+id/playButtonYes"
+        android:id="@+id/yesButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -45,7 +45,7 @@
 
     <!-- いいえボタン -->
     <Button
-        android:id="@+id/playButtonNo"
+        android:id="@+id/noButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"

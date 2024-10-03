@@ -1,4 +1,4 @@
-package com.example.yourappname // パッケージ名を適切に変更してください
+package com.example.myapplicationui1 // パッケージ名を適切に変更してください
 
 import android.content.Intent
 import android.os.Bundle
@@ -22,14 +22,14 @@ class ControllerSelectionActivity : AppCompatActivity() {
         // スパイロメータのアイコンを押したときの遷移
         val spiroMeterIcon: ImageView = findViewById(R.id.spiroMeterIcon)
         spiroMeterIcon.setOnClickListener {
-            val intent = Intent(this, GameSelection2_1Activity::class.java) // activity_game_selection2_1への遷移
+            val intent = Intent(this, GameSelection21Activity::class.java) // activity_game_selection2_1への遷移
             startActivity(intent)
         }
 
         // ピロピロのアイコンを押したときの遷移
         val piropiroIcon: ImageView = findViewById(R.id.piropiroIcon)
         piropiroIcon.setOnClickListener {
-            val intent = Intent(this, activity_game_selection1_1::class.java) // activity_game_selection1_1への遷移
+            val intent = Intent(this, GameSelection11Activity::class.java) // activity_game_selection1_1への遷移
             startActivity(intent)
         }
     }

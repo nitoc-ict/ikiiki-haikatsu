@@ -1,4 +1,4 @@
-package com.example.yourappname // パッケージ名を適切に変更してください
+package com.example.myapplicationui1 // パッケージ名を適切に変更してください
 
 import android.content.Intent
 import android.net.Uri
@@ -8,17 +8,17 @@ import android.widget.MediaController
 import android.widget.VideoView
 import androidx.appcompat.app.AppCompatActivity
 
-class GameVideo1_1Activity : AppCompatActivity() {
+class GameVideo11Activity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_game_video1_1)
+        setContentView(R.layout.activity_gamevideo11)
 
         // VideoViewの参照を取得
         val videoView: VideoView = findViewById(R.id.videoView)
 
         // 動画のパスまたはURLを指定
-        val videoUri: Uri = Uri.parse("android.resource://" + packageName + "/" + R.raw.sample_ringo)
+        val videoUri: Uri = Uri.parse("android.resource://" + packageName + "/" + R.raw.ringo)
 
         // VideoViewに動画をセット
         videoView.setVideoURI(videoUri)
@@ -35,7 +35,7 @@ class GameVideo1_1Activity : AppCompatActivity() {
         val backToMenuButton: Button = findViewById(R.id.backToMenuButton)
         backToMenuButton.setOnClickListener {
             // activity_gameplay1-1に遷移
-            val intent = Intent(this, GamePlay1_1Activity::class.java)
+            val intent = Intent(this, GamePlay11Activity::class.java)
             startActivity(intent)
         }
     }

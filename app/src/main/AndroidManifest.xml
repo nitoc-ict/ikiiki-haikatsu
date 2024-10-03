@@ -18,43 +18,41 @@
             android:label="@string/app_name"
             android:theme="@style/Theme.MyApplicationUI1">
             <intent-filter>
-
-                <activity android:name=".activity_spiro_meter"/>
-                <activity android:name="activity_title"/>
-                <activity android:name="ControllerExplanationSelectionActivity"/>
-                <activity android:name="TitleActivity"/>
-                <activity android:name="activity_piropiro"/>
-                <activity android:name="activity_controller_selection"/>
-                <activity android:name="activity_explanation"/>
-
-                <activity android:name="activity_game video1_1"/>
-                <activity android:name="activity_game video1_2"/>
-                <activity android:name="activity_game video1_3"/>
-                <activity android:name="activity_game video2_1"/>
-                <activity android:name="activity_game video2_2"/>
-                <activity android:name="activity_game video2_3"/>
-                <activity android:name="activity_game_selection1_1"/>
-                <activity android:name="activity_game_selection1_2"/>
-                <activity android:name="activity_game_selection1_3"/>
-                <activity android:name="activity_game_selection2_1"/>
-                <activity android:name="activity_game_selection2_2"/>
-                <activity android:name="activity_game_selection2_3"/>
-                <activity android:name="activity_gameplay1-1"/>
-                <activity android:name="activity_gameplay1-2"/>
-                <activity android:name="activity_gameplay1-3"/>
-                <activity android:name="activity_gameplay2-1"/>
-                <activity android:name="activity_gameplay2-2"/>
-                <activity android:name="activity_gameplay2-3"/>
-                <activity android:name="activity_rule_explanation1_1"/>
-                <activity android:name="activity_rule_explanation1_2"/>
-                <activity android:name="activity_rule_explanation1_3"/>
-                <activity android:name="activity_rule_explanation2_1"/>
-                <activity android:name="activity_rule_explanation2_2"/>
-                <activity android:name="activity_rule_explanation2_3"/>
-
+                <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+            <activity android:name="SpiroMeterActivity"/>
+            <activity android:name=".ControllerExplanationSelectionActivity"/>
+            <activity android:name=".PiropiroActivity"/>
+            <activity android:name=".ControllerSelectionActivity"/>
+            <activity android:name="ExplanationActivity"/>
+
+            <activity android:name=".GameVideo11Activity"/>
+            <activity android:name=".GameVideo12Activity"/>
+            <activity android:name=".GameVideo13Activity"/>
+            <activity android:name=".GameVideo21Activity"/>
+            <activity android:name=".GameVideo22Activity"/>
+            <activity android:name=".GameVideo23Activity"/>
+            <activity android:name=".GameSelection11Activity"/>
+            <activity android:name=".GameSelection12Activity"/>
+            <activity android:name=".GameSelection13Activity"/>
+            <activity android:name=".GameSelection21Activity"/>
+            <activity android:name=".GameSelection22Activity"/>
+            <activity android:name=".GameSelection23Activity"/>
+            <activity android:name=".GamePlay11Activity"/>
+            <activity android:name=".GamePlay12Activity"/>
+            <activity android:name=".GamePlay13Activity"/>
+            <activity android:name=".GamePlay21Activity"/>
+            <activity android:name=".GamePlay22Activity"/>
+            <activity android:name=".GamePlay23Activity"/>
+            <activity android:name=".RuleExplanation11Activity"/>
+            <activity android:name=".RuleExplanation12Activity"/>
+            <activity android:name=".RuleExplanation13Activity"/>
+            <activity android:name=".RuleExplanation21Activity"/>
+            <activity android:name=".RuleExplanation22Activity"/>
+            <activity android:name=".RuleExplanation23Activity"/>
     </application>
 
 </manifest>

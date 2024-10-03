@@ -1,4 +1,4 @@
-package com.example.yourappname // パッケージ名を適切に変更してください
+package com.example.myapplicationui1 // パッケージ名を適切に変更してください
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,7 +6,7 @@ import android.widget.Button
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 
-class GameSelection1_2Activity : AppCompatActivity() {
+class GameSelection12Activity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -15,21 +15,21 @@ class GameSelection1_2Activity : AppCompatActivity() {
         // 左のボタンを押したときの遷移
         val leftButton: ImageButton = findViewById(R.id.leftButton)
         leftButton.setOnClickListener {
-            val intent = Intent(this, GameSelection1_1Activity::class.java) // activity_game_selection1_1への遷移
+            val intent = Intent(this, GameSelection11Activity::class.java) // activity_game_selection1_1への遷移
             startActivity(intent)
         }
 
         // 右のボタンを押したときの遷移
         val rightButton: ImageButton = findViewById(R.id.rightButton)
         rightButton.setOnClickListener {
-            val intent = Intent(this, GameSelection1_3Activity::class.java) // activity_game_selection1_3への遷移
+            val intent = Intent(this, GameSelection13Activity::class.java) // activity_game_selection1_3への遷移
             startActivity(intent)
         }
 
         // あそぶボタンの処理（ルール説明へ遷移）
-        val ruleButton: Button = findViewById(R.id.ruleButton) // ルール説明へ遷移するボタンのIDを適切に設定
-        ruleButton.setOnClickListener {
-            val intent = Intent(this, activity_rule_explanation1_2::class.java)
+        val playButton: Button = findViewById(R.id.playButton) // ルール説明へ遷移するボタンのIDを適切に設定
+        playButton.setOnClickListener {
+            val intent = Intent(this, RuleExplanation12Activity::class.java)
             startActivity(intent)
         }
     }

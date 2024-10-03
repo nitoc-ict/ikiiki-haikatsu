@@ -1,4 +1,4 @@
-package com.example.myapplicationui1.ui.theme
+package com.example.myapplicationui1
 
 import android.content.Intent
 import android.os.Bundle

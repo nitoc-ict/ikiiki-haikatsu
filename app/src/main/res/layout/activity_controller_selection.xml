@@ -12,7 +12,7 @@
         android:id="@+id/backButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_back"
+        android:src="@drawable/ic_launcher_background"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="@string/back"
         android:layout_gravity="start"/>
@@ -78,4 +78,4 @@
         android:layout_height="wrap_content"
         android:text="どっち？"
         android:textSize="18sp" />
-
+</LinearLayout>

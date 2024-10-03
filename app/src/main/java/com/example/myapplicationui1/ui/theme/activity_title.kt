@@ -1,4 +1,4 @@
-package com.example.mygame
+package com.example.myapplicationui1
 
 import android.content.Intent
 import android.os.Bundle
@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity() {
         val startButton = findViewById<Button>(R.id.start_button)
         startButton.setOnClickListener {
             // ボタンが押されたとき、activity_explanationへ遷移
-            val intent = Intent(this, activity_explanation::class.java)
+            val intent = Intent(this, ExplanationActivity::class.java)
             startActivity(intent)
         }
     }
