@@ -1,8 +1,10 @@
 package com.example.myapplicationui1
 
 import android.bluetooth.BluetoothAdapter
+import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothManager
 import android.content.Intent
+import android.net.MacAddress
 import android.os.Build
 import android.os.Build.VERSION
 import android.os.Bundle
@@ -12,7 +14,10 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 
 class ExplanationActivity : AppCompatActivity() {
-    private var btPermission = false;
+    // 権限を管理する変数
+    //private var btPermission = false;
+    //var bluetoothAdapter:BluetoothAdapter? = BluetoothAdapter.getDefaultAdapter()
+    //val pairedDevices: Set<BluetoothDevice>? = bluetoothAdapter?.bondedDevices
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,12 +39,13 @@ class ExplanationActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        connectButton.setOnClickListener {
-            scanBt()
-        }
+        //connectButton.setOnClickListener {
+            //scanBt()
+        //}
     }
 
-    fun scanBt() {
+    // Bluetoothとペアリングする関数
+    /*fun scanBt() {
         val bluetoothManager: BluetoothManager = getSystemService(BluetoothManager::class.java)
         val bluetoothAdapter: BluetoothAdapter? = bluetoothManager.adapter
 
@@ -54,6 +60,7 @@ class ExplanationActivity : AppCompatActivity() {
         }
     }
 
+    // スマホ側に権限をリクエスト
     private val blueToothPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) {
@@ -73,6 +80,8 @@ class ExplanationActivity : AppCompatActivity() {
             btPermission = false
         }
     }
+
+    // リクエストのレスポンスを返す
     private val btActivityResultLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) {
@@ -80,5 +89,5 @@ class ExplanationActivity : AppCompatActivity() {
             canBtScanComment()
         }
     }
-    private fun canBtScanComment() = Toast.makeText(this, "Bluetooth接続が可能です", Toast.LENGTH_LONG).show()
+    private fun canBtScanComment() = Toast.makeText(this, "Bluetooth接続が可能です", Toast.LENGTH_LONG).show()*/
 }
