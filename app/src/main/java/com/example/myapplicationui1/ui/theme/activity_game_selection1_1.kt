@@ -39,6 +39,7 @@ class GameSelection11Activity : AppCompatActivity() {
         val backButton: ImageView = findViewById(R.id.backButton)
         backButton.setOnClickListener {
             val intent = Intent(this, ControllerSelectionActivity::class.java)
+            startActivity(intent)
         }
     }
 }

@@ -8,14 +8,12 @@
     android:padding="16dp">
 
     <!-- 戻るボタン -->
-    <ImageButton
+    <ImageView
         android:id="@+id/backButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_launcher_background"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="@string/back"
-        android:layout_gravity="start"/>
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/backbutton"
+        android:layout_gravity="start" />
 
     <!-- 選択アイコンのコンテナ -->
     <LinearLayout

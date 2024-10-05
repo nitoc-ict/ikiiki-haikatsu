@@ -13,10 +13,11 @@ class ControllerSelectionActivity : AppCompatActivity() {
         setContentView(R.layout.activity_controller_selection)
 
         // 戻るボタンの設定
-        val backButton: ImageButton = findViewById(R.id.backButton)
+        val backButton: ImageView = findViewById(R.id.backButton)
         backButton.setOnClickListener {
             // 前のアクティビティに戻る処理
-            finish()
+            val intent = Intent(this, ExplanationActivity::class.java)
+            startActivity(intent)
         }
 
         // スパイロメータのアイコンを押したときの遷移
