@@ -25,7 +25,7 @@ class ExplanationActivity : AppCompatActivity() {
 
         val yesButton: Button = findViewById(R.id.yes_button)
         val noButton: Button = findViewById(R.id.no_button)
-        val connectButton: Button = findViewById(R.id.connect_button)
+        //val connectButton: Button = findViewById(R.id.connect_button)
 
         // 「はい」ボタンがクリックされた時、activity_controller_explanation_selection へ遷移
         yesButton.setOnClickListener {

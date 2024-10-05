@@ -5,8 +5,14 @@ import android.net.Uri
 import android.os.Bundle
 import android.widget.Button
 import android.widget.MediaController
+import android.media.MediaMetadataRetriever
+import android.nfc.Tag
+import android.util.Log
+import android.view.View
+import android.widget.Toast
 import android.widget.VideoView
 import androidx.appcompat.app.AppCompatActivity
+import java.io.IOException
 
 class GameVideo11Activity : AppCompatActivity() {
 
@@ -15,10 +21,13 @@ class GameVideo11Activity : AppCompatActivity() {
         setContentView(R.layout.activity_gamevideo11)
 
         // VideoViewの参照を取得
-        val videoView: VideoView = findViewById(R.id.videoView)
+        val videoView = findViewById<VideoView>(R.id.videoView)
+
+        // 動画のパスを取得
+        val packageName = "android.resource://" + this.packageName + "/" + R.raw.ringo
 
         // 動画のパスまたはURLを指定
-        val videoUri: Uri = Uri.parse("android.resource://" + packageName + "/" + R.raw.ringo)
+        val videoUri = Uri.parse(packageName)
 
         // VideoViewに動画をセット
         videoView.setVideoURI(videoUri)
@@ -28,8 +37,21 @@ class GameVideo11Activity : AppCompatActivity() {
         videoView.setMediaController(mediaController)
         mediaController.setAnchorView(videoView)
 
-        // 動画を再生
-        videoView.start()
+        if(videoUri == null) {
+            Log.d("VideoView", "videoUri is null")
+        }
+
+        videoView.setOnPreparedListener {
+            Log.d("VideoView", "再生する")
+            videoView.start()
+        }
+
+        videoView.setOnErrorListener {
+                mp, what, extra ->
+            Log.d("VideoView", "エラー what: $what, mp: $mp, extra: $extra")
+            true
+        }
+
 
         // ゲームへボタンの処理
         val backToMenuButton: Button = findViewById(R.id.backToMenuButton)
