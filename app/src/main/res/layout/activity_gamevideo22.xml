@@ -6,13 +6,16 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <!-- 動画のプレースホルダーをVideoViewに変更 -->
-    <VideoView
-        android:id="@+id/videoView"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginTop="16dp"
-        android:background="@color/grey"/>
+        android:layout_height="wrap_content">
+        <!-- 動画のプレースホルダーをVideoViewに変更 -->
+        <VideoView
+            android:id="@+id/videoView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="16dp"/>
+    </FrameLayout>
 
     <!-- 戻るボタン -->
     <Button

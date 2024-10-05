@@ -5,6 +5,9 @@ import android.net.Uri
 import android.os.Bundle
 import android.widget.Button
 import android.widget.MediaController
+import android.util.Log
+import android.view.View
+import android.widget.Toast
 import android.widget.VideoView
 import androidx.appcompat.app.AppCompatActivity
 
@@ -12,13 +15,16 @@ class GameVideo12Activity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_gamevideo12)
+        setContentView(R.layout.activity_gamevideo11)
 
         // VideoViewの参照を取得
-        val videoView: VideoView = findViewById(R.id.videoView)
+        val videoView = findViewById<VideoView>(R.id.videoView)
+
+        // 動画のパスを取得
+        val packageName = "android.resource://" + this.packageName + "/" + R.raw.pinpon
 
         // 動画のパスまたはURLを指定
-        val videoUri: Uri = Uri.parse("android.resource://" + packageName + "/" + R.raw.pinpon)
+        val videoUri = Uri.parse(packageName)
 
         // VideoViewに動画をセット
         videoView.setVideoURI(videoUri)
@@ -28,13 +34,26 @@ class GameVideo12Activity : AppCompatActivity() {
         videoView.setMediaController(mediaController)
         mediaController.setAnchorView(videoView)
 
-        // 動画を再生
-        videoView.start()
+        if(videoUri == null) {
+            Log.d("VideoView", "videoUri is null")
+        }
+
+        videoView.setOnPreparedListener {
+            Log.d("VideoView", "再生する")
+            videoView.start()
+        }
+
+        videoView.setOnErrorListener {
+                mp, what, extra ->
+            Log.d("VideoView", "エラー what: $what, mp: $mp, extra: $extra")
+            true
+        }
+
 
         // ゲームへボタンの処理
         val backToMenuButton: Button = findViewById(R.id.backToMenuButton)
         backToMenuButton.setOnClickListener {
-            // activity_gameplay1-2に遷移
+            // activity_gameplay1-1に遷移
             val intent = Intent(this, GamePlay12Activity::class.java)
             startActivity(intent)
         }

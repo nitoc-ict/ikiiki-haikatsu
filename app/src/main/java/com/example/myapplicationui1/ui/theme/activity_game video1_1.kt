@@ -5,14 +5,11 @@ import android.net.Uri
 import android.os.Bundle
 import android.widget.Button
 import android.widget.MediaController
-import android.media.MediaMetadataRetriever
-import android.nfc.Tag
 import android.util.Log
 import android.view.View
 import android.widget.Toast
 import android.widget.VideoView
 import androidx.appcompat.app.AppCompatActivity
-import java.io.IOException
 
 class GameVideo11Activity : AppCompatActivity() {
 

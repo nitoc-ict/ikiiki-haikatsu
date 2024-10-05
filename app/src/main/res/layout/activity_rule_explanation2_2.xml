@@ -36,7 +36,7 @@
 
     <!-- あそぶボタン -->
     <Button
-        android:id="@+id/yesutton"
+        android:id="@+id/yesButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
