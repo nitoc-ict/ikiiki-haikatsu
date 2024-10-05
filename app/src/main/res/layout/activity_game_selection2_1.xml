@@ -60,4 +60,25 @@
         android:layout_alignParentBottom="true"
         android:text="あそぶ"
         android:layout_marginBottom="32dp"/>
+
+    <!-- 前の画面に戻るボタン-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:gravity="start">
+        <ImageView
+            android:id="@+id/backButton"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/backbutton"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="8dp"
+            android:gravity="center_vertical"
+            android:text="もどる"
+            android:textSize="16sp" />
+    </LinearLayout>
 </RelativeLayout>
