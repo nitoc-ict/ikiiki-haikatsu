@@ -19,7 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:text="タイトル"
+        android:text="スーッと金庫破り"
         android:textSize="24sp"
         android:textColor="@android:color/black"/>
 
@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/gameTitle"
         android:layout_centerHorizontal="true"
-        android:text="ひとりプレイ"
+        android:text="ふたりプレイ"
         android:textSize="18sp"
         android:textColor="@android:color/black"/>
 
