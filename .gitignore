@@ -13,3 +13,39 @@
 .externalNativeBuild
 .cxx
 local.properties
+
+# Unity generated files
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Ll]ogs/
+[Mm]emoryCaptures/
+*.apk
+*.aab
+
+# User-specific files
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+*.pidb.meta
+*.so
+*.unity3d
+
+# System files
+Thumbs.db
+
+# Logs
+*.log
+*.lock

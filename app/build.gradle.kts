@@ -18,6 +18,11 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        ndk {
+            abiFilters.add("armeabi-v7a")
+            abiFilters.add("arm64-v8a")
+        }
     }
 
     buildTypes {
@@ -59,6 +64,8 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.androidx.appcompat)
+    implementation(files("libs\\unity-classes.jar"))
+    implementation("androidx.constraintlayout:constraintlayout:1.1.3")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -66,4 +73,8 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    // Untiy as a Libraryが使えるように、app/libの中にunity-classesを入れて、右クリックし、一番下の"add to library"を押してProjectStructureに追加する必要あり
+    implementation(project(":unityLibrary"))
+    implementation(fileTree(mapOf("dir" to project(":unityLibrary").toString() + "\\libs", "include" to listOf("*.jar"))))
 }
