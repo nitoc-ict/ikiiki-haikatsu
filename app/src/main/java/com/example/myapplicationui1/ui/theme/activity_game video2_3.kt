@@ -4,7 +4,9 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import android.widget.Button
+import android.widget.FrameLayout
 import android.widget.MediaController
 import android.widget.VideoView
 import androidx.appcompat.app.AppCompatActivity
@@ -29,6 +31,15 @@ class GameVideo23Activity : AppCompatActivity() {
 
         // MediaControllerを設定して再生/停止ボタンを追加
         val mediaController = MediaController(this)
+
+        // メディアコントローラのレイアウトを指定
+        val layoutParams = FrameLayout.LayoutParams(
+            FrameLayout.LayoutParams.MATCH_PARENT,
+            FrameLayout.LayoutParams.WRAP_CONTENT,
+            Gravity.CENTER_HORIZONTAL
+        )
+        mediaController.layoutParams = layoutParams
+
         videoView.setMediaController(mediaController)
         mediaController.setAnchorView(videoView)
 
