@@ -41,9 +41,9 @@ local.properties
 *.pidb.meta
 *.so
 *.o
-*.dll
 *.unity3d
 
+System.Private.CoreLib.dll
 # System files
 Thumbs.db
 
