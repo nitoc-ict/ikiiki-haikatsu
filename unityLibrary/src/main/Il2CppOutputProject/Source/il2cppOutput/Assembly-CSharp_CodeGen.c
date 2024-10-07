@@ -18,6 +18,7 @@ extern void AppleBlocker_IsInputKey_m060164F42013C929664F917A0540D72913EE9B53 (v
 extern void AppleBlocker__ctor_m699ED4C5A53037E631A0553379FEF1D43FD016DD (void);
 extern void AppleResult_Update_mF4BCC1AB222906D8A55B5DEBE041E02701D44C2E (void);
 extern void AppleResult_Start_mDB5C499E07D5F7367A8D5A14525E4ADD70AD4CC8 (void);
+extern void AppleResult_SaveState_mCFA6D303E51DA845DAE863A68D9A6BE3D4A47E02 (void);
 extern void AppleResult__ctor_m68EDD2435A087E5B6769114B00EAFA1C87917151 (void);
 extern void AppleScoreManager_get_Instance_mED1C676D0A0F84F3EF2968802FC1B9104EABC18D (void);
 extern void AppleScoreManager_set_Instance_mDC569A2008CAB203F845C78E846C1E945C055CC6 (void);
@@ -165,7 +166,7 @@ extern void WankosobaTimerManager_UpdateTime_m5A89E6F254D1F5392359048AC6AC1C98BD
 extern void WankosobaTimerManager__ctor_m8201C59219BF967AA131F404DEB0A154E6387841 (void);
 extern void UnitySourceGeneratedAssemblyMonoScriptTypes_v1_Get_mBEB95BEB954BB63E9710BBC7AD5E78C4CB0A0033 (void);
 extern void UnitySourceGeneratedAssemblyMonoScriptTypes_v1__ctor_mE70FB23ACC1EA12ABC948AA22C2E78B2D0AA39B1 (void);
-static Il2CppMethodPointer s_methodPointers[153] = 
+static Il2CppMethodPointer s_methodPointers[154] = 
 {
 	Apple__ctor_m470B2E2F0F8BE1503711117A920744A0B5F4DA87,
 	AppleBlocker_OnTriggerStay_mADF42789079BE13B47AB52BF968A75E097677250,
@@ -173,6 +174,7 @@ static Il2CppMethodPointer s_methodPointers[153] =
 	AppleBlocker__ctor_m699ED4C5A53037E631A0553379FEF1D43FD016DD,
 	AppleResult_Update_mF4BCC1AB222906D8A55B5DEBE041E02701D44C2E,
 	AppleResult_Start_mDB5C499E07D5F7367A8D5A14525E4ADD70AD4CC8,
+	AppleResult_SaveState_mCFA6D303E51DA845DAE863A68D9A6BE3D4A47E02,
 	AppleResult__ctor_m68EDD2435A087E5B6769114B00EAFA1C87917151,
 	AppleScoreManager_get_Instance_mED1C676D0A0F84F3EF2968802FC1B9104EABC18D,
 	AppleScoreManager_set_Instance_mDC569A2008CAB203F845C78E846C1E945C055CC6,
@@ -321,10 +323,11 @@ static Il2CppMethodPointer s_methodPointers[153] =
 	UnitySourceGeneratedAssemblyMonoScriptTypes_v1_Get_mBEB95BEB954BB63E9710BBC7AD5E78C4CB0A0033,
 	UnitySourceGeneratedAssemblyMonoScriptTypes_v1__ctor_mE70FB23ACC1EA12ABC948AA22C2E78B2D0AA39B1,
 };
-static const int32_t s_InvokerIndices[153] = 
+static const int32_t s_InvokerIndices[154] = 
 {
 	5341,
 	4213,
+	5341,
 	5341,
 	5341,
 	5341,
@@ -481,7 +484,7 @@ IL2CPP_EXTERN_C const Il2CppCodeGenModule g_AssemblyU2DCSharp_CodeGenModule;
 const Il2CppCodeGenModule g_AssemblyU2DCSharp_CodeGenModule = 
 {
 	"Assembly-CSharp.dll",
-	153,
+	154,
 	s_methodPointers,
 	0,
 	NULL,
