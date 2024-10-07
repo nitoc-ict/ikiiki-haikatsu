@@ -43,7 +43,6 @@ local.properties
 *.o
 *.unity3d
 
-System.Private.CoreLib.dll
 # System files
 Thumbs.db
 
