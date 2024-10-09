@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplicationui1.ui.theme.MyApplicationUI1Theme
+//import com.example.myapplicationui1.ui.theme.TestBluetoothActivity
 
 class MainActivity : AppCompatActivity() {
 

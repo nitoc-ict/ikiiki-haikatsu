@@ -1,35 +1,30 @@
-package com.example.myapplicationui1
+package com.example.myapplicationui1.ui.theme
 
 import android.Manifest
-import android.app.Activity
+import android.content.Intent
+import android.os.Bundle
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothSocket
-import android.content.Intent
+import android.bluetooth.BluetoothManager
 import android.content.pm.PackageManager
-import android.os.Bundle
+import android.os.PersistableBundle
+
 import android.util.Log
-import android.view.ViewGroup
-import androidx.constraintlayout.widget.ConstraintLayout
-import android.view.WindowManager.LayoutParams.SCREEN_ORIENTATION_CHANGED
-import android.widget.TextView
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.ActivityResultRegistry
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.unity3d.player.UnityPlayerActivity
-import com.unity3d.player.UnityPlayer
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import com.example.myapplicationui1.R
+import kotlinx.coroutines.*
+
 import java.io.InputStream
 import java.io.OutputStream
-import java.util.UUID
+import java.util.*
 
-class GamePlay21Activity: UnityPlayerActivity() {
+class TestBluetoothActivity : AppCompatActivity() {
     // TAGs
     private val TAG1 = "BluetoothAdapter"
     private val TAG2 = "BluetoothConnectDevice"
@@ -60,77 +55,59 @@ class GamePlay21Activity: UnityPlayerActivity() {
     private var isController: Boolean = false
 
     private lateinit var textView: TextView
-
-    private lateinit var activityResultLauncher: ActivityResultLauncher<Intent>
-
-    companion object {
-        private const val REQUEST_CODE_BLUETOOTH_CONNECT = 1
-    }
-
     // Permissions launcher
-    /**
     private val requestPermissionsLauncher = registerForActivityResult(
-    ActivityResultContracts.RequestMultiplePermissions()
+        ActivityResultContracts.RequestMultiplePermissions()
     ) { permissions ->
-    val granted = permissions.all { it.value }
-    if (granted) {
-    connectToDevice()
-    } else {
-    Log.e(TAG1, "Required permissions not granted")
-    finish()
-    }
-    }**/
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        if(requestCode == REQUEST_CODE_BLUETOOTH_CONNECT) {
-            if(grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                connectToDevice()
-            } else {
-                Log.e(TAG1, "Required permission not granted")
-                finish()
-            }
+        val granted = permissions.all { it.value }
+        if (granted) {
+            connectToDevice()
+        } else {
+            Log.e(TAG1, "Required permissions not granted")
+            finish()
         }
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_gameplay21)
-        try {
-            mUnityPlayer = UnityPlayer(this as Activity)
-            findViewById<ConstraintLayout>(R.id.unity)?.addView(
-                mUnityPlayer, ViewGroup.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.MATCH_PARENT
-                )
-            )
-            mUnityPlayer.requestFocus()
-            window.clearFlags(SCREEN_ORIENTATION_CHANGED)
-            UnityPlayer.UnitySendMessage("SceneSelect", "ReceiveMessage", "AppleFarm")
-            Log.d("GamePlay21Activity", "はじめるわよ～")
-            EnableToBluetoothAdapter()
-        } catch (e: Exception) {
-            Log.d("Error Try method", "${e}")
-        }
-    }
+        Log.d(TAG1, "Permission Available")
+        setContentView(R.layout.activity_testbluetooth)
 
-    // Unity側で呼ぶ、別画面へ遷移する関数
-    private fun returnSelectActivity() {
-        mUnityPlayer.onStop()
-        closeConnection()
-        Log.d("GamePlay11Activity", "とめたわよ～")
-        val intent = Intent(this, ControllerSelectionActivity::class.java)
-        startActivity(intent)
-    }
+        var textView: TextView = findViewById(R.id.sensorView)
 
-    private fun EnableToBluetoothAdapter() {
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
         if(bluetoothAdapter == null) {
             Log.d(TAG1, "bluetoothAdapter is not settings")
+            return
+        }
+
+        if(bluetoothAdapter?.isEnabled == false) {
+            val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_SCAN) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(arrayOf(
+                    Manifest.permission.BLUETOOTH_CONNECT,
+                    Manifest.permission.BLUETOOTH_SCAN,
+                    Manifest.permission.BLUETOOTH),PERMISSION_BLUETOOTH_CONNECT_CODE) //リクエストパーミッションにbluetooth_connectを追加
+            }
+            startActivityForResult(enableBtIntent, BT_ONOFF_CONF)
+        }
+
+        Log.d(TAG1, "Permission Available 02")
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissionsLauncher.launch(arrayOf(Manifest.permission.BLUETOOTH_CONNECT))
+        } else {
+            Log.d(TAG1, "Permission Available 03")
+            connectToDevice()
+        }
+    }
+
+    suspend private fun EnableToBluetoothAdapter() {
+        bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
+        if(bluetoothAdapter == null) {
+            Log.d(TAG1, "bluetoothAdapter is not settings")
+            delay(2000)
             EnableToBluetoothAdapter()
         }
 
@@ -149,7 +126,7 @@ class GamePlay21Activity: UnityPlayerActivity() {
         Log.d(TAG1, "Permission Available 02")
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.BLUETOOTH_CONNECT), REQUEST_CODE_BLUETOOTH_CONNECT)
+            requestPermissionsLauncher.launch(arrayOf(Manifest.permission.BLUETOOTH_CONNECT))
         } else {
             Log.d(TAG1, "Permission Available 03")
             connectToDevice()
@@ -158,8 +135,8 @@ class GamePlay21Activity: UnityPlayerActivity() {
 
     private fun connectToDevice() {
         if (ContextCompat.checkSelfPermission(
-                this, Manifest.permission.BLUETOOTH_CONNECT
-            ) == PackageManager.PERMISSION_GRANTED) {
+            this, Manifest.permission.BLUETOOTH_CONNECT
+        ) == PackageManager.PERMISSION_GRANTED) {
             try {
                 Log.d(TAG1, "Permission Available 04")
                 val pairedDevices: Set<BluetoothDevice>? = bluetoothAdapter?.bondedDevices

@@ -2,7 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
     <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE"/>
+
     <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
 
     <application
@@ -27,7 +31,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-            <activity android:name="SpiroMeterActivity"
+            <activity android:name="SpiroMeterActivity"/>
+            <activity android:name=".ui.theme.TestBluetoothActivity"
                       android:screenOrientation="userLandscape"/>
             <activity android:name=".ControllerExplanationSelectionActivity"
                       android:screenOrientation="userLandscape"/>
