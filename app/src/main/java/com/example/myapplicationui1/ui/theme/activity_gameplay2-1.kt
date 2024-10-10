@@ -110,8 +110,12 @@ class GamePlay21Activity: UnityPlayerActivity() {
             )
             mUnityPlayer.requestFocus()
             window.clearFlags(SCREEN_ORIENTATION_CHANGED)
-            UnityPlayer.UnitySendMessage("SceneSelect", "ReceiveMessage", "AppleFarm")
-            Log.d("GamePlay21Activity", "はじめるわよ～")
+            try {
+                UnityPlayer.UnitySendMessage("SceneSelect", "ReceiveMessage", "Wankosoba")
+            } catch (e: Exception){
+                Log.d(TAG1, "Error is: ", e)
+            }
+
             EnableToBluetoothAdapter()
         } catch (e: Exception) {
             Log.d("Error Try method", "${e}")
@@ -122,7 +126,7 @@ class GamePlay21Activity: UnityPlayerActivity() {
     private fun returnSelectActivity() {
         mUnityPlayer.onStop()
         closeConnection()
-        Log.d("GamePlay11Activity", "とめたわよ～")
+        Log.d("GamePlay22Activity", "とめたわよ～")
         val intent = Intent(this, ControllerSelectionActivity::class.java)
         startActivity(intent)
     }
@@ -209,6 +213,8 @@ class GamePlay21Activity: UnityPlayerActivity() {
                 if(bytes > 0) {
                     val incomingData = String(buffer, 0, bytes)
                     Log.d(TAG3, "Rechieved: $incomingData")
+                    UnityPlayer.UnitySendMessage("WankosobaSystemManager", "ReceiveMessage", incomingData)
+                    Log.d(TAG3, "Rechieved value to Unity")
                 }
             } catch (e: Exception) {
                 Log.e(TAG4, "Read failed: ${e.message}")

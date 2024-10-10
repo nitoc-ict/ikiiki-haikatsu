@@ -141,10 +141,12 @@ extern void SceneSelect__ctor_m2011F14D72765066365F0582FF342D1745BA3CDD (void);
 extern void Owan_SpawnOwan_m4907A37EE19FF762F818936830BE234FBC7DC971 (void);
 extern void Owan__ctor_m558C8593DE983E0009AA4AA09398C91EA665AEFA (void);
 extern void Soba_SpawnSoba_mAA15AE54F0A4AFF971805B03F4629E8C95AFBC50 (void);
-extern void Soba_SipSoba_m77D301423B183905C328A1B7C5E499E803B030F7 (void);
+extern void Soba_SipSoba_m9924237F8460DD4DE3D16D75A80E67E59902601C (void);
 extern void Soba_Start_mD7CFD4BF96A36C5C21D26EB86D0BF9F1C25C7326 (void);
 extern void Soba__ctor_mE2607C9F5CCC906E9A6E6A6CE9BF72A895AE48B8 (void);
 extern void WankosobaResult_Update_m791778EC0CB28EE94E6013100B3CC591D624CAFE (void);
+extern void WankosobaResult_Start_mD527853DE520AE6342E764258EFD57BB4BF4B630 (void);
+extern void WankosobaResult_SaveState_m3D19B222FD2F6C7CD2AE1A31812F39A9241534DA (void);
 extern void WankosobaResult__ctor_mB3D1034704DC8F72B232265CEB9BF0D0ED0CB44D (void);
 extern void WankosobaScoreManager_get_Instance_mFCA5DD8A59E603616E7DEDC22A03122AB3B2A3AF (void);
 extern void WankosobaScoreManager_set_Instance_mE67C7BF0BB68089CFA1253D930D80CDEC6084841 (void);
@@ -152,8 +154,8 @@ extern void WankosobaScoreManager_Awake_m7A0DC8C5222E34B4BCDBA0E57424CE50E3642B3
 extern void WankosobaScoreManager_UpdateScore_m105B956DC82EE9A8ABEE6F8DEA20599E34F1E619 (void);
 extern void WankosobaScoreManager__ctor_m43B853A5599B47250660243309BF739E05249C18 (void);
 extern void WankosobaSystemManager_SetSoba_m1B542DA61DC2B884FCF50693B9959D083F13D6CD (void);
+extern void WankosobaSystemManager_ReceiveMessage_m4BE52BA2310FFEF99F2D3722A5E354C07BBF343B (void);
 extern void WankosobaSystemManager_FinishEatSoba_m693E7D6407C55BA7F8A21387B214897A7C327FEA (void);
-extern void WankosobaSystemManager_IsDownKey_m78A42D28E75886F79B46A1679E6BEE7D66B4F48A (void);
 extern void WankosobaSystemManager_Start_mDE154B96F64374F0F93B458786D8E74D3136ED7C (void);
 extern void WankosobaSystemManager_Update_mB232E5B47916FA16FA50659ACACDCC87E1DF5AB0 (void);
 extern void WankosobaSystemManager__ctor_m34F362BE4FB930849096444FB11113BA541771FA (void);
@@ -166,7 +168,7 @@ extern void WankosobaTimerManager_UpdateTime_m5A89E6F254D1F5392359048AC6AC1C98BD
 extern void WankosobaTimerManager__ctor_m8201C59219BF967AA131F404DEB0A154E6387841 (void);
 extern void UnitySourceGeneratedAssemblyMonoScriptTypes_v1_Get_mBEB95BEB954BB63E9710BBC7AD5E78C4CB0A0033 (void);
 extern void UnitySourceGeneratedAssemblyMonoScriptTypes_v1__ctor_mE70FB23ACC1EA12ABC948AA22C2E78B2D0AA39B1 (void);
-static Il2CppMethodPointer s_methodPointers[154] = 
+static Il2CppMethodPointer s_methodPointers[156] = 
 {
 	Apple__ctor_m470B2E2F0F8BE1503711117A920744A0B5F4DA87,
 	AppleBlocker_OnTriggerStay_mADF42789079BE13B47AB52BF968A75E097677250,
@@ -297,10 +299,12 @@ static Il2CppMethodPointer s_methodPointers[154] =
 	Owan_SpawnOwan_m4907A37EE19FF762F818936830BE234FBC7DC971,
 	Owan__ctor_m558C8593DE983E0009AA4AA09398C91EA665AEFA,
 	Soba_SpawnSoba_mAA15AE54F0A4AFF971805B03F4629E8C95AFBC50,
-	Soba_SipSoba_m77D301423B183905C328A1B7C5E499E803B030F7,
+	Soba_SipSoba_m9924237F8460DD4DE3D16D75A80E67E59902601C,
 	Soba_Start_mD7CFD4BF96A36C5C21D26EB86D0BF9F1C25C7326,
 	Soba__ctor_mE2607C9F5CCC906E9A6E6A6CE9BF72A895AE48B8,
 	WankosobaResult_Update_m791778EC0CB28EE94E6013100B3CC591D624CAFE,
+	WankosobaResult_Start_mD527853DE520AE6342E764258EFD57BB4BF4B630,
+	WankosobaResult_SaveState_m3D19B222FD2F6C7CD2AE1A31812F39A9241534DA,
 	WankosobaResult__ctor_mB3D1034704DC8F72B232265CEB9BF0D0ED0CB44D,
 	WankosobaScoreManager_get_Instance_mFCA5DD8A59E603616E7DEDC22A03122AB3B2A3AF,
 	WankosobaScoreManager_set_Instance_mE67C7BF0BB68089CFA1253D930D80CDEC6084841,
@@ -308,8 +312,8 @@ static Il2CppMethodPointer s_methodPointers[154] =
 	WankosobaScoreManager_UpdateScore_m105B956DC82EE9A8ABEE6F8DEA20599E34F1E619,
 	WankosobaScoreManager__ctor_m43B853A5599B47250660243309BF739E05249C18,
 	WankosobaSystemManager_SetSoba_m1B542DA61DC2B884FCF50693B9959D083F13D6CD,
+	WankosobaSystemManager_ReceiveMessage_m4BE52BA2310FFEF99F2D3722A5E354C07BBF343B,
 	WankosobaSystemManager_FinishEatSoba_m693E7D6407C55BA7F8A21387B214897A7C327FEA,
-	WankosobaSystemManager_IsDownKey_m78A42D28E75886F79B46A1679E6BEE7D66B4F48A,
 	WankosobaSystemManager_Start_mDE154B96F64374F0F93B458786D8E74D3136ED7C,
 	WankosobaSystemManager_Update_mB232E5B47916FA16FA50659ACACDCC87E1DF5AB0,
 	WankosobaSystemManager__ctor_m34F362BE4FB930849096444FB11113BA541771FA,
@@ -323,7 +327,7 @@ static Il2CppMethodPointer s_methodPointers[154] =
 	UnitySourceGeneratedAssemblyMonoScriptTypes_v1_Get_mBEB95BEB954BB63E9710BBC7AD5E78C4CB0A0033,
 	UnitySourceGeneratedAssemblyMonoScriptTypes_v1__ctor_mE70FB23ACC1EA12ABC948AA22C2E78B2D0AA39B1,
 };
-static const int32_t s_InvokerIndices[154] = 
+static const int32_t s_InvokerIndices[156] = 
 {
 	5341,
 	4213,
@@ -454,7 +458,9 @@ static const int32_t s_InvokerIndices[154] =
 	1656,
 	5341,
 	3681,
-	4213,
+	2179,
+	5341,
+	5341,
 	5341,
 	5341,
 	5341,
@@ -465,7 +471,7 @@ static const int32_t s_InvokerIndices[154] =
 	4185,
 	5341,
 	5341,
-	5341,
+	4213,
 	5341,
 	5341,
 	5341,
@@ -484,7 +490,7 @@ IL2CPP_EXTERN_C const Il2CppCodeGenModule g_AssemblyU2DCSharp_CodeGenModule;
 const Il2CppCodeGenModule g_AssemblyU2DCSharp_CodeGenModule = 
 {
 	"Assembly-CSharp.dll",
-	154,
+	156,
 	s_methodPointers,
 	0,
 	NULL,

@@ -11559,6 +11559,7 @@ struct WankosobaResult_tB2C5BE161598B768220B0FC42E7CF47507DA139D  : public MonoB
 {
 	TextMeshProUGUI_t101091AF4B578BB534C92E9D1EEAF0611636D957* ___scoreText;
 	int32_t ___score;
+	float ___watchTime;
 };
 struct WankosobaScoreManager_t9546517ED491D8F66D9574DF71106AB30BF8EA9C  : public MonoBehaviour_t532A11E69716D348D8AA7F854AFCBFCB8AD17F71
 {
@@ -15920,9 +15921,9 @@ IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable4486[1] =
 IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable4487[2] = 
 {
 	static_cast<int32_t>(offsetof(Soba_t8FC949899540855F53E45CE4A91AE8B38094AE87, ___callSobaobj)),static_cast<int32_t>(offsetof(Soba_t8FC949899540855F53E45CE4A91AE8B38094AE87, ___wankosobaSM)),};
-IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable4488[2] = 
+IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable4488[3] = 
 {
-	static_cast<int32_t>(offsetof(WankosobaResult_tB2C5BE161598B768220B0FC42E7CF47507DA139D, ___scoreText)),static_cast<int32_t>(offsetof(WankosobaResult_tB2C5BE161598B768220B0FC42E7CF47507DA139D, ___score)),};
+	static_cast<int32_t>(offsetof(WankosobaResult_tB2C5BE161598B768220B0FC42E7CF47507DA139D, ___scoreText)),static_cast<int32_t>(offsetof(WankosobaResult_tB2C5BE161598B768220B0FC42E7CF47507DA139D, ___score)),static_cast<int32_t>(offsetof(WankosobaResult_tB2C5BE161598B768220B0FC42E7CF47507DA139D, ___watchTime)),};
 IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable4489[3] = 
 {
 	static_cast<int32_t>(offsetof(WankosobaScoreManager_t9546517ED491D8F66D9574DF71106AB30BF8EA9C_StaticFields, ___U3CInstanceU3Ek__BackingField)),static_cast<int32_t>(offsetof(WankosobaScoreManager_t9546517ED491D8F66D9574DF71106AB30BF8EA9C, ___scoreText)),static_cast<int32_t>(offsetof(WankosobaScoreManager_t9546517ED491D8F66D9574DF71106AB30BF8EA9C, ___score)),};
