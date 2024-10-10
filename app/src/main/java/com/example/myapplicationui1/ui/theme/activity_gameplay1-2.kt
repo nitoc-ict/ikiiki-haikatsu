@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import android.view.WindowManager.LayoutParams.SCREEN_ORIENTATION_CHANGED
+import com.example.myapplicationui1.ui.theme.ActivityEnd
 import com.unity3d.player.UnityPlayerActivity
 import com.unity3d.player.UnityPlayer
 
@@ -24,7 +25,7 @@ class GamePlay12Activity: UnityPlayerActivity() {
             )
             mUnityPlayer.requestFocus()
             window.clearFlags(SCREEN_ORIENTATION_CHANGED)
-            UnityPlayer.UnitySendMessage("SceneSelect", "ReceiveMessage", "AppleFarm")
+            UnityPlayer.UnitySendMessage("SceneSelect", "ReceiveMessage", "Pinpon")
             Log.d("GamePlay12Activity", "はじめるわよ～")
         } catch (e: Exception) {
             Log.d("Error Try method", "${e}")
@@ -33,8 +34,8 @@ class GamePlay12Activity: UnityPlayerActivity() {
     }
     private fun returnSelectActivity() {
         mUnityPlayer.onStop()
-        Log.d("GamePlay11Activity", "とめたわよ～")
-        val intent = Intent(this, ControllerSelectionActivity::class.java)
+        Log.d("GamePlay12Activity", "とめたわよ～")
+        val intent = Intent(this, ActivityEnd::class.java)
         startActivity(intent)
     }
 }

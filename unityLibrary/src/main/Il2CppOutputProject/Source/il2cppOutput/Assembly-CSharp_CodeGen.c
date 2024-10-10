@@ -79,6 +79,8 @@ extern void LeftRacket_Update_m1A44A22F84BD93CA24D4C1FCC96CD50E8422E2B7 (void);
 extern void LeftRacket_Start_m3A3808FD34E44488676A2FAFBD74A30CE85B4A38 (void);
 extern void LeftRacket__ctor_mD2B5EB668E456E590E29FA03FF8D066BC5BC4984 (void);
 extern void PinponResult_Update_m5FEB669961DF4DFAFBD3E4261FFD539FC82550D9 (void);
+extern void PinponResult_Start_m25D8FE191471219AA66B920A49A7290D34A4A301 (void);
+extern void PinponResult_SaveState_mDD634DB3D1597EB9273E089915C865882161A914 (void);
 extern void PinponResult__ctor_m537094D41FC0F8C722FF4DE69433EDC051F1EED6 (void);
 extern void PinponScoreManager_get_Instance_m89C2FB8AD71A5484E846D3D208C4383FB39B98FB (void);
 extern void PinponScoreManager_set_Instance_mED1C715CB5D515E6036D8FC7A4BAA06C89987C29 (void);
@@ -123,6 +125,7 @@ extern void LeftPaddle_Start_m9DED0927237692C1588A67F1D3FEBE8D4914F7E9 (void);
 extern void LeftPaddle_Update_m0834C91772AB7BE833E2E8AFD0FD25D008E54FCA (void);
 extern void LeftPaddle__ctor_m7399F0FF2E985E996D67F4B5A5C731D1E17473AF (void);
 extern void PiropiroResult_Update_mC1F9CAFC1E6964D2EF1FA7D822580619753F7989 (void);
+extern void PiropiroResult_Start_m4B9822A5C0D129843D64D5BBE4574C4BC3A56D7A (void);
 extern void PiropiroResult__ctor_mC2C2D2EDA9BC83FCC1B5E6BC935175E0CD0B4881 (void);
 extern void PiropiroTimerManager_get_Instance_m1F20EE0BC41841ECC918561B21BA2631CF5C1ECD (void);
 extern void PiropiroTimerManager_set_Instance_mC1078EBE022A911BA40093B683BD0592D8A406A1 (void);
@@ -168,7 +171,7 @@ extern void WankosobaTimerManager_UpdateTime_m5A89E6F254D1F5392359048AC6AC1C98BD
 extern void WankosobaTimerManager__ctor_m8201C59219BF967AA131F404DEB0A154E6387841 (void);
 extern void UnitySourceGeneratedAssemblyMonoScriptTypes_v1_Get_mBEB95BEB954BB63E9710BBC7AD5E78C4CB0A0033 (void);
 extern void UnitySourceGeneratedAssemblyMonoScriptTypes_v1__ctor_mE70FB23ACC1EA12ABC948AA22C2E78B2D0AA39B1 (void);
-static Il2CppMethodPointer s_methodPointers[156] = 
+static Il2CppMethodPointer s_methodPointers[159] = 
 {
 	Apple__ctor_m470B2E2F0F8BE1503711117A920744A0B5F4DA87,
 	AppleBlocker_OnTriggerStay_mADF42789079BE13B47AB52BF968A75E097677250,
@@ -237,6 +240,8 @@ static Il2CppMethodPointer s_methodPointers[156] =
 	LeftRacket_Start_m3A3808FD34E44488676A2FAFBD74A30CE85B4A38,
 	LeftRacket__ctor_mD2B5EB668E456E590E29FA03FF8D066BC5BC4984,
 	PinponResult_Update_m5FEB669961DF4DFAFBD3E4261FFD539FC82550D9,
+	PinponResult_Start_m25D8FE191471219AA66B920A49A7290D34A4A301,
+	PinponResult_SaveState_mDD634DB3D1597EB9273E089915C865882161A914,
 	PinponResult__ctor_m537094D41FC0F8C722FF4DE69433EDC051F1EED6,
 	PinponScoreManager_get_Instance_m89C2FB8AD71A5484E846D3D208C4383FB39B98FB,
 	PinponScoreManager_set_Instance_mED1C715CB5D515E6036D8FC7A4BAA06C89987C29,
@@ -281,6 +286,7 @@ static Il2CppMethodPointer s_methodPointers[156] =
 	LeftPaddle_Update_m0834C91772AB7BE833E2E8AFD0FD25D008E54FCA,
 	LeftPaddle__ctor_m7399F0FF2E985E996D67F4B5A5C731D1E17473AF,
 	PiropiroResult_Update_mC1F9CAFC1E6964D2EF1FA7D822580619753F7989,
+	PiropiroResult_Start_m4B9822A5C0D129843D64D5BBE4574C4BC3A56D7A,
 	PiropiroResult__ctor_mC2C2D2EDA9BC83FCC1B5E6BC935175E0CD0B4881,
 	PiropiroTimerManager_get_Instance_m1F20EE0BC41841ECC918561B21BA2631CF5C1ECD,
 	PiropiroTimerManager_set_Instance_mC1078EBE022A911BA40093B683BD0592D8A406A1,
@@ -327,7 +333,7 @@ static Il2CppMethodPointer s_methodPointers[156] =
 	UnitySourceGeneratedAssemblyMonoScriptTypes_v1_Get_mBEB95BEB954BB63E9710BBC7AD5E78C4CB0A0033,
 	UnitySourceGeneratedAssemblyMonoScriptTypes_v1__ctor_mE70FB23ACC1EA12ABC948AA22C2E78B2D0AA39B1,
 };
-static const int32_t s_InvokerIndices[156] = 
+static const int32_t s_InvokerIndices[159] = 
 {
 	5341,
 	4213,
@@ -397,6 +403,8 @@ static const int32_t s_InvokerIndices[156] =
 	5341,
 	5341,
 	5341,
+	5341,
+	5341,
 	10478,
 	9678,
 	5341,
@@ -436,6 +444,7 @@ static const int32_t s_InvokerIndices[156] =
 	5341,
 	5341,
 	4213,
+	5341,
 	5341,
 	5341,
 	5341,
@@ -490,7 +499,7 @@ IL2CPP_EXTERN_C const Il2CppCodeGenModule g_AssemblyU2DCSharp_CodeGenModule;
 const Il2CppCodeGenModule g_AssemblyU2DCSharp_CodeGenModule = 
 {
 	"Assembly-CSharp.dll",
-	156,
+	159,
 	s_methodPointers,
 	0,
 	NULL,

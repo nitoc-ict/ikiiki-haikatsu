@@ -11326,6 +11326,7 @@ struct PinponResult_t30BE25A14ECF2FA9134797804E89751E280C0EB3  : public MonoBeha
 {
 	TextMeshProUGUI_t101091AF4B578BB534C92E9D1EEAF0611636D957* ___scoreText;
 	int32_t ___score;
+	float ___watchTime;
 };
 struct PinponScoreManager_t146167BEFEE80963E7985C0035AA64118C0497A7  : public MonoBehaviour_t532A11E69716D348D8AA7F854AFCBFCB8AD17F71
 {
@@ -11345,6 +11346,7 @@ struct PiropiroResult_tB0D50AF9F72219B7A682E3765B9BF25FB6FDC00F  : public MonoBe
 	int32_t ___minute;
 	float ___second;
 	float ___time;
+	float ___watchTime;
 };
 struct PiropiroTimerManager_t2255F5AB99FE8EC07EEB77A328F408BE85566D5F  : public MonoBehaviour_t532A11E69716D348D8AA7F854AFCBFCB8AD17F71
 {
@@ -15876,9 +15878,9 @@ IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable4470[5] =
 IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable4471[4] = 
 {
 	static_cast<int32_t>(offsetof(LeftRacket_t2B486395B3FA98EE0A9258E0BB56DAB36ABC93BB, ___originalPosition)),static_cast<int32_t>(offsetof(LeftRacket_t2B486395B3FA98EE0A9258E0BB56DAB36ABC93BB, ___currentPosition)),static_cast<int32_t>(offsetof(LeftRacket_t2B486395B3FA98EE0A9258E0BB56DAB36ABC93BB, ___moveDistance)),static_cast<int32_t>(offsetof(LeftRacket_t2B486395B3FA98EE0A9258E0BB56DAB36ABC93BB, ___axisxSpeed)),};
-IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable4472[2] = 
+IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable4472[3] = 
 {
-	static_cast<int32_t>(offsetof(PinponResult_t30BE25A14ECF2FA9134797804E89751E280C0EB3, ___scoreText)),static_cast<int32_t>(offsetof(PinponResult_t30BE25A14ECF2FA9134797804E89751E280C0EB3, ___score)),};
+	static_cast<int32_t>(offsetof(PinponResult_t30BE25A14ECF2FA9134797804E89751E280C0EB3, ___scoreText)),static_cast<int32_t>(offsetof(PinponResult_t30BE25A14ECF2FA9134797804E89751E280C0EB3, ___score)),static_cast<int32_t>(offsetof(PinponResult_t30BE25A14ECF2FA9134797804E89751E280C0EB3, ___watchTime)),};
 IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable4473[3] = 
 {
 	static_cast<int32_t>(offsetof(PinponScoreManager_t146167BEFEE80963E7985C0035AA64118C0497A7_StaticFields, ___U3CInstanceU3Ek__BackingField)),static_cast<int32_t>(offsetof(PinponScoreManager_t146167BEFEE80963E7985C0035AA64118C0497A7, ___scoreText)),static_cast<int32_t>(offsetof(PinponScoreManager_t146167BEFEE80963E7985C0035AA64118C0497A7, ___score)),};
@@ -15906,9 +15908,9 @@ IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable4480[2] =
 IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable4481[3] = 
 {
 	static_cast<int32_t>(offsetof(LeftPaddle_tDB9FF938C4C65F5B61542161ADAC27364204BE60, ___paddleSpeed)),static_cast<int32_t>(offsetof(LeftPaddle_tDB9FF938C4C65F5B61542161ADAC27364204BE60, ___parentTransform)),static_cast<int32_t>(offsetof(LeftPaddle_tDB9FF938C4C65F5B61542161ADAC27364204BE60, ___directionIdentifier)),};
-IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable4482[4] = 
+IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable4482[5] = 
 {
-	static_cast<int32_t>(offsetof(PiropiroResult_tB0D50AF9F72219B7A682E3765B9BF25FB6FDC00F, ___timerText)),static_cast<int32_t>(offsetof(PiropiroResult_tB0D50AF9F72219B7A682E3765B9BF25FB6FDC00F, ___minute)),static_cast<int32_t>(offsetof(PiropiroResult_tB0D50AF9F72219B7A682E3765B9BF25FB6FDC00F, ___second)),static_cast<int32_t>(offsetof(PiropiroResult_tB0D50AF9F72219B7A682E3765B9BF25FB6FDC00F, ___time)),};
+	static_cast<int32_t>(offsetof(PiropiroResult_tB0D50AF9F72219B7A682E3765B9BF25FB6FDC00F, ___timerText)),static_cast<int32_t>(offsetof(PiropiroResult_tB0D50AF9F72219B7A682E3765B9BF25FB6FDC00F, ___minute)),static_cast<int32_t>(offsetof(PiropiroResult_tB0D50AF9F72219B7A682E3765B9BF25FB6FDC00F, ___second)),static_cast<int32_t>(offsetof(PiropiroResult_tB0D50AF9F72219B7A682E3765B9BF25FB6FDC00F, ___time)),static_cast<int32_t>(offsetof(PiropiroResult_tB0D50AF9F72219B7A682E3765B9BF25FB6FDC00F, ___watchTime)),};
 IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable4483[5] = 
 {
 	static_cast<int32_t>(offsetof(PiropiroTimerManager_t2255F5AB99FE8EC07EEB77A328F408BE85566D5F_StaticFields, ___U3CInstanceU3Ek__BackingField)),static_cast<int32_t>(offsetof(PiropiroTimerManager_t2255F5AB99FE8EC07EEB77A328F408BE85566D5F, ___scoreText)),static_cast<int32_t>(offsetof(PiropiroTimerManager_t2255F5AB99FE8EC07EEB77A328F408BE85566D5F, ___time)),static_cast<int32_t>(offsetof(PiropiroTimerManager_t2255F5AB99FE8EC07EEB77A328F408BE85566D5F, ___minute)),static_cast<int32_t>(offsetof(PiropiroTimerManager_t2255F5AB99FE8EC07EEB77A328F408BE85566D5F, ___second)),};

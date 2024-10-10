@@ -41386,6 +41386,7 @@ struct PinponResult_t30BE25A14ECF2FA9134797804E89751E280C0EB3  : public MonoBeha
 {
 	TextMeshProUGUI_t101091AF4B578BB534C92E9D1EEAF0611636D957* ___scoreText;
 	int32_t ___score;
+	float ___watchTime;
 };
 struct PinponScoreManager_t146167BEFEE80963E7985C0035AA64118C0497A7  : public MonoBehaviour_t532A11E69716D348D8AA7F854AFCBFCB8AD17F71
 {
@@ -41405,6 +41406,7 @@ struct PiropiroResult_tB0D50AF9F72219B7A682E3765B9BF25FB6FDC00F  : public MonoBe
 	int32_t ___minute;
 	float ___second;
 	float ___time;
+	float ___watchTime;
 };
 struct PiropiroTimerManager_t2255F5AB99FE8EC07EEB77A328F408BE85566D5F  : public MonoBehaviour_t532A11E69716D348D8AA7F854AFCBFCB8AD17F71
 {

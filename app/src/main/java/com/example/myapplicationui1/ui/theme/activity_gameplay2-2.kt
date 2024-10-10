@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import android.view.WindowManager.LayoutParams.SCREEN_ORIENTATION_CHANGED
+import com.example.myapplicationui1.ui.theme.ActivityEnd
 import com.unity3d.player.UnityPlayerActivity
 import com.unity3d.player.UnityPlayer
 
@@ -34,7 +35,7 @@ class GamePlay22Activity: UnityPlayerActivity() {
     private fun returnSelectActivity() {
         mUnityPlayer.onStop()
         Log.d("GamePlay22Activity", "とめたわよ～")
-        val intent = Intent(this, ControllerSelectionActivity::class.java)
+        val intent = Intent(this, ActivityEnd::class.java)
         startActivity(intent)
     }
 }

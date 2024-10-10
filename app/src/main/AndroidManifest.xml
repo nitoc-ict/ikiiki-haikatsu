@@ -31,7 +31,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-            <activity android:name="SpiroMeterActivity"/>
+            <activity android:name="SpirometerActivity"
+                      android:screenOrientation="userLandscape"/>
             <activity android:name=".ui.theme.TestBluetoothActivity"
                       android:screenOrientation="userLandscape"/>
             <activity android:name=".ControllerExplanationSelectionActivity"
@@ -90,6 +91,8 @@
             <activity android:name=".RuleExplanation22Activity"
                       android:screenOrientation="userLandscape"/>
             <activity android:name=".RuleExplanation23Activity"
+                      android:screenOrientation="userLandscape"/>
+            <activity android:name=".ui.theme.ActivityEnd"
                       android:screenOrientation="userLandscape"/>
     </application>
 

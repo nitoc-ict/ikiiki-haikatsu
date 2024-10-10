@@ -19,6 +19,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.example.myapplicationui1.ui.theme.ActivityEnd
 import com.unity3d.player.UnityPlayerActivity
 import com.unity3d.player.UnityPlayer
 import kotlinx.coroutines.CoroutineScope
@@ -62,6 +63,8 @@ class GamePlay21Activity: UnityPlayerActivity() {
     private lateinit var textView: TextView
 
     private lateinit var activityResultLauncher: ActivityResultLauncher<Intent>
+
+    private var stateSendValue: String = "0";
 
     companion object {
         private const val REQUEST_CODE_BLUETOOTH_CONNECT = 1
@@ -115,6 +118,7 @@ class GamePlay21Activity: UnityPlayerActivity() {
             } catch (e: Exception){
                 Log.d(TAG1, "Error is: ", e)
             }
+            Log.d(TAG1, "はじめるわよ～")
 
             EnableToBluetoothAdapter()
         } catch (e: Exception) {
@@ -127,7 +131,7 @@ class GamePlay21Activity: UnityPlayerActivity() {
         mUnityPlayer.onStop()
         closeConnection()
         Log.d("GamePlay22Activity", "とめたわよ～")
-        val intent = Intent(this, ControllerSelectionActivity::class.java)
+        val intent = Intent(this, ActivityEnd::class.java)
         startActivity(intent)
     }
 
@@ -211,9 +215,16 @@ class GamePlay21Activity: UnityPlayerActivity() {
                 delay(85)
                 val bytes = inputStream?.read(buffer) ?: 0
                 if(bytes > 0) {
-                    val incomingData = String(buffer, 0, bytes)
+                    var incomingData = String(buffer, 0, bytes)
                     Log.d(TAG3, "Rechieved: $incomingData")
-                    UnityPlayer.UnitySendMessage("WankosobaSystemManager", "ReceiveMessage", incomingData)
+                    if(bytes != null) {
+                        stateSendValue = incomingData
+                        Log.d(TAG1, "incomingData is Null")
+                    } else {
+                        incomingData = stateSendValue
+                    }
+                    delay(300)
+                    UnityPlayer.UnitySendMessage("WankosobaSystemManager", "ReceiveMessage", "${incomingData}")
                     Log.d(TAG3, "Rechieved value to Unity")
                 }
             } catch (e: Exception) {
