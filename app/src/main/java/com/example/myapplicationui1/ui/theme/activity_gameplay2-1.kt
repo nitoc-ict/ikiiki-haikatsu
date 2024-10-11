@@ -5,7 +5,10 @@ import android.app.Activity
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothSocket
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
@@ -13,6 +16,7 @@ import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import android.view.WindowManager.LayoutParams.SCREEN_ORIENTATION_CHANGED
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.ActivityResultRegistry
 import androidx.activity.result.contract.ActivityResultContracts
@@ -64,25 +68,14 @@ class GamePlay21Activity: UnityPlayerActivity() {
 
     private lateinit var activityResultLauncher: ActivityResultLauncher<Intent>
 
-    private var stateSendValue: String = "0";
+    private var stateSendValue: String = "0"
+
+    //
+    private var isfinishGame: Boolean = false
 
     companion object {
         private const val REQUEST_CODE_BLUETOOTH_CONNECT = 1
     }
-
-    // Permissions launcher
-    /**
-    private val requestPermissionsLauncher = registerForActivityResult(
-    ActivityResultContracts.RequestMultiplePermissions()
-    ) { permissions ->
-    val granted = permissions.all { it.value }
-    if (granted) {
-    connectToDevice()
-    } else {
-    Log.e(TAG1, "Required permissions not granted")
-    finish()
-    }
-    }**/
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -111,6 +104,7 @@ class GamePlay21Activity: UnityPlayerActivity() {
                     ViewGroup.LayoutParams.MATCH_PARENT
                 )
             )
+            CheckPermissionBluetoothAdapter()
             mUnityPlayer.requestFocus()
             window.clearFlags(SCREEN_ORIENTATION_CHANGED)
             try {
@@ -120,7 +114,13 @@ class GamePlay21Activity: UnityPlayerActivity() {
             }
             Log.d(TAG1, "はじめるわよ～")
 
-            EnableToBluetoothAdapter()
+            val filter = IntentFilter().apply {
+                addAction(BluetoothDevice.ACTION_ACL_CONNECTED)
+                addAction(BluetoothDevice.ACTION_ACL_DISCONNECTED)
+            }
+
+            registerReceiver(bluetoothReceiver, filter)
+
         } catch (e: Exception) {
             Log.d("Error Try method", "${e}")
         }
@@ -130,17 +130,17 @@ class GamePlay21Activity: UnityPlayerActivity() {
     private fun returnSelectActivity() {
         mUnityPlayer.onStop()
         closeConnection()
+
+        unregisterReceiver(bluetoothReceiver)
+
         Log.d("GamePlay22Activity", "とめたわよ～")
+        isfinishGame = true
         val intent = Intent(this, ActivityEnd::class.java)
         startActivity(intent)
     }
 
-    private fun EnableToBluetoothAdapter() {
+    private fun CheckPermissionBluetoothAdapter() {
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
-        if(bluetoothAdapter == null) {
-            Log.d(TAG1, "bluetoothAdapter is not settings")
-            EnableToBluetoothAdapter()
-        }
 
         if(bluetoothAdapter?.isEnabled == false) {
             val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
@@ -154,10 +154,9 @@ class GamePlay21Activity: UnityPlayerActivity() {
             startActivityForResult(enableBtIntent, BT_ONOFF_CONF)
         }
 
-        Log.d(TAG1, "Permission Available 02")
-
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.BLUETOOTH_CONNECT), REQUEST_CODE_BLUETOOTH_CONNECT)
+            CheckPermissionBluetoothAdapter()
         } else {
             Log.d(TAG1, "Permission Available 03")
             connectToDevice()
@@ -173,26 +172,19 @@ class GamePlay21Activity: UnityPlayerActivity() {
                 val pairedDevices: Set<BluetoothDevice>? = bluetoothAdapter?.bondedDevices
                 // ペアリングしているデバイスと接続
                 val device = pairedDevices?.find { it.name == DEVICE_NAME }
-                Log.d(TAG1, "${device}")
+                Log.d(TAG1, "Device is ${device}")
 
                 if(device != null) {
                     Log.d(TAG1, "Permission Available 05")
                     CoroutineScope(Dispatchers.IO).launch {
-                        Log.d(TAG1, "Permission Available 06")
                         try {
-                            Log.d(TAG1, "Permission Available 07")
                             bluetoothSocket = device.createRfcommSocketToServiceRecord(SPP_UUID)
-                            Log.d(TAG1, "Permission Available 08")
-                            //bluetoothAdapter?.cancelDiscovery()
-                            Log.d(TAG1, "Permission Available 09")
+                            Log.d(TAG1, "Permission Available 06")
                             bluetoothSocket?.connect()
-                            Log.d(TAG1, "Permission Available 10")
                             inputStream = bluetoothSocket?.inputStream
-                            Log.d(TAG1, "Permission Available 11")
                             outputStream = bluetoothSocket?.outputStream
-                            Log.d(TAG1, "Permission Available 12")
                             Log.d(TAG2, "Connected to $DEVICE_NAME")
-
+                            UnityPlayer.UnitySendMessage("WankosobaSystemManager", "ResumeGame", "")
                             // readDataを許可
                             isConnected = true
                             readData()
@@ -200,6 +192,8 @@ class GamePlay21Activity: UnityPlayerActivity() {
                             Log.e(TAG5, "Connection failed: ${e.message}")
                         }
                     }
+                } else {
+                    CheckPermissionBluetoothAdapter()
                 }
             } catch (e: Exception) {
                 isConnected = false
@@ -214,10 +208,10 @@ class GamePlay21Activity: UnityPlayerActivity() {
             try {
                 delay(85)
                 val bytes = inputStream?.read(buffer) ?: 0
-                if(bytes > 0) {
+                if (bytes > 0) {
                     var incomingData = String(buffer, 0, bytes)
                     Log.d(TAG3, "Rechieved: $incomingData")
-                    if(bytes != null) {
+                    if (bytes != null) {
                         stateSendValue = incomingData
                         Log.d(TAG1, "incomingData is Null")
                     } else {
@@ -225,11 +219,38 @@ class GamePlay21Activity: UnityPlayerActivity() {
                     }
                     delay(300)
                     UnityPlayer.UnitySendMessage("WankosobaSystemManager", "ReceiveMessage", "${incomingData}")
-                    Log.d(TAG3, "Rechieved value to Unity")
                 }
             } catch (e: Exception) {
-                Log.e(TAG4, "Read failed: ${e.message}")
-                return
+                Log.e(TAG4, "値読み取りエラー: ${e.message}")
+                isConnected = false
+                UnityPlayer.UnitySendMessage("WankosobaSystemManager", "PauseGame", "")
+                reconnectToDevice()
+            }
+        }
+    }
+
+    private val bluetoothReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            val action = intent?.action
+            when(action) {
+                BluetoothDevice.ACTION_ACL_CONNECTED -> {
+                    Log.d(TAG1, "Bluetoothに再接続しました")
+                }
+                BluetoothDevice.ACTION_ACL_DISCONNECTED -> {
+                    Log.d(TAG1, "Bluetoothが切断されました")
+                    UnityPlayer.UnitySendMessage("WankosobaSystemManager", "PauseGame", "")
+                    reconnectToDevice()
+                }
+            }
+        }
+    }
+
+    private fun reconnectToDevice() {
+        if (isfinishGame == false) {
+            CoroutineScope(Dispatchers.IO).launch {
+                delay(2000)
+                Log.d(TAG1, "Now Connecting...")
+                CheckPermissionBluetoothAdapter()
             }
         }
     }
@@ -247,6 +268,7 @@ class GamePlay21Activity: UnityPlayerActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+        unregisterReceiver(bluetoothReceiver)
         closeConnection()
     }
 }

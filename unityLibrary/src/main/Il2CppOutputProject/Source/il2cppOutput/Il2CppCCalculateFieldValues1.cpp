@@ -11578,6 +11578,8 @@ struct WankosobaSystemManager_t153FF469360627EB1F477985DE5AC19D5C646455  : publi
 	Owan_t3327AE492DFB8636653713F4236D6DD280A7996D* ___owanobj;
 	bool ___isSobaFlag;
 	int32_t ___sobaRand;
+	bool ___isPaused;
+	TextMeshProUGUI_t101091AF4B578BB534C92E9D1EEAF0611636D957* ___pausetext;
 };
 struct WankosobaTimerManager_t808084E101FB4D596332DE5D0BC6DFA614B135F8  : public MonoBehaviour_t532A11E69716D348D8AA7F854AFCBFCB8AD17F71
 {
@@ -15929,9 +15931,9 @@ IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable4488[3] =
 IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable4489[3] = 
 {
 	static_cast<int32_t>(offsetof(WankosobaScoreManager_t9546517ED491D8F66D9574DF71106AB30BF8EA9C_StaticFields, ___U3CInstanceU3Ek__BackingField)),static_cast<int32_t>(offsetof(WankosobaScoreManager_t9546517ED491D8F66D9574DF71106AB30BF8EA9C, ___scoreText)),static_cast<int32_t>(offsetof(WankosobaScoreManager_t9546517ED491D8F66D9574DF71106AB30BF8EA9C, ___score)),};
-IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable4490[8] = 
+IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable4490[10] = 
 {
-	static_cast<int32_t>(offsetof(WankosobaSystemManager_t153FF469360627EB1F477985DE5AC19D5C646455, ___soba)),static_cast<int32_t>(offsetof(WankosobaSystemManager_t153FF469360627EB1F477985DE5AC19D5C646455, ___sobaState)),static_cast<int32_t>(offsetof(WankosobaSystemManager_t153FF469360627EB1F477985DE5AC19D5C646455, ___owan)),static_cast<int32_t>(offsetof(WankosobaSystemManager_t153FF469360627EB1F477985DE5AC19D5C646455, ___owanState)),static_cast<int32_t>(offsetof(WankosobaSystemManager_t153FF469360627EB1F477985DE5AC19D5C646455, ___sobaobj)),static_cast<int32_t>(offsetof(WankosobaSystemManager_t153FF469360627EB1F477985DE5AC19D5C646455, ___owanobj)),static_cast<int32_t>(offsetof(WankosobaSystemManager_t153FF469360627EB1F477985DE5AC19D5C646455, ___isSobaFlag)),static_cast<int32_t>(offsetof(WankosobaSystemManager_t153FF469360627EB1F477985DE5AC19D5C646455, ___sobaRand)),};
+	static_cast<int32_t>(offsetof(WankosobaSystemManager_t153FF469360627EB1F477985DE5AC19D5C646455, ___soba)),static_cast<int32_t>(offsetof(WankosobaSystemManager_t153FF469360627EB1F477985DE5AC19D5C646455, ___sobaState)),static_cast<int32_t>(offsetof(WankosobaSystemManager_t153FF469360627EB1F477985DE5AC19D5C646455, ___owan)),static_cast<int32_t>(offsetof(WankosobaSystemManager_t153FF469360627EB1F477985DE5AC19D5C646455, ___owanState)),static_cast<int32_t>(offsetof(WankosobaSystemManager_t153FF469360627EB1F477985DE5AC19D5C646455, ___sobaobj)),static_cast<int32_t>(offsetof(WankosobaSystemManager_t153FF469360627EB1F477985DE5AC19D5C646455, ___owanobj)),static_cast<int32_t>(offsetof(WankosobaSystemManager_t153FF469360627EB1F477985DE5AC19D5C646455, ___isSobaFlag)),static_cast<int32_t>(offsetof(WankosobaSystemManager_t153FF469360627EB1F477985DE5AC19D5C646455, ___sobaRand)),static_cast<int32_t>(offsetof(WankosobaSystemManager_t153FF469360627EB1F477985DE5AC19D5C646455, ___isPaused)),static_cast<int32_t>(offsetof(WankosobaSystemManager_t153FF469360627EB1F477985DE5AC19D5C646455, ___pausetext)),};
 IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable4491[5] = 
 {
 	static_cast<int32_t>(offsetof(WankosobaTimerManager_t808084E101FB4D596332DE5D0BC6DFA614B135F8_StaticFields, ___U3CInstanceU3Ek__BackingField)),static_cast<int32_t>(offsetof(WankosobaTimerManager_t808084E101FB4D596332DE5D0BC6DFA614B135F8, ___scoreText)),static_cast<int32_t>(offsetof(WankosobaTimerManager_t808084E101FB4D596332DE5D0BC6DFA614B135F8, ___time)),static_cast<int32_t>(offsetof(WankosobaTimerManager_t808084E101FB4D596332DE5D0BC6DFA614B135F8, ___minute)),static_cast<int32_t>(offsetof(WankosobaTimerManager_t808084E101FB4D596332DE5D0BC6DFA614B135F8, ___second)),};
