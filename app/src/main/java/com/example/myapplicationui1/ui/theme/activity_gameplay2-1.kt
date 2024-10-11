@@ -30,9 +30,11 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.InputStream
 import java.io.OutputStream
 import java.util.UUID
+import java.util.concurrent.CountDownLatch
 
 class GamePlay21Activity: UnityPlayerActivity() {
     // TAGs
@@ -51,7 +53,7 @@ class GamePlay21Activity: UnityPlayerActivity() {
     private var outputStream: OutputStream? = null
 
     // BluetoothAdapter接続
-    private var bluetoothAdapter: BluetoothAdapter? = BluetoothAdapter.getDefaultAdapter()
+    private var bluetoothAdapter: BluetoothAdapter? = null
     private var bluetoothSocket: BluetoothSocket? = null
 
     // BluetoothValue
@@ -72,6 +74,9 @@ class GamePlay21Activity: UnityPlayerActivity() {
 
     //
     private var isfinishGame: Boolean = false
+
+    // CountDownLatch for synchronization
+    private val latch = CountDownLatch(1)
 
     companion object {
         private const val REQUEST_CODE_BLUETOOTH_CONNECT = 1
@@ -104,26 +109,49 @@ class GamePlay21Activity: UnityPlayerActivity() {
                     ViewGroup.LayoutParams.MATCH_PARENT
                 )
             )
-            CheckPermissionBluetoothAdapter()
-            mUnityPlayer.requestFocus()
-            window.clearFlags(SCREEN_ORIENTATION_CHANGED)
-            try {
-                UnityPlayer.UnitySendMessage("SceneSelect", "ReceiveMessage", "Wankosoba")
-            } catch (e: Exception){
-                Log.d(TAG1, "Error is: ", e)
-            }
-            Log.d(TAG1, "はじめるわよ～")
 
+            // Broadcastを定義
             val filter = IntentFilter().apply {
                 addAction(BluetoothDevice.ACTION_ACL_CONNECTED)
                 addAction(BluetoothDevice.ACTION_ACL_DISCONNECTED)
             }
-
             registerReceiver(bluetoothReceiver, filter)
+
+            mUnityPlayer.requestFocus()
+            window.clearFlags(SCREEN_ORIENTATION_CHANGED)
+            setUpUnity()
 
         } catch (e: Exception) {
             Log.d("Error Try method", "${e}")
         }
+    }
+
+    private fun setUpUnity() {
+        CoroutineScope(Dispatchers.Main).launch {
+            try {
+                withContext(Dispatchers.IO) {
+                    UnityPlayer.UnitySendMessage("SceneSelect", "ReceiveMessage", "Wankosoba")
+                    latch.await()
+                }
+                Log.e(TAG1, "Finish async SceneSelect")
+                // bluetoothにマイコンが接続されていないとき、ゲームを停止して接続処理をする
+                if(bluetoothAdapter == null) {
+                    Log.e(TAG1, "Micon is not connecting")
+                    UnityPlayer.UnitySendMessage("WankosobaSystemManager", "PauseGame", "")
+                    reconnectToDevice()
+                } else {
+                    Log.d(TAG1, "Connected micon")
+                }
+            } catch (e: Exception){
+                Log.d(TAG1, "Error is: ", e)
+            }
+            Log.d(TAG1, "はじめるわよ～")
+        }
+    }
+
+    // Unityで呼ぶ、latchの処理を進めるコールバック関数
+    fun onUnityMessageReceived() {
+        latch.countDown()
     }
 
     // Unity側で呼ぶ、別画面へ遷移する関数
@@ -131,16 +159,17 @@ class GamePlay21Activity: UnityPlayerActivity() {
         mUnityPlayer.onStop()
         closeConnection()
 
+        isfinishGame = true
         unregisterReceiver(bluetoothReceiver)
 
         Log.d("GamePlay22Activity", "とめたわよ～")
-        isfinishGame = true
         val intent = Intent(this, ActivityEnd::class.java)
         startActivity(intent)
     }
 
     private fun CheckPermissionBluetoothAdapter() {
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
+        Log.e(TAG1, "bluetoothAdapter is ${bluetoothAdapter}")
 
         if(bluetoothAdapter?.isEnabled == false) {
             val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
@@ -181,8 +210,11 @@ class GamePlay21Activity: UnityPlayerActivity() {
                             bluetoothSocket = device.createRfcommSocketToServiceRecord(SPP_UUID)
                             Log.d(TAG1, "Permission Available 06")
                             bluetoothSocket?.connect()
+                            Log.d(TAG1, "Permission Available 07")
                             inputStream = bluetoothSocket?.inputStream
+                            Log.d(TAG1, "Permission Available 08")
                             outputStream = bluetoothSocket?.outputStream
+                            Log.d(TAG1, "Permission Available 09")
                             Log.d(TAG2, "Connected to $DEVICE_NAME")
                             UnityPlayer.UnitySendMessage("WankosobaSystemManager", "ResumeGame", "")
                             // readDataを許可
@@ -190,10 +222,9 @@ class GamePlay21Activity: UnityPlayerActivity() {
                             readData()
                         } catch (e: Exception) {
                             Log.e(TAG5, "Connection failed: ${e.message}")
+                            reconnectToDevice()
                         }
                     }
-                } else {
-                    CheckPermissionBluetoothAdapter()
                 }
             } catch (e: Exception) {
                 isConnected = false
@@ -203,6 +234,7 @@ class GamePlay21Activity: UnityPlayerActivity() {
     }
 
     private suspend fun readData() {
+        Log.d(TAG1, "Permission Available 10")
         val buffer = ByteArray(1024)
         while (isConnected) {
             try {
@@ -248,7 +280,7 @@ class GamePlay21Activity: UnityPlayerActivity() {
     private fun reconnectToDevice() {
         if (isfinishGame == false) {
             CoroutineScope(Dispatchers.IO).launch {
-                delay(2000)
+                delay(1000)
                 Log.d(TAG1, "Now Connecting...")
                 CheckPermissionBluetoothAdapter()
             }
@@ -264,6 +296,26 @@ class GamePlay21Activity: UnityPlayerActivity() {
         } catch (e: Exception) {
             Log.e(TAG5, "Error string connection: ${e.message}")
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Log.e(TAG1, "select onStart")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.e(TAG1, "select onResume")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.e(TAG1, "select onPause")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.e(TAG1, "select onStop")
     }
 
     override fun onDestroy() {
