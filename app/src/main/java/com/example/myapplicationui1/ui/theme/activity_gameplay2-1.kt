@@ -238,7 +238,6 @@ class GamePlay21Activity: UnityPlayerActivity() {
         val buffer = ByteArray(1024)
         while (isConnected) {
             try {
-                delay(85)
                 val bytes = inputStream?.read(buffer) ?: 0
                 if (bytes > 0) {
                     var incomingData = String(buffer, 0, bytes)
@@ -250,7 +249,8 @@ class GamePlay21Activity: UnityPlayerActivity() {
                         incomingData = stateSendValue
                     }
                     delay(300)
-                    UnityPlayer.UnitySendMessage("WankosobaSystemManager", "ReceiveMessage", "${incomingData}")
+                    UnityPlayer.UnitySendMessage("WankosobaSystemManager", "ReceiveMessage", "${incomingData.first()}")
+                    Log.e(TAG1, "First riteral is ${incomingData.first()}")
                 }
             } catch (e: Exception) {
                 Log.e(TAG4, "値読み取りエラー: ${e.message}")

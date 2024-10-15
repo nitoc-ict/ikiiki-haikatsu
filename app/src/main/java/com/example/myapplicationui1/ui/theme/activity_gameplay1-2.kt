@@ -17,6 +17,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import android.view.WindowManager.LayoutParams.SCREEN_ORIENTATION_CHANGED
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplicationui1.ui.theme.ActivityEnd
 import com.unity3d.player.UnityPlayerActivity
 import com.unity3d.player.UnityPlayer
@@ -26,7 +27,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.InputStream
-import java.io.OutputStream
 import java.util.UUID
 import java.util.concurrent.CountDownLatch
 
@@ -116,14 +116,14 @@ class GamePlay12Activity: UnityPlayerActivity() {
         CoroutineScope(Dispatchers.Main).launch {
             try {
                 withContext(Dispatchers.IO) {
-                    UnityPlayer.UnitySendMessage("SceneSelect", "ReceiveMessage", "Wankosoba")
+                    UnityPlayer.UnitySendMessage("SceneSelect", "ReceiveMessage", "Pinpon")
                     latch.await()
                 }
                 Log.e(TAG1, "Finish async SceneSelect")
                 // bluetoothにマイコンが接続されていないとき、ゲームを停止して接続処理をする
                 if(bluetoothAdapter == null) {
                     Log.e(TAG1, "Micon is not connecting")
-                    UnityPlayer.UnitySendMessage("WankosobaSystemManager", "PauseGame", "")
+                    UnityPlayer.UnitySendMessage("PinponSystemManager", "PauseGame", "")
                     reconnectToDevice()
                 } else {
                     Log.d(TAG1, "Connected micon")
@@ -154,7 +154,7 @@ class GamePlay12Activity: UnityPlayerActivity() {
 
     private fun CheckPermissionBluetoothAdapter() {
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
-        Log.e(TAG1, "bluetoothAdapter is ${bluetoothAdapter}")
+        Log.d(TAG1, "bluetoothAdapter is ${bluetoothAdapter}")
 
         if(bluetoothAdapter?.isEnabled == false) {
             val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
@@ -184,16 +184,16 @@ class GamePlay12Activity: UnityPlayerActivity() {
             try {
                 Log.d(TAG1, "Permission Available 04")
                 val pairedDevices: Set<BluetoothDevice>? = bluetoothAdapter?.bondedDevices
-
+                Log.d(TAG1, "Enable To Use devices: ${bluetoothAdapter?.bondedDevices}")
                 // 取得したデバイスをListに格納
                 pairedDevices?.forEach { device ->
                     when(device.name) {
                         DEVICE_NAME11 -> {
-                            Log.d(TAG1, "Device is ${device}")
+                            Log.d(TAG1, "01Device is ${device}")
                             devices.add(device)
                         }
                         DEVICE_NAME12 -> {
-                            Log.d(TAG1, "Device is ${device}")
+                            Log.d(TAG1, "02Device is ${device}")
                             devices.add(device)
                         }
                     }
@@ -201,35 +201,44 @@ class GamePlay12Activity: UnityPlayerActivity() {
 
                 // 取得したDeviceすべてをsocketに接続
                 devices.forEach { device ->
-                    if(device == null) {
-                        val socket = device.createRfcommSocketToServiceRecord(SPP_UUID)
-                        socket.connect()
-                        sockets.add(socket)
+                    try {
+                        Log.d(TAG1, "DeviceName is: $device")
+                        if(device != null) {
+                            Log.d(TAG1, "connect socket of device")
+                            val socket = device.createRfcommSocketToServiceRecord(SPP_UUID)
+                            socket.connect()
+                            sockets.add(socket)
+                            Log.d(TAG1, "01connected socket of device")
+                        }
+                    } catch (e: Exception) {
+                        Log.e(TAG1, "miss GetSocket: ${e.message}")
                     }
                 }
-
-                Log.d(TAG1, "Devices is: ${sockets}")
-                UnityPlayer.UnitySendMessage("WankosobaSystemManager", "ResumeGame", "")
+                UnityPlayer.UnitySendMessage("PinponSystemManager", "ResumeGame", "")
+                Log.d(TAG1, "Resume Game")
 
                 isConnected = true
                 readData()
             } catch (e: Exception) {
+                Log.e(TAG1, "connected out: ${e.message}")
                 isConnected = false
-                reconnectToDevice()
+                closeConnection()
             }
         }
     }
 
     private fun readData() {
+        Log.d(TAG1, "ReadData")
         // マイコン毎にデータを送信
         sockets.forEach { socket->
             CoroutineScope(Dispatchers.IO).launch {
+                Log.d(TAG1, "in Couroutine scope")
                 val inputStream: InputStream = socket.inputStream
-                val buffer = ByteArray(1024)
+                val buffer = ByteArray(4)
 
                 while(isConnected) {
                     try {
-                        delay(85)
+                        delay(700)
                         val bytes = inputStream.read(buffer) ?: 0
                         if(bytes > 0) {
                             var incomingData = String(buffer, 0, bytes)
@@ -239,9 +248,11 @@ class GamePlay12Activity: UnityPlayerActivity() {
                                 Log.d(TAG1, "incomingData is Null")
                             } else {
                                 incomingData = stateSendValue
+                                Log.e(TAG1, "bytes == null")
                             }
                             delay(300)
-                            UnityPlayer.UnitySendMessage("WankosobaSystemManager", "ReceiveMessage", "${incomingData}")
+                            val deviceName = getDeviceName(socket)
+                            sendData(deviceName ?: "UnknownDevices", incomingData)
                         }
                     } catch (e: Exception) {
                         Log.e(TAG4, "Read failed: ${e.message}")
@@ -250,6 +261,48 @@ class GamePlay12Activity: UnityPlayerActivity() {
                         isConnected = false
 
                         // PauseのメッセージをUnityに送信
+                        UnityPlayer.UnitySendMessage("PinponSystemManager", "PauseGame", "")
+                        reconnectToDevice()
+                    }
+                }
+            }
+        }
+    }
+
+    private fun getDeviceName(socket: BluetoothSocket): String? {
+        return try {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH) == PackageManager.PERMISSION_GRANTED) {
+                socket.remoteDevice.name
+            } else {
+                null
+            }
+        } catch (e: SecurityException) {
+            Log.e(TAG1, "Permission denied to get device name", e)
+            null
+        }
+    }
+
+    private fun sendData(deviceName: String, data: String) {
+        if(deviceName == DEVICE_NAME11) {
+            UnityPlayer.UnitySendMessage("Rightracket", "ReceiveMessage", "$data")
+            Log.d(TAG1, "SendMessage for Rightlacket is: $data")
+        } else if(deviceName == DEVICE_NAME12) {
+            UnityPlayer.UnitySendMessage("Leftracket", "ReceiveMessage", "$data")
+            Log.d(TAG1, "SendMessage for Leftlacket is: $data")
+        }
+    }
+
+    private val bluetoothReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            CoroutineScope(Dispatchers.IO).launch {
+                val action = intent?.action
+                delay(1500)
+                when(action) {
+                    BluetoothDevice.ACTION_ACL_CONNECTED -> {
+                        Log.d(TAG1, "Bluetoothに再接続しました")
+                    }
+                    BluetoothDevice.ACTION_ACL_DISCONNECTED -> {
+                        Log.d(TAG1, "Bluetoothが切断されました")
                         UnityPlayer.UnitySendMessage("WankosobaSystemManager", "PauseGame", "")
                         reconnectToDevice()
                     }
@@ -258,27 +311,13 @@ class GamePlay12Activity: UnityPlayerActivity() {
         }
     }
 
-    private val bluetoothReceiver = object : BroadcastReceiver() {
-        override fun onReceive(context: Context?, intent: Intent?) {
-            val action = intent?.action
-            when(action) {
-                BluetoothDevice.ACTION_ACL_CONNECTED -> {
-                    Log.d(TAG1, "Bluetoothに再接続しました")
-                }
-                BluetoothDevice.ACTION_ACL_DISCONNECTED -> {
-                    Log.d(TAG1, "Bluetoothが切断されました")
-                    UnityPlayer.UnitySendMessage("WankosobaSystemManager", "PauseGame", "")
-                    reconnectToDevice()
-                }
-            }
-        }
-    }
-
     private fun reconnectToDevice() {
         if (isfinishGame == false) {
             CoroutineScope(Dispatchers.IO).launch {
-                delay(1000)
                 Log.d(TAG1, "Now Connecting...")
+                closeConnection()
+                devices.clear()
+                delay(400)
                 CheckPermissionBluetoothAdapter()
             }
         }
@@ -295,31 +334,5 @@ class GamePlay12Activity: UnityPlayerActivity() {
         } catch (e: Exception) {
             Log.e(TAG5, "Error string connection: ${e.message}")
         }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        Log.e(TAG1, "select onStart")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Log.e(TAG1, "select onResume")
-    }
-
-    override fun onPause() {
-        super.onPause()
-        Log.e(TAG1, "select onPause")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Log.e(TAG1, "select onStop")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        unregisterReceiver(bluetoothReceiver)
-        closeConnection()
     }
 }
