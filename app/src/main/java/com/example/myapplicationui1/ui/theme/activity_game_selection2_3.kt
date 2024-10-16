@@ -15,20 +15,6 @@ class GameSelection23Activity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game_selection2_3)
 
-        // 左のボタンを押したときの遷移
-        val leftButton: ImageButton = findViewById(R.id.leftButton)
-        leftButton.setOnClickListener {
-            val intent = Intent(this, GameSelection22Activity::class.java)
-            startActivity(intent)
-        }
-
-        // 右のボタンを押したときの遷移
-        val rightButton: ImageButton = findViewById(R.id.rightButton)
-        rightButton.setOnClickListener {
-            val intent = Intent(this, GameSelection21Activity::class.java)
-            startActivity(intent)
-        }
-
         // あそぶボタンの処理
         val playButton: Button = findViewById(R.id.playButton)
         playButton.setOnClickListener {
@@ -37,9 +23,9 @@ class GameSelection23Activity : AppCompatActivity() {
         }
 
         // コントローラ選択画面へ戻る処理
-        val backButton: ImageView = findViewById(R.id.backButton)
+        val backButton: Button = findViewById(R.id.backButton)
         backButton.setOnClickListener {
-            val intent = Intent(this, ControllerSelectionActivity::class.java)
+            val intent = Intent(this, SpirometerGameSelection::class.java)
             startActivity(intent)
         }
     }

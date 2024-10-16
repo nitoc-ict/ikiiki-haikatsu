@@ -17,13 +17,13 @@ class PiropiroActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_gamevideo11)
+        setContentView(R.layout.activity_piropiro)
 
         // VideoViewの参照を取得
         val videoView = findViewById<VideoView>(R.id.videoView)
 
         // 動画のパスを取得
-        val packageName = "android.resource://" + this.packageName + "/" + R.raw.spirometer
+        val packageName = "android.resource://" + this.packageName + "/" + R.raw.spirometer // あとでピロピロ笛の動画作って`piropiro`に直す
 
         // 動画のパスまたはURLを指定
         val videoUri = Uri.parse(packageName)
@@ -65,9 +65,7 @@ class PiropiroActivity : AppCompatActivity() {
         // ゲームへボタンの処理
         val backToMenuButton: Button = findViewById(R.id.backToMenuButton)
         backToMenuButton.setOnClickListener {
-            // activity_gameplay1-1に遷移
-            val intent = Intent(this, ExplanationActivity::class.java)
-            startActivity(intent)
+            finish()
         }
     }
 }

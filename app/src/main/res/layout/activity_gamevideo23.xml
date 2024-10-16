@@ -23,5 +23,5 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="bottom"
-        android:text="next" />
+        android:text="ゲームへすすむ" />
 </LinearLayout>

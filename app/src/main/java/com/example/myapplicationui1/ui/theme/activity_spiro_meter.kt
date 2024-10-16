@@ -65,9 +65,7 @@ class SpirometerActivity : AppCompatActivity() {
         // ゲームへボタンの処理
         val backToMenuButton: Button = findViewById(R.id.backToMenuButton)
         backToMenuButton.setOnClickListener {
-            // activity_gameplay1-1に遷移
-            val intent = Intent(this, ExplanationActivity::class.java)
-            startActivity(intent)
+            finish()
         }
     }
 }

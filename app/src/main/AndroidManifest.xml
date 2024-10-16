@@ -43,6 +43,10 @@
                       android:screenOrientation="userLandscape"/>
             <activity android:name="ExplanationActivity"
                       android:screenOrientation="userLandscape"/>
+            <activity android:name=".PiropiroGameSelection"
+                      android:screenOrientation="userLandscape"/>
+            <activity android:name=".SpirometerGameSelection"
+                      android:screenOrientation="userLandscape"/>
 
             <activity android:name=".GameVideo11Activity"
                       android:screenOrientation="userLandscape"/>

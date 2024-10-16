@@ -214,7 +214,6 @@ struct ByteU5BU5D_tA6237BF417AE52AD70CFB4EF24A7A82613DF9031;
 struct CameraU5BU5D_t1506EBA524A07AD1066D6DD4D7DFC6721F1AC26B;
 struct CaptureU5BU5D_tC1C7568482C97A1529C2B061F0502A45FFFEEBD3;
 struct CharU5BU5D_t799905CF001DD5F13F7DBB310181FC4D8B7D0AAB;
-struct ColorU5BU5D_t612261CF293F6FFC3D80AB52259FF0DC2B2CC389;
 struct Color32U5BU5D_t38116C3E91765C4C5726CE12C77FAD7F9F737259;
 struct ContactPointU5BU5D_t3570603E8D0685B71B3D8BA07031674B00C5E411;
 struct DisallowMultipleComponentU5BU5D_tEA69AEA10483E24EB99D75210593E7C9452FD283;
@@ -11226,10 +11225,12 @@ struct Apple_tCFDBE230BD66F6B2AE45F0D8764975F1B35693DF  : public MonoBehaviour_t
 };
 struct AppleBlocker_tBE56EF77F2FE48F5D063D6FF4AA198EC88BBE7BD  : public MonoBehaviour_t532A11E69716D348D8AA7F854AFCBFCB8AD17F71
 {
-	float ___xForce;
-	float ___yForce;
+	Collider_t1CC3163924FCD6C4CC2E816373A929C1E3D55E76* ___colliderState;
 	float ___zForce;
+	float ___pushForce;
 	Rigidbody_t268697F5A994213ED97393309870968BC1C7393C* ___myRigidbody;
+	bool ___isPaused;
+	TextMeshProUGUI_t101091AF4B578BB534C92E9D1EEAF0611636D957* ___pausetext;
 };
 struct AppleResult_t52E3D81F6DD021B952F413F03D7365B66414BB88  : public MonoBehaviour_t532A11E69716D348D8AA7F854AFCBFCB8AD17F71
 {
@@ -11247,12 +11248,12 @@ struct AppleSpawner_t5EDE37692E961AADF674AE0572BC5490BB262A9C  : public MonoBeha
 	GameObject_t76FEDD663AB33C991A9C9A23129337651094216F* ___apple;
 	GameObject_t76FEDD663AB33C991A9C9A23129337651094216F* ___posionApple;
 	GameObject_t76FEDD663AB33C991A9C9A23129337651094216F* ___blackApple;
-	GameObject_t76FEDD663AB33C991A9C9A23129337651094216F* ___randApple;
+	GameObject_t76FEDD663AB33C991A9C9A23129337651094216F* ___spawnApple;
 	int32_t ___spawnInterval;
 	GameObject_t76FEDD663AB33C991A9C9A23129337651094216F* ___appleState;
 	int32_t ___TodayNow;
 	Rigidbody_t268697F5A994213ED97393309870968BC1C7393C* ___myrigidbody;
-	ColorU5BU5D_t612261CF293F6FFC3D80AB52259FF0DC2B2CC389* ___colors;
+	int32_t ___randApple;
 };
 struct AppleTimerManager_t5F3E881150B6E4DBEF97AA10F8E170086ED03D2E  : public MonoBehaviour_t532A11E69716D348D8AA7F854AFCBFCB8AD17F71
 {
@@ -15836,9 +15837,9 @@ IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable4400[10] =
 IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable4403[1] = 
 {
 	static_cast<int32_t>(offsetof(Apple_tCFDBE230BD66F6B2AE45F0D8764975F1B35693DF, ___score)),};
-IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable4404[4] = 
+IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable4404[6] = 
 {
-	static_cast<int32_t>(offsetof(AppleBlocker_tBE56EF77F2FE48F5D063D6FF4AA198EC88BBE7BD, ___xForce)),static_cast<int32_t>(offsetof(AppleBlocker_tBE56EF77F2FE48F5D063D6FF4AA198EC88BBE7BD, ___yForce)),static_cast<int32_t>(offsetof(AppleBlocker_tBE56EF77F2FE48F5D063D6FF4AA198EC88BBE7BD, ___zForce)),static_cast<int32_t>(offsetof(AppleBlocker_tBE56EF77F2FE48F5D063D6FF4AA198EC88BBE7BD, ___myRigidbody)),};
+	static_cast<int32_t>(offsetof(AppleBlocker_tBE56EF77F2FE48F5D063D6FF4AA198EC88BBE7BD, ___colliderState)),static_cast<int32_t>(offsetof(AppleBlocker_tBE56EF77F2FE48F5D063D6FF4AA198EC88BBE7BD, ___zForce)),static_cast<int32_t>(offsetof(AppleBlocker_tBE56EF77F2FE48F5D063D6FF4AA198EC88BBE7BD, ___pushForce)),static_cast<int32_t>(offsetof(AppleBlocker_tBE56EF77F2FE48F5D063D6FF4AA198EC88BBE7BD, ___myRigidbody)),static_cast<int32_t>(offsetof(AppleBlocker_tBE56EF77F2FE48F5D063D6FF4AA198EC88BBE7BD, ___isPaused)),static_cast<int32_t>(offsetof(AppleBlocker_tBE56EF77F2FE48F5D063D6FF4AA198EC88BBE7BD, ___pausetext)),};
 IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable4405[3] = 
 {
 	static_cast<int32_t>(offsetof(AppleResult_t52E3D81F6DD021B952F413F03D7365B66414BB88, ___scoreText)),static_cast<int32_t>(offsetof(AppleResult_t52E3D81F6DD021B952F413F03D7365B66414BB88, ___score)),static_cast<int32_t>(offsetof(AppleResult_t52E3D81F6DD021B952F413F03D7365B66414BB88, ___watchTime)),};
@@ -15847,7 +15848,7 @@ IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable4406[3] =
 	static_cast<int32_t>(offsetof(AppleScoreManager_tBF9495425FD5C1D63E09B0D021F942131D489BCC_StaticFields, ___U3CInstanceU3Ek__BackingField)),static_cast<int32_t>(offsetof(AppleScoreManager_tBF9495425FD5C1D63E09B0D021F942131D489BCC, ___scoreText)),static_cast<int32_t>(offsetof(AppleScoreManager_tBF9495425FD5C1D63E09B0D021F942131D489BCC, ___score)),};
 IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable4407[9] = 
 {
-	static_cast<int32_t>(offsetof(AppleSpawner_t5EDE37692E961AADF674AE0572BC5490BB262A9C, ___apple)),static_cast<int32_t>(offsetof(AppleSpawner_t5EDE37692E961AADF674AE0572BC5490BB262A9C, ___posionApple)),static_cast<int32_t>(offsetof(AppleSpawner_t5EDE37692E961AADF674AE0572BC5490BB262A9C, ___blackApple)),static_cast<int32_t>(offsetof(AppleSpawner_t5EDE37692E961AADF674AE0572BC5490BB262A9C, ___randApple)),static_cast<int32_t>(offsetof(AppleSpawner_t5EDE37692E961AADF674AE0572BC5490BB262A9C, ___spawnInterval)),static_cast<int32_t>(offsetof(AppleSpawner_t5EDE37692E961AADF674AE0572BC5490BB262A9C, ___appleState)),static_cast<int32_t>(offsetof(AppleSpawner_t5EDE37692E961AADF674AE0572BC5490BB262A9C, ___TodayNow)),static_cast<int32_t>(offsetof(AppleSpawner_t5EDE37692E961AADF674AE0572BC5490BB262A9C, ___myrigidbody)),static_cast<int32_t>(offsetof(AppleSpawner_t5EDE37692E961AADF674AE0572BC5490BB262A9C, ___colors)),};
+	static_cast<int32_t>(offsetof(AppleSpawner_t5EDE37692E961AADF674AE0572BC5490BB262A9C, ___apple)),static_cast<int32_t>(offsetof(AppleSpawner_t5EDE37692E961AADF674AE0572BC5490BB262A9C, ___posionApple)),static_cast<int32_t>(offsetof(AppleSpawner_t5EDE37692E961AADF674AE0572BC5490BB262A9C, ___blackApple)),static_cast<int32_t>(offsetof(AppleSpawner_t5EDE37692E961AADF674AE0572BC5490BB262A9C, ___spawnApple)),static_cast<int32_t>(offsetof(AppleSpawner_t5EDE37692E961AADF674AE0572BC5490BB262A9C, ___spawnInterval)),static_cast<int32_t>(offsetof(AppleSpawner_t5EDE37692E961AADF674AE0572BC5490BB262A9C, ___appleState)),static_cast<int32_t>(offsetof(AppleSpawner_t5EDE37692E961AADF674AE0572BC5490BB262A9C, ___TodayNow)),static_cast<int32_t>(offsetof(AppleSpawner_t5EDE37692E961AADF674AE0572BC5490BB262A9C, ___myrigidbody)),static_cast<int32_t>(offsetof(AppleSpawner_t5EDE37692E961AADF674AE0572BC5490BB262A9C, ___randApple)),};
 IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable4408[5] = 
 {
 	static_cast<int32_t>(offsetof(AppleTimerManager_t5F3E881150B6E4DBEF97AA10F8E170086ED03D2E_StaticFields, ___U3CInstanceU3Ek__BackingField)),static_cast<int32_t>(offsetof(AppleTimerManager_t5F3E881150B6E4DBEF97AA10F8E170086ED03D2E, ___scoreText)),static_cast<int32_t>(offsetof(AppleTimerManager_t5F3E881150B6E4DBEF97AA10F8E170086ED03D2E, ___time)),static_cast<int32_t>(offsetof(AppleTimerManager_t5F3E881150B6E4DBEF97AA10F8E170086ED03D2E, ___minute)),static_cast<int32_t>(offsetof(AppleTimerManager_t5F3E881150B6E4DBEF97AA10F8E170086ED03D2E, ___second)),};

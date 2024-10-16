@@ -22,11 +22,21 @@
             android:gravity="center">
 
             <ImageView
-                android:id="@+id/spiroMeterIcon"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:src="@drawable/supairo" /> <!-- contentDescriptionを追加 -->
 
+            <Button
+                android:id="@+id/spirometer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="せつめいを見る"/>
+
+            <Button
+                android:id="@+id/spirometerselection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ゲームをえらぶ"/>
         </LinearLayout>
 
         <LinearLayout
@@ -37,19 +47,22 @@
             android:gravity="center">
 
             <ImageView
-                android:id="@+id/piropiroIcon"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:src="@drawable/piro" /> <!-- contentDescriptionを追加 -->
 
+            <Button
+                android:id="@+id/piropiro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="せつめいを見る"/>
+
+            <Button
+                android:id="@+id/piropiroselection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ゲームをえらぶ"/>
+
         </LinearLayout>
-
     </LinearLayout>
-
-    <Button
-        android:id="@+id/nextButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="すすむ"
-        android:layout_marginTop="32dp"/>
 </LinearLayout>

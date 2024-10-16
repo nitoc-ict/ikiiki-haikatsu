@@ -16,11 +16,7 @@ import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import android.view.WindowManager.LayoutParams.SCREEN_ORIENTATION_CHANGED
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.ActivityResultRegistry
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.myapplicationui1.ui.theme.ActivityEnd
@@ -45,7 +41,7 @@ class GamePlay21Activity: UnityPlayerActivity() {
     private val TAG5 = "CloseConnection"
 
     // About device information
-    private val DEVICE_NAME = "ESP32_11"
+    private val DEVICE_NAME = "ESP32_21"
     private val SPP_UUID: UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB")
 
     // BluetoothSettingsValue
@@ -62,13 +58,6 @@ class GamePlay21Activity: UnityPlayerActivity() {
 
     // readDataを管理する変数
     private var isConnected: Boolean = false
-
-    // contrllerが接続されているかを管理する変数
-    private var isController: Boolean = false
-
-    private lateinit var textView: TextView
-
-    private lateinit var activityResultLauncher: ActivityResultLauncher<Intent>
 
     private var stateSendValue: String = "0"
 
@@ -296,26 +285,6 @@ class GamePlay21Activity: UnityPlayerActivity() {
         } catch (e: Exception) {
             Log.e(TAG5, "Error string connection: ${e.message}")
         }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        Log.e(TAG1, "select onStart")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Log.e(TAG1, "select onResume")
-    }
-
-    override fun onPause() {
-        super.onPause()
-        Log.e(TAG1, "select onPause")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Log.e(TAG1, "select onStop")
     }
 
     override fun onDestroy() {

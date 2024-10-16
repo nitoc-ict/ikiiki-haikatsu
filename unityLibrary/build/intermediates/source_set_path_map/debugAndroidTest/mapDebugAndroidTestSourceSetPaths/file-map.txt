@@ -1,5 +1,0 @@
-com.unity3d.player.test.unityLibrary-androidTest-0 D:\Documents\AndroidApp\MyApplicationUI1\unityLibrary\build\generated\res\resValues\androidTest\debug
-com.unity3d.player.test.unityLibrary-mergeDebugAndroidTestResources-1 D:\Documents\AndroidApp\MyApplicationUI1\unityLibrary\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\merged.dir
-com.unity3d.player.test.unityLibrary-mergeDebugAndroidTestResources-2 D:\Documents\AndroidApp\MyApplicationUI1\unityLibrary\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\stripped.dir
-com.unity3d.player.test.unityLibrary-debugAndroidTest-3 D:\Documents\AndroidApp\MyApplicationUI1\unityLibrary\build\intermediates\merged_res\debugAndroidTest\mergeDebugAndroidTestResources
-com.unity3d.player.test.unityLibrary-debug-4 D:\Documents\AndroidApp\MyApplicationUI1\unityLibrary\build\intermediates\packaged_res\debug\packageDebugResources

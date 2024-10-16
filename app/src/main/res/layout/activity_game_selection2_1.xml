@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@drawable/game2_1" /> <!-- 背景に適切な画像を設定 -->
+        android:src="@drawable/game2_1" />
 
     <!-- タイトル -->
     <TextView
@@ -20,8 +20,7 @@
         android:layout_centerInParent="true"
         android:text="一気にすすれ！わんこそば"
         android:textSize="24sp"
-        android:textColor="@android:color/black" />
-
+        android:textColor="@android:color/black"/>
     <!-- 選択説明テキスト -->
     <TextView
         android:id="@+id/selectionText"
@@ -31,26 +30,7 @@
         android:layout_centerHorizontal="true"
         android:text="ひとりプレイ"
         android:textSize="18sp"
-        android:textColor="@android:color/black" />
-
-    <!-- 左のボタン -->
-    <ImageButton
-        android:id="@+id/leftButton"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_alignParentStart="true"
-        android:layout_centerVertical="true"
-        android:src="@drawable/hidari" />
-
-    <!-- 右のボタン -->
-    <ImageButton
-        android:id="@+id/rightButton"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true"
-        android:src="@drawable/migi"  />
-
+        android:textColor="@android:color/black"/>
     <!-- あそぶボタン -->
     <Button
         android:id="@+id/playButton"
@@ -60,25 +40,16 @@
         android:layout_alignParentBottom="true"
         android:text="あそぶ"
         android:layout_marginBottom="32dp"/>
-
     <!-- 前の画面に戻るボタン-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
         android:gravity="start">
-        <ImageView
+        <Button
             android:id="@+id/backButton"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/backbutton"/>
-
-        <TextView
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="8dp"
-            android:gravity="center_vertical"
-            android:text="もどる"
-            android:textSize="16sp" />
+            android:layout_height="wrap_content"
+            android:text="もどる"/>
     </LinearLayout>
 </RelativeLayout>

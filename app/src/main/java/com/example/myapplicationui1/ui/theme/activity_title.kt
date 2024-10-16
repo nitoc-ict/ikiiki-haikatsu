@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         val startButton = findViewById<Button>(R.id.start_button)
         startButton.setOnClickListener {
             // ボタンが押されたとき、activity_explanationへ遷移
-            val intent = Intent(this, ExplanationActivity::class.java)
+            val intent = Intent(this, ControllerExplanationSelectionActivity::class.java)
             startActivity(intent)
         }
     }
