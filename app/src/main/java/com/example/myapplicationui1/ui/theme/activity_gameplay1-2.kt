@@ -149,6 +149,9 @@ class GamePlay12Activity: UnityPlayerActivity() {
 
         Log.d("GamePlay22Activity", "とめたわよ～")
         val intent = Intent(this, ActivityEnd::class.java)
+        // Endに送信する値を設定
+        val passValue = "12"
+        intent.putExtra("PASS_KEY", passValue)
         startActivity(intent)
     }
 
@@ -283,12 +286,9 @@ class GamePlay12Activity: UnityPlayerActivity() {
     }
 
     private fun sendData(deviceName: String, data: String) {
-        if(deviceName == DEVICE_NAME11) {
-            UnityPlayer.UnitySendMessage("Rightracket", "ReceiveMessage", "$data")
-            Log.d(TAG1, "SendMessage for Rightlacket is: $data")
-        } else if(deviceName == DEVICE_NAME12) {
-            UnityPlayer.UnitySendMessage("Leftracket", "ReceiveMessage", "$data")
-            Log.d(TAG1, "SendMessage for Leftlacket is: $data")
+        val sendData = data + "," +  deviceName.last()
+        if(sendData != null) {
+            UnityPlayer.UnitySendMessage("PinponSystemManager", "ReceiveMessage", "${sendData}")
         }
     }
 
@@ -303,7 +303,7 @@ class GamePlay12Activity: UnityPlayerActivity() {
                     }
                     BluetoothDevice.ACTION_ACL_DISCONNECTED -> {
                         Log.d(TAG1, "Bluetoothが切断されました")
-                        UnityPlayer.UnitySendMessage("WankosobaSystemManager", "PauseGame", "")
+                        UnityPlayer.UnitySendMessage("PinponSystemManager", "PauseGame", "")
                         reconnectToDevice()
                     }
                 }

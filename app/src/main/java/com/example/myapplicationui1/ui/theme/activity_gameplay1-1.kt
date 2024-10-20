@@ -151,6 +151,8 @@ class GamePlay11Activity: UnityPlayerActivity() {
 
         Log.d("GamePlay11Activity", "とめたわよ～")
         val intent = Intent(this, ActivityEnd::class.java)
+        val passValue = "11"
+        intent.putExtra("PASS_KEY", passValue)
         startActivity(intent)
     }
 

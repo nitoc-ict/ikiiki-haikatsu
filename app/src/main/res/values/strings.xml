@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My ApplicationUI1</string>
+    <string name="app_name">IkiikiHaikatsu</string>
     <string name="back">戻る</string>
     <string name="game_view_content_description">Game view</string>
 </resources>
