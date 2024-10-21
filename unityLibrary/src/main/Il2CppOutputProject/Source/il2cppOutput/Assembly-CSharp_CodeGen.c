@@ -191,15 +191,20 @@ extern void LeftPaddle_AddForceByPaddle_mCB1F55C73649DB07E3EDE09C171CF68130EB568
 extern void LeftPaddle_Start_m9DED0927237692C1588A67F1D3FEBE8D4914F7E9 (void);
 extern void LeftPaddle_Update_m0834C91772AB7BE833E2E8AFD0FD25D008E54FCA (void);
 extern void LeftPaddle__ctor_m7399F0FF2E985E996D67F4B5A5C731D1E17473AF (void);
-extern void PaddlePlayer_Start_m24D5B3029836B59285606A34DA261CFAFDAD26A2 (void);
+extern void PaddlePlayer_IsInputKey_mA8C92C82128609B652CD050BED36AAFC602D2882 (void);
+extern void PaddlePlayer_AddForceByPaddle_mEC401C25DFCB79B1882A5B230F179B902F5D6E60 (void);
+extern void PaddlePlayer_Awake_m16C3145EA0CD8D4E0E09C3111618216D3EECE8A6 (void);
 extern void PaddlePlayer_Update_m9B0836DC84700856492389216298BADF0D4B01CD (void);
 extern void PaddlePlayer__ctor_m0E02F2BE37AB6EF13090BB8ED8C04AD79A370493 (void);
 extern void PiropiroResult_Update_mC1F9CAFC1E6964D2EF1FA7D822580619753F7989 (void);
 extern void PiropiroResult_Start_m4B9822A5C0D129843D64D5BBE4574C4BC3A56D7A (void);
 extern void PiropiroResult__ctor_mC2C2D2EDA9BC83FCC1B5E6BC935175E0CD0B4881 (void);
 extern void PiroPiroSystemManager_ReceiveMessage_mE76C578F3988369A85F805B198D8F483FA1C1972 (void);
+extern void PiroPiroSystemManager_SettingPaddersId_m98210874C83A12935731365E21C12C74E6466BB4 (void);
+extern void PiroPiroSystemManager_SettingsPlayers_mEEAFBA9BB6FF8F633296D5FD243D779651730146 (void);
 extern void PiroPiroSystemManager_PauseGame_m3FF53F68CE29FBA55B415B93EB9B26ED336AAF9A (void);
 extern void PiroPiroSystemManager_ResumeGame_m92D5A1B3FF710FBD2251455365AA9BC598A05F5A (void);
+extern void PiroPiroSystemManager_Awake_mD0214543BD8698896B94153A7420582E7B46F88D (void);
 extern void PiroPiroSystemManager__ctor_m560B03E14F3A68951F643C348F5B85320A9CD495 (void);
 extern void PiropiroTimerManager_get_Instance_m1F20EE0BC41841ECC918561B21BA2631CF5C1ECD (void);
 extern void PiropiroTimerManager_set_Instance_mC1078EBE022A911BA40093B683BD0592D8A406A1 (void);
@@ -313,7 +318,7 @@ extern void WankosobaTimerManager_UpdateTime_m5A89E6F254D1F5392359048AC6AC1C98BD
 extern void WankosobaTimerManager__ctor_m8201C59219BF967AA131F404DEB0A154E6387841 (void);
 extern void UnitySourceGeneratedAssemblyMonoScriptTypes_v1_Get_mBEB95BEB954BB63E9710BBC7AD5E78C4CB0A0033 (void);
 extern void UnitySourceGeneratedAssemblyMonoScriptTypes_v1__ctor_mE70FB23ACC1EA12ABC948AA22C2E78B2D0AA39B1 (void);
-static Il2CppMethodPointer s_methodPointers[301] = 
+static Il2CppMethodPointer s_methodPointers[306] = 
 {
 	Apple__ctor_m470B2E2F0F8BE1503711117A920744A0B5F4DA87,
 	AppleBlocker_OnTriggerStay_mADF42789079BE13B47AB52BF968A75E097677250,
@@ -494,15 +499,20 @@ static Il2CppMethodPointer s_methodPointers[301] =
 	LeftPaddle_Start_m9DED0927237692C1588A67F1D3FEBE8D4914F7E9,
 	LeftPaddle_Update_m0834C91772AB7BE833E2E8AFD0FD25D008E54FCA,
 	LeftPaddle__ctor_m7399F0FF2E985E996D67F4B5A5C731D1E17473AF,
-	PaddlePlayer_Start_m24D5B3029836B59285606A34DA261CFAFDAD26A2,
+	PaddlePlayer_IsInputKey_mA8C92C82128609B652CD050BED36AAFC602D2882,
+	PaddlePlayer_AddForceByPaddle_mEC401C25DFCB79B1882A5B230F179B902F5D6E60,
+	PaddlePlayer_Awake_m16C3145EA0CD8D4E0E09C3111618216D3EECE8A6,
 	PaddlePlayer_Update_m9B0836DC84700856492389216298BADF0D4B01CD,
 	PaddlePlayer__ctor_m0E02F2BE37AB6EF13090BB8ED8C04AD79A370493,
 	PiropiroResult_Update_mC1F9CAFC1E6964D2EF1FA7D822580619753F7989,
 	PiropiroResult_Start_m4B9822A5C0D129843D64D5BBE4574C4BC3A56D7A,
 	PiropiroResult__ctor_mC2C2D2EDA9BC83FCC1B5E6BC935175E0CD0B4881,
 	PiroPiroSystemManager_ReceiveMessage_mE76C578F3988369A85F805B198D8F483FA1C1972,
+	PiroPiroSystemManager_SettingPaddersId_m98210874C83A12935731365E21C12C74E6466BB4,
+	PiroPiroSystemManager_SettingsPlayers_mEEAFBA9BB6FF8F633296D5FD243D779651730146,
 	PiroPiroSystemManager_PauseGame_m3FF53F68CE29FBA55B415B93EB9B26ED336AAF9A,
 	PiroPiroSystemManager_ResumeGame_m92D5A1B3FF710FBD2251455365AA9BC598A05F5A,
+	PiroPiroSystemManager_Awake_mD0214543BD8698896B94153A7420582E7B46F88D,
 	PiroPiroSystemManager__ctor_m560B03E14F3A68951F643C348F5B85320A9CD495,
 	PiropiroTimerManager_get_Instance_m1F20EE0BC41841ECC918561B21BA2631CF5C1ECD,
 	PiropiroTimerManager_set_Instance_mC1078EBE022A911BA40093B683BD0592D8A406A1,
@@ -617,7 +627,7 @@ static Il2CppMethodPointer s_methodPointers[301] =
 	UnitySourceGeneratedAssemblyMonoScriptTypes_v1_Get_mBEB95BEB954BB63E9710BBC7AD5E78C4CB0A0033,
 	UnitySourceGeneratedAssemblyMonoScriptTypes_v1__ctor_mE70FB23ACC1EA12ABC948AA22C2E78B2D0AA39B1,
 };
-static const int32_t s_InvokerIndices[301] = 
+static const int32_t s_InvokerIndices[306] = 
 {
 	5341,
 	4213,
@@ -799,12 +809,17 @@ static const int32_t s_InvokerIndices[301] =
 	5341,
 	5341,
 	5341,
+	4185,
+	5341,
 	5341,
 	5341,
 	5341,
 	5341,
 	5341,
 	4213,
+	5341,
+	4213,
+	5341,
 	5341,
 	5341,
 	5341,
@@ -925,7 +940,7 @@ IL2CPP_EXTERN_C const Il2CppCodeGenModule g_AssemblyU2DCSharp_CodeGenModule;
 const Il2CppCodeGenModule g_AssemblyU2DCSharp_CodeGenModule = 
 {
 	"Assembly-CSharp.dll",
-	301,
+	306,
 	s_methodPointers,
 	0,
 	NULL,

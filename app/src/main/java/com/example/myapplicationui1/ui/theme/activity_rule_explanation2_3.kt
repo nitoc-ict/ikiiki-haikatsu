@@ -21,7 +21,9 @@ class RuleExplanation23Activity : AppCompatActivity() {
         // いいえボタンの処理（ゲームプレイ2-3へ遷移）
         val noButton: Button = findViewById(R.id.noButton)
         noButton.setOnClickListener {
-            val intent = Intent(this, GamePlay23Activity::class.java)
+            val intent = Intent(this, HowManyControllerSelection::class.java)
+            val passValue = "23"
+            intent.putExtra("GAMENUMBER", passValue)
             startActivity(intent)
         }
     }

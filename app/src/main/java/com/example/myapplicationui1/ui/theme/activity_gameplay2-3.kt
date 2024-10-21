@@ -15,6 +15,7 @@ import android.util.Log
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import android.view.WindowManager.LayoutParams.SCREEN_ORIENTATION_CHANGED
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.appcompat.app.AppCompatActivity
@@ -44,6 +45,8 @@ class GamePlay23Activity: UnityPlayerActivity() {
     private val DEVICE_NAME23 = "ESP32_23"
     private val DEVICE_NAME24 = "ESP32_24"
 
+    private val DEVICES = arrayOf(DEVICE_NAME21, DEVICE_NAME22, DEVICE_NAME23, DEVICE_NAME24)
+
     private var devices = mutableListOf<BluetoothDevice>()
     private val SPP_UUID: UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB")
 
@@ -66,6 +69,9 @@ class GamePlay23Activity: UnityPlayerActivity() {
     // CountDownLatch for synchronization
     private val latch = CountDownLatch(1)
 
+    // Playerの数をintentから受け取る変数
+    private var playerNum: Int = 3
+
     companion object {
         private const val REQUEST_CODE_BLUETOOTH_CONNECT = 1
     }
@@ -77,7 +83,7 @@ class GamePlay23Activity: UnityPlayerActivity() {
     ) {
         if(requestCode == REQUEST_CODE_BLUETOOTH_CONNECT) {
             if(grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                connectToDevice()
+                reconnectToDevice()
             } else {
                 Log.e(TAG1, "Required permission not granted")
                 finish()
@@ -87,6 +93,14 @@ class GamePlay23Activity: UnityPlayerActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        val text = intent.getStringExtra("PLAYERNUM")
+        if(text != null) {
+            playerNum = text.toInt()
+        } else {
+            playerNum = 3
+            Log.e("NullError", "PlayerNum is null")
+        }
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_gameplay21)
         try {
@@ -120,9 +134,8 @@ class GamePlay23Activity: UnityPlayerActivity() {
             try {
                 withContext(Dispatchers.IO) {
                     UnityPlayer.UnitySendMessage("SceneSelect", "ReceiveMessage", "Suisui")
-                    UnityPlayer.UnitySendMessage("SuisuiSystemManager", "SettingsPlayers", "4") // 送信データは後でコントローラの接続個数を検知して、個数を変数に代入したものにする
+                    UnityPlayer.UnitySendMessage("SuisuiSystemManager", "SettingsPlayers", "$playerNum")
                     latch.await()
-                    UnityPlayer.UnitySendMessage("SuisuiSystemManager", "ResumeGame", "")
                 }
                 Log.e(TAG1, "Finish async SceneSelect")
                 // bluetoothにマイコンが接続されていないとき、ゲームを停止して接続処理をする
@@ -160,7 +173,7 @@ class GamePlay23Activity: UnityPlayerActivity() {
         startActivity(intent)
     }
 
-    private fun CheckPermissionBluetoothAdapter() {
+    private suspend fun CheckPermissionBluetoothAdapter() {
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
         Log.d(TAG1, "bluetoothAdapter is ${bluetoothAdapter}")
 
@@ -181,64 +194,63 @@ class GamePlay23Activity: UnityPlayerActivity() {
             CheckPermissionBluetoothAdapter()
         } else {
             Log.d(TAG1, "Permission Available 03")
-            connectToDevice()
+            checkAndConnectDevices()
         }
     }
 
-    private fun connectToDevice() {
+    private suspend fun checkAndConnectDevices() {
+        CoroutineScope(Dispatchers.Main).launch {
+            try {
+                withContext(Dispatchers.IO) {
+                    val pairedDevices: Set<BluetoothDevice>? = bluetoothAdapter?.bondedDevices
+                    if(pairedDevices == null || pairedDevices.size < playerNum) {
+                        withContext(Dispatchers.Main) {
+                            Toast.makeText(this@GamePlay23Activity, "接続されるデバイスが不足しています", Toast.LENGTH_LONG).show()
+                            UnityPlayer.UnitySendMessage("SuisuiSystemManager", "PauseGame", "")
+                        }
+                        return@withContext
+                    } else {
+                        pairedDevices.take(playerNum).forEach { device ->
+                            DEVICES.forEach { name ->
+                                if(name == device.name) {
+                                    devices.add(device)
+                                }
+                            }
+                            connectToDevice(device)
+                        }
+                    }
+                }
+            } catch (e: Exception) {
+                Log.d("WARNING", "Error is: ${e.message}")
+                reconnectToDevice()
+            }
+        }.join()
+
+        if(sockets != null) {
+            UnityPlayer.UnitySendMessage("SuisuiSystemManager", "ResumeGame", "")
+            isConnected = true
+            readData()
+        } else {
+            reconnectToDevice()
+        }
+    }
+
+    // Socketに接続する関数
+    private fun connectToDevice(bluetoothDevice: BluetoothDevice) {
         if (ContextCompat.checkSelfPermission(
                 this, Manifest.permission.BLUETOOTH_CONNECT
             ) == PackageManager.PERMISSION_GRANTED) {
-            try {
-                Log.d(TAG1, "Permission Available 04")
-                val pairedDevices: Set<BluetoothDevice>? = bluetoothAdapter?.bondedDevices
-                Log.d(TAG1, "Enable To Use devices: ${bluetoothAdapter?.bondedDevices}")
-                // 取得したデバイスをListに格納
-                pairedDevices?.forEach { device ->
-                    when(device.name) {
-                        DEVICE_NAME21 -> {
-                            Log.d(TAG1, "01Device is ${device}")
-                            devices.add(device)
-                        }
-                        DEVICE_NAME22 -> {
-                            Log.d(TAG1, "02Device is ${device}")
-                            devices.add(device)
-                        }
-                        DEVICE_NAME23 -> {
-                            Log.d(TAG1, "03Device is ${device}")
-                            devices.add(device)
-                        }
-                        DEVICE_NAME24 -> {
-                            Log.d(TAG1, "03Device is ${device}")
-                            devices.add(device)
-                        }
+            CoroutineScope(Dispatchers.IO).launch {
+                try {
+                    val socket = bluetoothDevice.createInsecureRfcommSocketToServiceRecord(SPP_UUID)
+                    socket.connect()
+                    sockets.add(socket)
+                } catch (e: Exception) {
+                    Log.e("WARNING", "Error is:${e.message}")
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(this@GamePlay23Activity, "Socketの接続に失敗しました: ${e.message}", Toast.LENGTH_LONG).show()
                     }
                 }
-
-                // 取得したDeviceすべてをsocketに接続
-                devices.forEach { device ->
-                    try {
-                        Log.d(TAG1, "DeviceName is: $device")
-                        if(device != null) {
-                            Log.d(TAG1, "connect socket of device")
-                            val socket = device.createRfcommSocketToServiceRecord(SPP_UUID)
-                            socket.connect()
-                            sockets.add(socket)
-                            Log.d(TAG1, "01connected socket of device")
-                        }
-                    } catch (e: Exception) {
-                        Log.e(TAG1, "miss GetSocket: ${e.message}")
-                    }
-                }
-                UnityPlayer.UnitySendMessage("SuisuiSystemManager", "ResumeGame", "")
-                Log.d(TAG1, "Resume Game")
-
-                isConnected = true
-                readData()
-            } catch (e: Exception) {
-                Log.e(TAG1, "connected out: ${e.message}")
-                isConnected = false
-                closeConnection()
             }
         }
     }

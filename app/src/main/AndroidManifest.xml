@@ -33,7 +33,7 @@
         </activity>
             <activity android:name="SpirometerActivity"
                       android:screenOrientation="userLandscape"/>
-            <activity android:name=".ui.theme.TestBluetoothActivity"
+            <activity android:name=".HowManyControllerSelection"
                       android:screenOrientation="userLandscape"/>
             <activity android:name=".ControllerExplanationSelectionActivity"
                       android:screenOrientation="userLandscape"/>
