@@ -86,7 +86,7 @@ class GamePlay12Activity: UnityPlayerActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_gameplay21)
+        setContentView(R.layout.activity_gameplay12)
         try {
             mUnityPlayer = UnityPlayer(this as Activity)
             findViewById<ConstraintLayout>(R.id.unity)?.addView(
@@ -123,7 +123,7 @@ class GamePlay12Activity: UnityPlayerActivity() {
                 // bluetoothにマイコンが接続されていないとき、ゲームを停止して接続処理をする
                 if(bluetoothAdapter == null) {
                     Log.e(TAG1, "Micon is not connecting")
-                    UnityPlayer.UnitySendMessage("PinponSystemManager", "PauseGame", "")
+                    UnityPlayer.UnitySendMessage("PinponGameStateManager", "PauseGame", "")
                     reconnectToDevice()
                 } else {
                     Log.d(TAG1, "Connected micon")
@@ -217,7 +217,7 @@ class GamePlay12Activity: UnityPlayerActivity() {
                         Log.e(TAG1, "miss GetSocket: ${e.message}")
                     }
                 }
-                UnityPlayer.UnitySendMessage("PinponSystemManager", "ResumeGame", "")
+                UnityPlayer.UnitySendMessage("PinponGameStateManager", "ResumeGame", "")
                 Log.d(TAG1, "Resume Game")
 
                 isConnected = true
@@ -264,7 +264,7 @@ class GamePlay12Activity: UnityPlayerActivity() {
                         isConnected = false
 
                         // PauseのメッセージをUnityに送信
-                        UnityPlayer.UnitySendMessage("PinponSystemManager", "PauseGame", "")
+                        UnityPlayer.UnitySendMessage("PinponGameStateManager", "PauseGame", "")
                         reconnectToDevice()
                     }
                 }
@@ -286,7 +286,7 @@ class GamePlay12Activity: UnityPlayerActivity() {
     }
 
     private fun sendData(deviceName: String, data: String) {
-        val sendData = data + "," +  deviceName.last()
+        val sendData = data + "," +  deviceName.last() // コントローラ名の末尾でユーザIndexを認識
         if(sendData != null) {
             UnityPlayer.UnitySendMessage("PinponSystemManager", "ReceiveMessage", "${sendData}")
         }
@@ -303,7 +303,7 @@ class GamePlay12Activity: UnityPlayerActivity() {
                     }
                     BluetoothDevice.ACTION_ACL_DISCONNECTED -> {
                         Log.d(TAG1, "Bluetoothが切断されました")
-                        UnityPlayer.UnitySendMessage("PinponSystemManager", "PauseGame", "")
+                        UnityPlayer.UnitySendMessage("PinponGameStateManager", "PauseGame", "")
                         reconnectToDevice()
                     }
                 }

@@ -102,7 +102,7 @@ class GamePlay23Activity: UnityPlayerActivity() {
         }
 
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_gameplay21)
+        setContentView(R.layout.activity_gameplay23)
         try {
             mUnityPlayer = UnityPlayer(this as Activity)
             findViewById<ConstraintLayout>(R.id.unity)?.addView(
@@ -121,7 +121,8 @@ class GamePlay23Activity: UnityPlayerActivity() {
 
             mUnityPlayer.requestFocus()
             window.clearFlags(SCREEN_ORIENTATION_CHANGED)
-            UnityPlayer.UnitySendMessage("SuisuiSystemManager", "PauseGame", "")
+            Log.d(TAG1, "01PauseGame")
+            UnityPlayer.UnitySendMessage("SuisuiGameStateManager", "PauseGame", "")
             setUpUnity()
 
         } catch (e: Exception) {
@@ -133,15 +134,15 @@ class GamePlay23Activity: UnityPlayerActivity() {
         CoroutineScope(Dispatchers.Main).launch {
             try {
                 withContext(Dispatchers.IO) {
-                    UnityPlayer.UnitySendMessage("SceneSelect", "ReceiveMessage", "Suisui")
+                    UnityPlayer.UnitySendMessage("SceneSelect", "ReceiveMessage", "SuisuiGyosen")
                     UnityPlayer.UnitySendMessage("SuisuiSystemManager", "SettingsPlayers", "$playerNum")
                     latch.await()
                 }
                 Log.e(TAG1, "Finish async SceneSelect")
                 // bluetoothにマイコンが接続されていないとき、ゲームを停止して接続処理をする
                 if(bluetoothAdapter == null) {
-                    Log.e(TAG1, "Micon is not connecting")
-                    UnityPlayer.UnitySendMessage("SuisuiSystemManager", "PauseGame", "")
+                    Log.d(TAG1, "02PauseGame")
+                    UnityPlayer.UnitySendMessage("SuisuiGameStateManager", "PauseGame", "")
                     reconnectToDevice()
                 } else {
                     Log.d(TAG1, "Connected micon")
@@ -206,7 +207,8 @@ class GamePlay23Activity: UnityPlayerActivity() {
                     if(pairedDevices == null || pairedDevices.size < playerNum) {
                         withContext(Dispatchers.Main) {
                             Toast.makeText(this@GamePlay23Activity, "接続されるデバイスが不足しています", Toast.LENGTH_LONG).show()
-                            UnityPlayer.UnitySendMessage("SuisuiSystemManager", "PauseGame", "")
+                            UnityPlayer.UnitySendMessage("SuisuiGameStateManager", "PauseGame", "")
+                            Log.d(TAG1, "03PauseGame")
                         }
                         return@withContext
                     } else {
@@ -218,6 +220,7 @@ class GamePlay23Activity: UnityPlayerActivity() {
                             }
                             connectToDevice(device)
                         }
+                        isConnected = true
                     }
                 }
             } catch (e: Exception) {
@@ -226,9 +229,8 @@ class GamePlay23Activity: UnityPlayerActivity() {
             }
         }.join()
 
-        if(sockets != null) {
+        if(isConnected == true) {
             UnityPlayer.UnitySendMessage("SuisuiSystemManager", "ResumeGame", "")
-            isConnected = true
             readData()
         } else {
             reconnectToDevice()
@@ -245,6 +247,9 @@ class GamePlay23Activity: UnityPlayerActivity() {
                     val socket = bluetoothDevice.createInsecureRfcommSocketToServiceRecord(SPP_UUID)
                     socket.connect()
                     sockets.add(socket)
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(this@GamePlay23Activity, "Bluetoothの接続に成功しました", Toast.LENGTH_LONG).show()
+                    }
                 } catch (e: Exception) {
                     Log.e("WARNING", "Error is:${e.message}")
                     withContext(Dispatchers.Main) {
@@ -289,7 +294,9 @@ class GamePlay23Activity: UnityPlayerActivity() {
                         isConnected = false
 
                         // PauseのメッセージをUnityに送信
-                        UnityPlayer.UnitySendMessage("SuisuiSystemManager", "PauseGame", "")
+                        Log.d(TAG1, "04PauseGame")
+                        UnityPlayer.UnitySendMessage("SuisuiGameStateManager", "PauseGame", "")
+                        Log.d(TAG1, "05PauseGame")
                         reconnectToDevice()
                     }
                 }
@@ -311,7 +318,7 @@ class GamePlay23Activity: UnityPlayerActivity() {
     }
 
     private fun sendData(deviceName: String, data: String) {
-        val sendData = data + "," +  deviceName.last()
+        val sendData = data + "," +  deviceName.last() // コントローラ名の末尾でユーザIndexを認識
         if(sendData != null) {
             UnityPlayer.UnitySendMessage("SuisuiSystemManager", "ReceiveMessage", "${sendData}")
         }
@@ -328,7 +335,8 @@ class GamePlay23Activity: UnityPlayerActivity() {
                     }
                     BluetoothDevice.ACTION_ACL_DISCONNECTED -> {
                         Log.d(TAG1, "Bluetoothが切断されました")
-                        UnityPlayer.UnitySendMessage("SuisuiSystemManager", "PauseGame", "")
+                        UnityPlayer.UnitySendMessage("SuisuiGameStateManager", "PauseGame", "")
+                        Log.d(TAG1, "10PauseGame")
                         reconnectToDevice()
                     }
                 }
@@ -342,7 +350,7 @@ class GamePlay23Activity: UnityPlayerActivity() {
                 Log.d(TAG1, "Now Connecting...")
                 closeConnection()
                 devices.clear()
-                delay(400)
+                delay(5000)
                 CheckPermissionBluetoothAdapter()
             }
         }

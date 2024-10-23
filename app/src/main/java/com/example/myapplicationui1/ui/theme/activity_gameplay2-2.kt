@@ -86,7 +86,7 @@ class GamePlay22Activity: UnityPlayerActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_gameplay21)
+        setContentView(R.layout.activity_gameplay22)
         try {
             mUnityPlayer = UnityPlayer(this as Activity)
             findViewById<ConstraintLayout>(R.id.unity)?.addView(
@@ -123,7 +123,7 @@ class GamePlay22Activity: UnityPlayerActivity() {
                 // bluetoothにマイコンが接続されていないとき、ゲームを停止して接続処理をする
                 if(bluetoothAdapter == null) {
                     Log.e(TAG1, "Micon is not connecting")
-                    UnityPlayer.UnitySendMessage("KinkoSystemManager", "PauseGame", "")
+                    UnityPlayer.UnitySendMessage("KinkoGameStateManager", "PauseGame", "")
                     reconnectToDevice()
                 } else {
                     Log.d(TAG1, "Connected micon")
@@ -217,7 +217,7 @@ class GamePlay22Activity: UnityPlayerActivity() {
                         Log.e(TAG1, "miss GetSocket: ${e.message}")
                     }
                 }
-                UnityPlayer.UnitySendMessage("KinkoSystemManager", "ResumeGame", "")
+                UnityPlayer.UnitySendMessage("KinkoGameStateManager", "ResumeGame", "")
                 Log.d(TAG1, "Resume Game")
 
                 isConnected = true
@@ -264,7 +264,7 @@ class GamePlay22Activity: UnityPlayerActivity() {
                         isConnected = false
 
                         // PauseのメッセージをUnityに送信
-                        UnityPlayer.UnitySendMessage("KinkoSystemManager", "PauseGame", "")
+                        UnityPlayer.UnitySendMessage("KinkoGameStateManager", "PauseGame", "")
                         reconnectToDevice()
                     }
                 }
@@ -286,12 +286,9 @@ class GamePlay22Activity: UnityPlayerActivity() {
     }
 
     private fun sendData(deviceName: String, data: String) {
-        if(deviceName == DEVICE_NAME21) {
-            UnityPlayer.UnitySendMessage("KinkosystemManager", "Player1", "$data")
-            Log.d(TAG1, "SendMessage for RightPlayer is: $data")
-        } else if(deviceName == DEVICE_NAME22) {
-            UnityPlayer.UnitySendMessage("KinkosystemManager", "Player2", "$data")
-            Log.d(TAG1, "SendMessage for LeftPlayer is: $data")
+        val sendData = data + "," +  deviceName.last() // コントローラ名の末尾でユーザIndexを認識
+        if(sendData != null) {
+            UnityPlayer.UnitySendMessage("PinponSystemManager", "ReceiveMessage", "${sendData}")
         }
     }
 

@@ -87,7 +87,7 @@ class GamePlay11Activity: UnityPlayerActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_gameplay21)
+        setContentView(R.layout.activity_gameplay11)
         try {
             mUnityPlayer = UnityPlayer(this as Activity)
             findViewById<ConstraintLayout>(R.id.unity)?.addView(
@@ -124,7 +124,7 @@ class GamePlay11Activity: UnityPlayerActivity() {
                 // bluetoothにマイコンが接続されていないとき、ゲームを停止して接続処理をする
                 if(bluetoothAdapter == null) {
                     Log.e(TAG1, "Micon is not connecting")
-                    UnityPlayer.UnitySendMessage("AppleBlocker", "PauseGame", "")
+                    UnityPlayer.UnitySendMessage("AppleGameStateManager", "PauseGame", "")
                     reconnectToDevice()
                 } else {
                     Log.d(TAG1, "Connected micon")
@@ -205,7 +205,7 @@ class GamePlay11Activity: UnityPlayerActivity() {
                             outputStream = bluetoothSocket?.outputStream
                             Log.d(TAG1, "Permission Available 09")
                             Log.d(TAG2, "Connected to $DEVICE_NAME")
-                            UnityPlayer.UnitySendMessage("AppleBlocker", "ResumeGame", "")
+                            UnityPlayer.UnitySendMessage("AppleGameStateManager", "ResumeGame", "")
                             // readDataを許可
                             isConnected = true
                             readData()
