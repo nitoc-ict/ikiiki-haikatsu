@@ -81,15 +81,33 @@ class GamePlay23Activity: UnityPlayerActivity() {
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
-        if(requestCode == REQUEST_CODE_BLUETOOTH_CONNECT) {
-            if(grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                reconnectToDevice()
-            } else {
-                Log.e(TAG1, "Required permission not granted")
-                finish()
+        when(requestCode) {
+            PERMISSION_BLUETOOTH_CONNECT_CODE -> {
+                if((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                    reconnectToDevice()
+                } else {
+                    Toast.makeText(this, "Bluetooth機能が使用する権限がありません", Toast.LENGTH_LONG).show()
+                }
+                return
             }
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when(requestCode) {
+            BT_ONOFF_CONF -> {
+                when(resultCode) {
+                    Activity.RESULT_OK -> {
+                        Toast.makeText(this@GamePlay23Activity, "Bluetooth権限を許可しました", Toast.LENGTH_LONG).show()
+                    }
+                    Activity.RESULT_CANCELED -> {
+                        Toast.makeText(this@GamePlay23Activity, "Bluetooth権限を許可してください...", Toast.LENGTH_LONG).show()
+                    }
+                }
+            }
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -134,7 +152,7 @@ class GamePlay23Activity: UnityPlayerActivity() {
         CoroutineScope(Dispatchers.Main).launch {
             try {
                 withContext(Dispatchers.IO) {
-                    UnityPlayer.UnitySendMessage("SceneSelect", "ReceiveMessage", "SuisuiGyosen")
+                    UnityPlayer.UnitySendMessage("SceneSelect", "ReceiveMessage", "Suisui")
                     UnityPlayer.UnitySendMessage("SuisuiSystemManager", "SettingsPlayers", "$playerNum")
                     latch.await()
                 }
@@ -203,6 +221,19 @@ class GamePlay23Activity: UnityPlayerActivity() {
         CoroutineScope(Dispatchers.Main).launch {
             try {
                 withContext(Dispatchers.IO) {
+                    if(ActivityCompat.checkSelfPermission(
+                        this@GamePlay23Activity,
+                        Manifest.permission.BLUETOOTH_CONNECT
+                    ) != PackageManager.PERMISSION_GRANTED)
+                    {
+                        withContext(Dispatchers.Main) {
+                            ActivityCompat.requestPermissions(
+                                this@GamePlay23Activity,
+                                arrayOf(Manifest.permission.BLUETOOTH_CONNECT),
+                                REQUEST_CODE_BLUETOOTH_CONNECT
+                            )
+                        }
+                    }
                     val pairedDevices: Set<BluetoothDevice>? = bluetoothAdapter?.bondedDevices
                     if(pairedDevices == null || pairedDevices.size < playerNum) {
                         withContext(Dispatchers.Main) {

@@ -190,6 +190,7 @@ class GamePlay22Activity: UnityPlayerActivity() {
                 Log.d(TAG1, "Enable To Use devices: ${bluetoothAdapter?.bondedDevices}")
                 // 取得したデバイスをListに格納
                 pairedDevices?.forEach { device ->
+                    Log.d(TAG1, "device name is: $device")
                     when(device.name) {
                         DEVICE_NAME21 -> {
                             Log.d(TAG1, "01Device is ${device}")

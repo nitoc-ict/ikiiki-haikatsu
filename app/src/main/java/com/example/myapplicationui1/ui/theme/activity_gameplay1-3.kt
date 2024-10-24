@@ -19,6 +19,7 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.appcompat.app.AppCompatActivity
+import com.example.myapplicationui1.GamePlay23Activity.Companion
 import com.example.myapplicationui1.ui.theme.ActivityEnd
 import com.unity3d.player.UnityPlayerActivity
 import com.unity3d.player.UnityPlayer
@@ -203,17 +204,32 @@ class GamePlay13Activity: UnityPlayerActivity() {
         CoroutineScope(Dispatchers.Main).launch {
             try {
                 withContext(Dispatchers.IO) {
+                    if(ActivityCompat.checkSelfPermission(
+                            this@GamePlay13Activity,
+                            Manifest.permission.BLUETOOTH_CONNECT
+                        ) != PackageManager.PERMISSION_GRANTED)
+                    {
+                        withContext(Dispatchers.Main) {
+                            ActivityCompat.requestPermissions(
+                                this@GamePlay13Activity,
+                                arrayOf(Manifest.permission.BLUETOOTH_CONNECT),
+                                GamePlay13Activity.REQUEST_CODE_BLUETOOTH_CONNECT
+                            )
+                        }
+                    }
                     val pairedDevices: Set<BluetoothDevice>? = bluetoothAdapter?.bondedDevices
                     if(pairedDevices == null || pairedDevices.size < playerNum) {
                         withContext(Dispatchers.Main) {
+                            Log.e(TAG1, "pairedDevices: ${pairedDevices}")
                             Toast.makeText(this@GamePlay13Activity, "接続されるデバイスが不足しています", Toast.LENGTH_LONG).show()
                             UnityPlayer.UnitySendMessage("PiropiroGameStateManager", "PauseGame", "")
-                            Log.d(TAG1, "03PauseGame")
+                            Log.e(TAG1, "03PauseGame")
                         }
                         return@withContext
                     } else {
                         pairedDevices.take(playerNum).forEach { device ->
                             DEVICES.forEach { name ->
+                                Log.d(TAG1, "pairedDevice is: $device")
                                 if(name == device.name) {
                                     devices.add(device)
                                 }
