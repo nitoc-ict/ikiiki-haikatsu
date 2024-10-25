@@ -182,21 +182,9 @@ extern void PinponResult_Update_m5FEB669961DF4DFAFBD3E4261FFD539FC82550D9 (void)
 extern void PinponResult_Start_m25D8FE191471219AA66B920A49A7290D34A4A301 (void);
 extern void PinponResult_SaveState_mDD634DB3D1597EB9273E089915C865882161A914 (void);
 extern void PinponResult__ctor_m537094D41FC0F8C722FF4DE69433EDC051F1EED6 (void);
-extern void PinponScoreManager_get_Instance_m89C2FB8AD71A5484E846D3D208C4383FB39B98FB (void);
-extern void PinponScoreManager_set_Instance_mED1C715CB5D515E6036D8FC7A4BAA06C89987C29 (void);
-extern void PinponScoreManager_Awake_m54D4891B5916D7C6DD422DF9110256FB70E547F3 (void);
-extern void PinponScoreManager_UpdateScore_mC54D72CDDDFA4E9F599616B527A94D559BF687AB (void);
-extern void PinponScoreManager__ctor_m99C1369B20EC3E25F079EB89C532FD832C896284 (void);
 extern void PinponSystemManager_ReceiveMessage_m7520808026FC2DE997627FB23C5E8B6102505B31 (void);
 extern void PinponSystemManager_Awake_mD76982918D3702241F794EE1D8A302394EB0E5F6 (void);
 extern void PinponSystemManager__ctor_m43BFB9B0325D532061C174AB1E2DCC0CBB707CB0 (void);
-extern void PinponTimerManager_get_Instance_m6E0EEBBEF7FEABEA8C4ED2794470FAD62DBF1C6F (void);
-extern void PinponTimerManager_set_Instance_m3F7C6F73B16456FE42AC07E47D133C751AA73DFF (void);
-extern void PinponTimerManager_GameSceneLoaded_mB2B4E6EEFC96E262E819423C7A155D311EB40D37 (void);
-extern void PinponTimerManager_Awake_mE5D6E6C7FFC105710FD0D63230E0EE03933CA751 (void);
-extern void PinponTimerManager_Update_m9937231201F80901657BE0AF0ECBFD8F6C30A6D7 (void);
-extern void PinponTimerManager_UpdateTime_mAB5A52D232DAE8036573A3F99A06CEE5EB2412A7 (void);
-extern void PinponTimerManager__ctor_m16EB1E3A23E5F609FE65D286F8C9EA688AEA9EDB (void);
 extern void RightRacket_MoveRacket_mB3D5B13A2E6A658795836051578C3D9BFF74CC3B (void);
 extern void RightRacket_WaitBuckPosition_m2C8662F6A598F53F09C7E93B213FBF03E91A2A1B (void);
 extern void RightRacket_onParticle_m05D2A412C049E97E999D6D6B40202AE8123138F6 (void);
@@ -417,7 +405,7 @@ extern void WankosobaSystemManager_Update_mB232E5B47916FA16FA50659ACACDCC87E1DF5
 extern void WankosobaSystemManager__ctor_m34F362BE4FB930849096444FB11113BA541771FA (void);
 extern void UnitySourceGeneratedAssemblyMonoScriptTypes_v1_Get_mBEB95BEB954BB63E9710BBC7AD5E78C4CB0A0033 (void);
 extern void UnitySourceGeneratedAssemblyMonoScriptTypes_v1__ctor_mE70FB23ACC1EA12ABC948AA22C2E78B2D0AA39B1 (void);
-static Il2CppMethodPointer s_methodPointers[405] = 
+static Il2CppMethodPointer s_methodPointers[393] = 
 {
 	Apple__ctor_m470B2E2F0F8BE1503711117A920744A0B5F4DA87,
 	AppleBlocker_OnTriggerStay_mADF42789079BE13B47AB52BF968A75E097677250,
@@ -589,21 +577,9 @@ static Il2CppMethodPointer s_methodPointers[405] =
 	PinponResult_Start_m25D8FE191471219AA66B920A49A7290D34A4A301,
 	PinponResult_SaveState_mDD634DB3D1597EB9273E089915C865882161A914,
 	PinponResult__ctor_m537094D41FC0F8C722FF4DE69433EDC051F1EED6,
-	PinponScoreManager_get_Instance_m89C2FB8AD71A5484E846D3D208C4383FB39B98FB,
-	PinponScoreManager_set_Instance_mED1C715CB5D515E6036D8FC7A4BAA06C89987C29,
-	PinponScoreManager_Awake_m54D4891B5916D7C6DD422DF9110256FB70E547F3,
-	PinponScoreManager_UpdateScore_mC54D72CDDDFA4E9F599616B527A94D559BF687AB,
-	PinponScoreManager__ctor_m99C1369B20EC3E25F079EB89C532FD832C896284,
 	PinponSystemManager_ReceiveMessage_m7520808026FC2DE997627FB23C5E8B6102505B31,
 	PinponSystemManager_Awake_mD76982918D3702241F794EE1D8A302394EB0E5F6,
 	PinponSystemManager__ctor_m43BFB9B0325D532061C174AB1E2DCC0CBB707CB0,
-	PinponTimerManager_get_Instance_m6E0EEBBEF7FEABEA8C4ED2794470FAD62DBF1C6F,
-	PinponTimerManager_set_Instance_m3F7C6F73B16456FE42AC07E47D133C751AA73DFF,
-	PinponTimerManager_GameSceneLoaded_mB2B4E6EEFC96E262E819423C7A155D311EB40D37,
-	PinponTimerManager_Awake_mE5D6E6C7FFC105710FD0D63230E0EE03933CA751,
-	PinponTimerManager_Update_m9937231201F80901657BE0AF0ECBFD8F6C30A6D7,
-	PinponTimerManager_UpdateTime_mAB5A52D232DAE8036573A3F99A06CEE5EB2412A7,
-	PinponTimerManager__ctor_m16EB1E3A23E5F609FE65D286F8C9EA688AEA9EDB,
 	RightRacket_MoveRacket_mB3D5B13A2E6A658795836051578C3D9BFF74CC3B,
 	RightRacket_WaitBuckPosition_m2C8662F6A598F53F09C7E93B213FBF03E91A2A1B,
 	RightRacket_onParticle_m05D2A412C049E97E999D6D6B40202AE8123138F6,
@@ -825,7 +801,7 @@ static Il2CppMethodPointer s_methodPointers[405] =
 	UnitySourceGeneratedAssemblyMonoScriptTypes_v1_Get_mBEB95BEB954BB63E9710BBC7AD5E78C4CB0A0033,
 	UnitySourceGeneratedAssemblyMonoScriptTypes_v1__ctor_mE70FB23ACC1EA12ABC948AA22C2E78B2D0AA39B1,
 };
-static const int32_t s_InvokerIndices[405] = 
+static const int32_t s_InvokerIndices[393] = 
 {
 	5349,
 	4218,
@@ -997,19 +973,7 @@ static const int32_t s_InvokerIndices[405] =
 	5349,
 	5349,
 	5349,
-	10487,
-	9686,
-	5349,
-	4190,
-	5349,
 	4218,
-	5349,
-	5349,
-	10487,
-	9686,
-	2215,
-	5349,
-	5349,
 	5349,
 	5349,
 	4190,
@@ -1237,7 +1201,7 @@ IL2CPP_EXTERN_C const Il2CppCodeGenModule g_AssemblyU2DCSharp_CodeGenModule;
 const Il2CppCodeGenModule g_AssemblyU2DCSharp_CodeGenModule = 
 {
 	"Assembly-CSharp.dll",
-	405,
+	393,
 	s_methodPointers,
 	0,
 	NULL,

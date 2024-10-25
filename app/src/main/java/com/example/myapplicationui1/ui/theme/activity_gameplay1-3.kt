@@ -19,7 +19,6 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.appcompat.app.AppCompatActivity
-import com.example.myapplicationui1.GamePlay23Activity.Companion
 import com.example.myapplicationui1.ui.theme.ActivityEnd
 import com.unity3d.player.UnityPlayerActivity
 import com.unity3d.player.UnityPlayer
@@ -56,8 +55,8 @@ class GamePlay13Activity: UnityPlayerActivity() {
     private var sockets = mutableListOf<BluetoothSocket>()
 
     // BluetoothValue
-    private var PERMISSION_BLUETOOTH_CONNECT_CODE = (1)
-    private var BT_ONOFF_CONF = (3)
+    private val REQUEST_ENABLE_BT = 1
+    private val REQUEST_PERMISSIONS = 2
 
     // readDataを管理する変数
     private var isConnected: Boolean = false
@@ -73,25 +72,13 @@ class GamePlay13Activity: UnityPlayerActivity() {
     // Playerの数をintentから受け取る変数
     private var playerNum: Int = 3
 
-    companion object {
-        private const val REQUEST_CODE_BLUETOOTH_CONNECT = 1
-    }
+    private var toastCall: Int = 0
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        if(requestCode == REQUEST_CODE_BLUETOOTH_CONNECT) {
-            if(grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                reconnectToDevice()
-            } else {
-                Log.e(TAG1, "Required permission not granted")
-                finish()
-            }
-        }
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-    }
+    private val REQUIRED_PERMISSIONS = arrayOf(
+        Manifest.permission.BLUETOOTH_CONNECT,
+        Manifest.permission.BLUETOOTH_SCAN,
+        Manifest.permission.BLUETOOTH
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val text = intent.getStringExtra("PLAYERNUM")
@@ -123,19 +110,139 @@ class GamePlay13Activity: UnityPlayerActivity() {
             mUnityPlayer.requestFocus()
             window.clearFlags(SCREEN_ORIENTATION_CHANGED)
             Log.d(TAG1, "01PauseGame")
-            UnityPlayer.UnitySendMessage("PiropiroGameStateManager", "PauseGame", "")
             setUpUnity()
+
+            initializedBluetooth()
 
         } catch (e: Exception) {
             Log.d("Error Try method", "${e}")
         }
     }
 
+    private fun initializedBluetooth() {
+        try {
+            bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
+            when {
+                bluetoothAdapter == null -> {
+                    expressionToast("Bluetoothをサポートしていません")
+                    return
+                }
+                !bluetoothAdapter!!.isEnabled -> {
+                    try {
+                        val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
+                        startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT)
+                    } catch (e: SecurityException) {
+                        Log.e(TAG1, "Failed to Bluetooth ${e.message}")
+                        handlePermissionDenied()
+                    }
+                }
+                else -> {
+                    checkAndRequestPermissions()
+                }
+            }
+        } catch (e: SecurityException) {
+            Log.e(TAG1, "Security error in initializeed Bluetooth: ${e.message}")
+        } catch (e: Exception) {
+            Log.e(TAG1, "Error in initializeBluetooth: ${e.message}")
+            handleError(e)
+        }
+    }
+
+    private fun handleError(e: Exception) {
+        Log.e(TAG1, "Error occurred: ${e.message}")
+        runOnUiThread {
+            expressionToast("エラーが発生しました")
+        }
+    }
+
+    private fun checkAndRequestPermissions() {
+        val missingPermissions = REQUIRED_PERMISSIONS.filter {
+            ContextCompat.checkSelfPermission(this, it) != PackageManager.PERMISSION_GRANTED
+        }
+
+        when {
+            missingPermissions.isEmpty() -> {
+                // 全ての権限が許可されている
+                CoroutineScope(Dispatchers.Main).launch {
+                    checkAndConnectDevices()
+                }
+            }
+            missingPermissions.any { permission ->
+                ActivityCompat.shouldShowRequestPermissionRationale(this, permission)
+            } -> {
+                // 権限が必要な理由を説明
+                showPermissionRationaleDialog(missingPermissions.toTypedArray())
+            }
+            else -> {
+                // 権限をリクエスト
+                ActivityCompat.requestPermissions(
+                    this,
+                    missingPermissions.toTypedArray(),
+                    REQUEST_PERMISSIONS
+                )
+            }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when (requestCode) {
+            REQUEST_ENABLE_BT -> {
+                if (resultCode == Activity.RESULT_OK) {
+                    checkAndRequestPermissions()
+                } else {
+                    expressionToast("Bluetoothを有効にしてください")
+                    reconnectToDevice()
+                }
+            }
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when (requestCode) {
+            REQUEST_PERMISSIONS -> {
+                if (grantResults.isNotEmpty() && grantResults.all { it == PackageManager.PERMISSION_GRANTED }) {
+                    // 全ての権限が許可された
+                    CoroutineScope(Dispatchers.Main).launch {
+                        checkAndConnectDevices()
+                    }
+                } else {
+                    // 一部またはすべての権限が拒否された
+                    handlePermissionDenied()
+                }
+            }
+        }
+    }
+
+
+    private fun showPermissionRationaleDialog(permissions: Array<String>) {
+        androidx.appcompat.app.AlertDialog.Builder(this)
+            .setTitle("権限が必要です")
+            .setMessage("Bluetoothデバイスに接続するために権限が必要です。")
+            .setPositiveButton("許可する") { _, _ ->
+                ActivityCompat.requestPermissions(
+                    this,
+                    permissions,
+                    REQUEST_PERMISSIONS
+                )
+            }
+            .setNegativeButton("キャンセル") { _, _ ->
+                expressionToast("Bluetooth機能を使用するには権限が必要です")
+                handlePermissionDenied()
+            }
+            .show()
+    }
+
     private fun setUpUnity() {
         CoroutineScope(Dispatchers.Main).launch {
             try {
                 withContext(Dispatchers.IO) {
-                    UnityPlayer.UnitySendMessage("SceneSelect", "ReceiveMessage", "PiroPiroBoat")
+                    UnityPlayer.UnitySendMessage("SceneSelect", "ReceiveMessage", "PiroPiro")
                     UnityPlayer.UnitySendMessage("PiropiroSystemManager", "SettingsPlayers", "$playerNum")
                     latch.await()
                 }
@@ -144,6 +251,7 @@ class GamePlay13Activity: UnityPlayerActivity() {
                 if(bluetoothAdapter == null) {
                     Log.d(TAG1, "02PauseGame")
                     UnityPlayer.UnitySendMessage("PiropiroGameStateManager", "PauseGame", "")
+                    expressionToast("Bluetooth接続が許可されていません")
                     reconnectToDevice()
                 } else {
                     Log.d(TAG1, "Connected micon")
@@ -175,28 +283,45 @@ class GamePlay13Activity: UnityPlayerActivity() {
         startActivity(intent)
     }
 
-    private suspend fun CheckPermissionBluetoothAdapter() {
-        bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
-        Log.d(TAG1, "bluetoothAdapter is ${bluetoothAdapter}")
-
-        if(bluetoothAdapter?.isEnabled == false) {
-            val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_SCAN) != PackageManager.PERMISSION_GRANTED) {
-                requestPermissions(arrayOf(
-                    Manifest.permission.BLUETOOTH_CONNECT,
-                    Manifest.permission.BLUETOOTH_SCAN,
-                    Manifest.permission.BLUETOOTH),PERMISSION_BLUETOOTH_CONNECT_CODE) //リクエストパーミッションにbluetooth_connectを追加
-            }
-            startActivityForResult(enableBtIntent, BT_ONOFF_CONF)
+    private fun handlePermissionDenied() {
+        // 永続的に権限が拒否されたかチェック
+        val permanentlyDenied = REQUIRED_PERMISSIONS.any { permission ->
+            !ActivityCompat.shouldShowRequestPermissionRationale(this, permission)
         }
-
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.BLUETOOTH_CONNECT), REQUEST_CODE_BLUETOOTH_CONNECT)
-            CheckPermissionBluetoothAdapter()
+        if (permanentlyDenied) {
+            showSettingsDialog()
         } else {
-            Log.d(TAG1, "Permission Available 03")
-            checkAndConnectDevices()
+            expressionToast("Bluetooth機能を使用するには権限が必要です")
+            reconnectToDevice()
+        }
+    }
+
+    private fun showSettingsDialog() {
+        androidx.appcompat.app.AlertDialog.Builder(this)
+            .setTitle("権限が必要です")
+            .setMessage("設定画面から権限を許可してください")
+            .setPositiveButton("設定を開く") { _, _ ->
+                val intent = Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
+                    data = android.net.Uri.fromParts("package", packageName, null)
+                }
+                startActivity(intent)
+            }
+            .setNegativeButton("キャンセル") { _, _ ->
+                expressionToast("Bluetooth機能を使用するには権限が必要です")
+                reconnectToDevice()
+            }
+            .show()
+    }
+
+    private fun reconnectToDevice() {
+        Log.d(TAG1, "reconnect to Device")
+        if (!isfinishGame) {
+            CoroutineScope(Dispatchers.IO).launch {
+                expressionToast("Bluetoothに接続しています...")
+                delay(1000)
+                Log.d(TAG1, "Now Connecting...")
+                initializedBluetooth()
+            }
         }
     }
 
@@ -213,7 +338,7 @@ class GamePlay13Activity: UnityPlayerActivity() {
                             ActivityCompat.requestPermissions(
                                 this@GamePlay13Activity,
                                 arrayOf(Manifest.permission.BLUETOOTH_CONNECT),
-                                GamePlay13Activity.REQUEST_CODE_BLUETOOTH_CONNECT
+                                REQUEST_PERMISSIONS
                             )
                         }
                     }
@@ -221,8 +346,7 @@ class GamePlay13Activity: UnityPlayerActivity() {
                     if(pairedDevices == null || pairedDevices.size < playerNum) {
                         withContext(Dispatchers.Main) {
                             Log.e(TAG1, "pairedDevices: ${pairedDevices}")
-                            Toast.makeText(this@GamePlay13Activity, "接続されるデバイスが不足しています", Toast.LENGTH_LONG).show()
-                            UnityPlayer.UnitySendMessage("PiropiroGameStateManager", "PauseGame", "")
+                            expressionToast("")
                             Log.e(TAG1, "03PauseGame")
                         }
                         return@withContext
@@ -264,13 +388,16 @@ class GamePlay13Activity: UnityPlayerActivity() {
                     socket.connect()
                     sockets.add(socket)
                     withContext(Dispatchers.Main) {
-                        Toast.makeText(this@GamePlay13Activity, "Bluetoothの接続に成功しました", Toast.LENGTH_LONG).show()
+                        expressionToast("Bluetooth接続に成功しました")
                     }
+                    readData()
                 } catch (e: Exception) {
                     Log.e("WARNING", "Error is:${e.message}")
                     withContext(Dispatchers.Main) {
-                        Toast.makeText(this@GamePlay13Activity, "Socketの接続に失敗しました: ${e.message}", Toast.LENGTH_LONG).show()
+                        expressionToast("Bluetooth接続に失敗しました")
                     }
+                    isConnected = false
+                    reconnectToDevice()
                 }
             }
         }
@@ -360,15 +487,15 @@ class GamePlay13Activity: UnityPlayerActivity() {
         }
     }
 
-    private fun reconnectToDevice() {
-        if (isfinishGame == false) {
-            CoroutineScope(Dispatchers.IO).launch {
-                Log.d(TAG1, "Now Connecting...")
-                closeConnection()
-                devices.clear()
-                delay(5000)
-                CheckPermissionBluetoothAdapter()
+    private fun expressionToast(text: String) {
+        if(toastCall <= 3) {
+            runOnUiThread {
+                Toast.makeText(this@GamePlay13Activity, "${text}", Toast.LENGTH_SHORT).show()
+                Log.d("TOAST", "ToastText is $text")
             }
+            toastCall = toastCall + 1
+        } else {
+            Log.e("TOAST_ERROR", "Toastの呼び出し数が基準を超えました。Toastを表示できません。")
         }
     }
 

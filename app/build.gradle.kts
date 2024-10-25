@@ -65,6 +65,8 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.androidx.appcompat)
     implementation("androidx.constraintlayout:constraintlayout:1.1.3")
+    implementation("androidx.activity:activity-ktx:1.4.0")
+    implementation("androidx.fragment:fragment-ktx:1.4.1")
     implementation(files("libs\\unity-classes.jar"))
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
