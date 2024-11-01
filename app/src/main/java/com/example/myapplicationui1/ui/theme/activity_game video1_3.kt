@@ -23,7 +23,7 @@ class GameVideo13Activity : AppCompatActivity() {
         val videoView = findViewById<VideoView>(R.id.videoView)
 
         // 動画のパスを取得
-        val packageName = "android.resource://" + this.packageName + "/" + R.raw.boto
+        val packageName = "android.resource://" + this.packageName + "/" + R.raw.boat
 
         // 動画のパスまたはURLを指定
         val videoUri = Uri.parse(packageName)
@@ -61,11 +61,11 @@ class GameVideo13Activity : AppCompatActivity() {
         }
 
 
-        // ゲームへボタンの処理
+        // ゲーム人数設定画面へボタンの処理
         val backToMenuButton: Button = findViewById(R.id.backToMenuButton)
         backToMenuButton.setOnClickListener {
             // activity_gameplay1-1に遷移
-            val intent = Intent(this, GamePlay13Activity::class.java)
+            val intent = Intent(this, HowManyControllerSelection::class.java)
             startActivity(intent)
         }
     }

@@ -28,6 +28,7 @@ class ActivityEnd : AppCompatActivity() {
 
         val retryButton: Button = findViewById(R.id.retry_button)
         val text = intent.getStringExtra("PASS_KEY")
+        Log.i("PASSKEY", "Text is $text")
         retryButton.setOnClickListener {
             when(text) {
                 "11" -> {
@@ -55,19 +56,24 @@ class ActivityEnd : AppCompatActivity() {
                     startActivity(intent)
                 }
         }
-        val quitButton: Button = findViewById(R.id.retry_button)
+        val quitButton: Button = findViewById(R.id.quit_button)
         quitButton.setOnClickListener {
             try {
                 val firstchar: Char? = text?.firstOrNull()
                 when (firstchar) {
                     '1' -> {
+                        Log.d("DEBUG", "01 get first char: $firstchar")
                         val intent = Intent(this, PiropiroGameSelection::class.java)
                         startActivity(intent)
                     }
 
                     '2' -> {
+                        Log.d("DEBUG", "02 get first char: $firstchar")
                         val intent = Intent(this, SpirometerGameSelection::class.java)
                         startActivity(intent)
+                    }
+                    else -> {
+                        Log.d("DEBUG", "03 cannot get default value")
                     }
                 }
             } catch (e: Exception) {

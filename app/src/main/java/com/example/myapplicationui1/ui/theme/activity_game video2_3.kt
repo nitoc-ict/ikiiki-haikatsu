@@ -58,11 +58,11 @@ class GameVideo23Activity : AppCompatActivity() {
             true
         }
 
-        // ゲームへボタンの処理
+        // ゲーム人数設定画面へボタンの処理
         val backToMenuButton: Button = findViewById(R.id.backToMenuButton)
         backToMenuButton.setOnClickListener {
             // activity_gameplay1-2に遷移
-            val intent = Intent(this, GamePlay23Activity::class.java)
+            val intent = Intent(this, HowManyControllerSelection::class.java)
             startActivity(intent)
         }
     }

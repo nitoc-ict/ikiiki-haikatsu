@@ -13,6 +13,7 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.constraintlayout.widget.ConstraintLayout
 import android.view.WindowManager.LayoutParams.SCREEN_ORIENTATION_CHANGED
 import android.widget.TextView
@@ -79,6 +80,7 @@ class GamePlay11Activity: UnityPlayerActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_gameplay11)
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         try {
             mUnityPlayer = UnityPlayer(this as Activity)
             findViewById<ConstraintLayout>(R.id.unity)?.addView(
@@ -231,6 +233,7 @@ class GamePlay11Activity: UnityPlayerActivity() {
             try {
                 withContext(Dispatchers.IO) {
                     UnityPlayer.UnitySendMessage("SceneSelect", "ReceiveMessage", "AppleFarm")
+                    UnityPlayer.UnitySendMessage("AppleGameStateManager", "PauseGame", "")
                     latch.await()
                 }
                 Log.e(TAG1, "Finish async SceneSelect")
@@ -305,6 +308,7 @@ class GamePlay11Activity: UnityPlayerActivity() {
         Log.d(TAG1, "reconnect to Device")
         if (!isfinishGame) {
             CoroutineScope(Dispatchers.IO).launch {
+                UnityPlayer.UnitySendMessage("AppleGameStateManager", "PauseGame", "")
                 expressionToast("Bluetoothに接続しています...")
                 delay(2000)
                 Log.d(TAG1, "Now Connecting...")
@@ -330,6 +334,7 @@ class GamePlay11Activity: UnityPlayerActivity() {
                         try {
                             bluetoothSocket = device.createRfcommSocketToServiceRecord(SPP_UUID)
                             Log.d(TAG1, "Permission Available 06")
+                            Log.d(TAG2, "BluetoothSocket is ${bluetoothSocket}")
                             bluetoothSocket?.connect()
                             Log.d(TAG1, "Permission Available 07")
                             inputStream = bluetoothSocket?.inputStream
@@ -337,6 +342,7 @@ class GamePlay11Activity: UnityPlayerActivity() {
                             outputStream = bluetoothSocket?.outputStream
                             Log.d(TAG1, "Permission Available 09")
                             Log.d(TAG2, "Connected to $DEVICE_NAME")
+                            Log.d(TAG1, "BluetoothSocket is ${bluetoothSocket}")
                             UnityPlayer.UnitySendMessage("AppleGameStateManager", "ResumeGame", "")
                             // readDataを許可
                             isConnected = true
@@ -356,29 +362,33 @@ class GamePlay11Activity: UnityPlayerActivity() {
 
     private suspend fun readData() {
         Log.d(TAG1, "Permission Available 10")
-        val buffer = ByteArray(1024)
-        while (isConnected) {
-            try {
-                val bytes = inputStream?.read(buffer) ?: 0
-                if (bytes > 0) {
-                    var incomingData = String(buffer, 0, bytes)
-                    Log.d(TAG3, "Rechieved: $incomingData")
-                    if (bytes != null) {
-                        stateSendValue = incomingData
-                        Log.d(TAG1, "incomingData is Null")
-                    } else {
-                        incomingData = stateSendValue
+        try {
+            val buffer = ByteArray(1024)
+            while (isConnected) {
+                try {
+                    val bytes = inputStream?.read(buffer) ?: 0
+                    if (bytes > 0) {
+                        var incomingData = String(buffer, 0, bytes)
+                        Log.d(TAG3, "Rechieved: $incomingData")
+                        if (bytes != null) {
+                            stateSendValue = incomingData
+                            Log.d(TAG1, "incomingData is not Null")
+                        } else {
+                            incomingData = stateSendValue
+                        }
+                        delay(300)
+                        UnityPlayer.UnitySendMessage("AppleBlocker", "ReceiveMessage", "${incomingData.first()}")
+                        Log.e(TAG1, "First riteral is ${incomingData.first()}")
                     }
-                    delay(300)
-                    UnityPlayer.UnitySendMessage("AppleBlocker", "ReceiveMessage", "${incomingData.first()}")
-                    Log.e(TAG1, "First riteral is ${incomingData.first()}")
+                } catch (e: Exception) {
+                    Log.e(TAG4, "値読み取りエラー: ${e.message}")
+                    isConnected = false
+                    UnityPlayer.UnitySendMessage("AppleGameStateManager", "PauseGame", "")
+                    reconnectToDevice()
                 }
-            } catch (e: Exception) {
-                Log.e(TAG4, "値読み取りエラー: ${e.message}")
-                isConnected = false
-                UnityPlayer.UnitySendMessage("AppleGameStateManager", "PauseGame", "")
-                reconnectToDevice()
             }
+        } catch (e: SecurityException) {
+            Log.e("SecutiryExcception", "SercurityExceotion is ${e.message}")
         }
     }
 

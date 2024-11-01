@@ -15,6 +15,7 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.constraintlayout.widget.ConstraintLayout
 import android.view.WindowManager.LayoutParams.SCREEN_ORIENTATION_CHANGED
 import android.widget.ActionMenuView
@@ -31,6 +32,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.io.IOException
 import java.io.InputStream
 import java.util.UUID
 import java.util.concurrent.CountDownLatch
@@ -80,6 +82,7 @@ class GamePlay22Activity: UnityPlayerActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_gameplay22)
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         try {
             mUnityPlayer = UnityPlayer(this as Activity)
             findViewById<ConstraintLayout>(R.id.unity)?.addView(
@@ -110,13 +113,13 @@ class GamePlay22Activity: UnityPlayerActivity() {
             try {
                 withContext(Dispatchers.IO) {
                     UnityPlayer.UnitySendMessage("SceneSelect", "ReceiveMessage", "Kinko")
+                    UnityPlayer.UnitySendMessage("KinkoGameStateManager", "PauseGame", "")
                     latch.await()
                 }
                 Log.e(TAG1, "Finish async SceneSelect")
                 // bluetoothにマイコンが接続されていないとき、ゲームを停止して接続処理をする
                 if(bluetoothAdapter == null) {
                     Log.e(TAG1, "Micon is not connecting")
-                    UnityPlayer.UnitySendMessage("KinkoGameStateManager", "PauseGame", "")
                     reconnectToDevice()
                 } else {
                     Log.d(TAG1, "Connected micon")
@@ -343,7 +346,6 @@ class GamePlay22Activity: UnityPlayerActivity() {
                     isConnected = true
                     readData()
                 } else {
-                    UnityPlayer.UnitySendMessage("KinkoGameStateManager", "PauseGame", "")
                     reconnectToDevice()
                 }
             } catch (e: Exception) {
@@ -356,43 +358,47 @@ class GamePlay22Activity: UnityPlayerActivity() {
 
     private fun readData() {
         Log.d(TAG1, "ReadData")
-        // マイコン毎にデータを送信
-        sockets.forEach { socket->
-            CoroutineScope(Dispatchers.IO).launch {
-                Log.d(TAG1, "in Couroutine scope")
-                val inputStream: InputStream = socket.inputStream
-                val buffer = ByteArray(4)
-                Log.d(TAG1, "MyIconName: $socket")
+        try {
+            // マイコン毎にデータを送信
+            sockets.forEach { socket->
+                CoroutineScope(Dispatchers.IO).launch {
+                    Log.d(TAG1, "in Couroutine scope")
+                    val inputStream: InputStream = socket.inputStream
+                    val buffer = ByteArray(4)
+                    Log.d(TAG1, "MyIconName: $socket")
 
-                while(isConnected) {
-                    try {
-                        delay(700)
-                        val bytes = inputStream.read(buffer) ?: 0
-                        if(bytes > 0) {
-                            var incomingData = String(buffer, 0, bytes)
-                            Log.d(TAG3, "Rechieved: ${incomingData}")
-                            if (bytes != null) {
-                                stateSendValue = incomingData
-                            } else {
-                                incomingData = stateSendValue
-                                Log.e(TAG1, "bytes == null")
+                    while(isConnected) {
+                        try {
+                            val bytes = inputStream.read(buffer) ?: 0
+                            if(bytes > 0) {
+                                var incomingData = String(buffer, 0, bytes)
+                                Log.d(TAG3, "Rechieved: ${incomingData}")
+                                if (bytes != null) {
+                                    stateSendValue = incomingData
+                                } else {
+                                    incomingData = stateSendValue
+                                    Log.e(TAG1, "bytes == null")
+                                }
+                                delay(300)
+                                Log.d(TAG3, "get from inputStream")
+                                val deviceName = getDeviceName(socket)
+                                sendData(deviceName ?: "UnknownDevices", incomingData)
                             }
-                            delay(300)
-                            val deviceName = getDeviceName(socket)
-                            sendData(deviceName ?: "UnknownDevices", incomingData)
+                        } catch (e: Exception) {
+                            Log.e(TAG4, "Read failed: ${e.message}")
+
+                            // 接続停止フラグを起動
+                            isConnected = false
+
+                            // PauseのメッセージをUnityに送信
+                            UnityPlayer.UnitySendMessage("KinkoGameStateManager", "PauseGame", "")
+                            reconnectToDevice()
                         }
-                    } catch (e: Exception) {
-                        Log.e(TAG4, "Read failed: ${e.message}")
-
-                        // 接続停止フラグを起動
-                        isConnected = false
-
-                        // PauseのメッセージをUnityに送信
-                        UnityPlayer.UnitySendMessage("KinkoGameStateManager", "PauseGame", "")
-                        reconnectToDevice()
                     }
                 }
             }
+        } catch (e: SecurityException) {
+            Log.e("SecurityException", "BluetoothSocket is:${e.message}")
         }
     }
 
@@ -412,6 +418,7 @@ class GamePlay22Activity: UnityPlayerActivity() {
     private fun sendData(deviceName: String, data: String) {
         val sendData = data + "," +  deviceName.last() // コントローラ名の末尾でユーザIndexを認識
         if(sendData != null) {
+            Log.i(TAG1, "Micon name is: ${deviceName}, data is ${data}")
             UnityPlayer.UnitySendMessage("KinkoSystemManager", "ReceiveMessage", "${sendData}")
         }
     }
@@ -441,7 +448,7 @@ class GamePlay22Activity: UnityPlayerActivity() {
                 expressionToast("Bluetoothに接続しています...")
                 closeConnection()
                 devices.clear()
-                delay(1000)
+                delay(2000)
                 initializedBluetooth()
             }
         }
@@ -466,13 +473,22 @@ class GamePlay22Activity: UnityPlayerActivity() {
         // deviceすべてのSocketを停止
         try {
             sockets.forEach { socket ->
-                Log.d(TAG5, "Connection closed $socket")
-                socket.close()
-                Log.d(TAG5, "Connection closed")
+                try {
+                    Log.d(TAG5, "Connection closed $socket")
+                    socket.close()
+                    Log.d(TAG5, "Connection closed")
+                } catch (e: IOException) {
+                    Log.e(TAG1, "Error closingSocket: ${e.message}")
+                }
             }
         } catch (e: Exception) {
             Log.e(TAG5, "Error string connection: ${e.message}")
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        closeConnection()
     }
 }
 

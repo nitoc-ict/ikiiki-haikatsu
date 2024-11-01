@@ -41,7 +41,7 @@
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
         android:text="はい"
-        android:layout_marginBottom="90dp"/>
+        android:layout_marginBottom="80dp"/>
 
     <!-- いいえボタン -->
     <Button
@@ -51,5 +51,5 @@
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
         android:text="いいえ"
-        android:layout_marginBottom="32dp"/>
+        android:layout_marginBottom="16dp"/>
 </RelativeLayout>

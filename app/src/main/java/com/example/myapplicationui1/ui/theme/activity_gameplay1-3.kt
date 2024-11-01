@@ -13,6 +13,7 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.constraintlayout.widget.ConstraintLayout
 import android.view.WindowManager.LayoutParams.SCREEN_ORIENTATION_CHANGED
 import android.widget.Toast
@@ -27,6 +28,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.io.IOException
 import java.io.InputStream
 import java.util.UUID
 import java.util.concurrent.CountDownLatch
@@ -91,6 +93,7 @@ class GamePlay13Activity: UnityPlayerActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_gameplay13)
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         try {
             mUnityPlayer = UnityPlayer(this as Activity)
             findViewById<ConstraintLayout>(R.id.unity)?.addView(
@@ -243,7 +246,9 @@ class GamePlay13Activity: UnityPlayerActivity() {
             try {
                 withContext(Dispatchers.IO) {
                     UnityPlayer.UnitySendMessage("SceneSelect", "ReceiveMessage", "PiroPiro")
+                    UnityPlayer.UnitySendMessage("PiropiroGameStateManager", "PauseGame", "")
                     UnityPlayer.UnitySendMessage("PiropiroSystemManager", "SettingsPlayers", "$playerNum")
+                    Log.i(TAG1, "UnitySendMessage")
                     latch.await()
                 }
                 Log.e(TAG1, "Finish async SceneSelect")
@@ -318,7 +323,7 @@ class GamePlay13Activity: UnityPlayerActivity() {
         if (!isfinishGame) {
             CoroutineScope(Dispatchers.IO).launch {
                 expressionToast("Bluetoothに接続しています...")
-                delay(1000)
+                delay(2000)
                 Log.d(TAG1, "Now Connecting...")
                 initializedBluetooth()
             }
@@ -406,44 +411,49 @@ class GamePlay13Activity: UnityPlayerActivity() {
     private fun readData() {
         Log.d(TAG1, "ReadData")
         // マイコン毎にデータを送信
-        sockets.forEach { socket->
-            CoroutineScope(Dispatchers.IO).launch {
-                Log.d(TAG1, "in Couroutine scope")
-                val inputStream: InputStream = socket.inputStream
-                val buffer = ByteArray(4)
+        try {
+            sockets.forEach { socket->
+                CoroutineScope(Dispatchers.IO).launch {
+                    Log.d(TAG1, "in Couroutine scope")
+                    val inputStream: InputStream = socket.inputStream
+                    val buffer = ByteArray(4)
 
-                while(isConnected) {
-                    try {
-                        delay(700)
-                        val bytes = inputStream.read(buffer) ?: 0
-                        if(bytes > 0) {
-                            var incomingData = String(buffer, 0, bytes)
-                            Log.d(TAG3, "Rechieved: ${incomingData}")
-                            if (bytes != null) {
-                                stateSendValue = incomingData
-                                Log.d(TAG1, "incomingData is Null")
-                            } else {
-                                incomingData = stateSendValue
-                                Log.e(TAG1, "bytes == null")
+                    while(isConnected) {
+                        try {
+                            delay(700)
+                            val bytes = inputStream.read(buffer) ?: 0
+                            if(bytes > 0) {
+                                var incomingData = String(buffer, 0, bytes)
+                                Log.d(TAG3, "Rechieved: ${incomingData}")
+                                if (bytes != null) {
+                                    stateSendValue = incomingData
+                                    Log.i(TAG1, "incomingData is not Null")
+                                } else {
+                                    incomingData = stateSendValue
+                                    Log.e(TAG1, "bytes == null")
+                                }
+                                delay(300)
+                                val deviceName = getDeviceName(socket)
+                                sendData(deviceName ?: "UnknownDevices", incomingData)
                             }
-                            delay(300)
-                            val deviceName = getDeviceName(socket)
-                            sendData(deviceName ?: "UnknownDevices", incomingData)
+                        } catch (e: Exception) {
+                            Log.e(TAG4, "Read failed: ${e.message}")
+
+                            // 接続停止フラグを起動
+                            isConnected = false
+
+                            // PauseのメッセージをUnityに送信
+                            Log.d(TAG1, "04PauseGame")
+                            UnityPlayer.UnitySendMessage("PiropiroGameStateManager", "PauseGame", "")
+                            Log.d(TAG1, "05PauseGame")
+                            reconnectToDevice()
                         }
-                    } catch (e: Exception) {
-                        Log.e(TAG4, "Read failed: ${e.message}")
-
-                        // 接続停止フラグを起動
-                        isConnected = false
-
-                        // PauseのメッセージをUnityに送信
-                        Log.d(TAG1, "04PauseGame")
-                        UnityPlayer.UnitySendMessage("PiropiroGameStateManager", "PauseGame", "")
-                        Log.d(TAG1, "05PauseGame")
-                        reconnectToDevice()
                     }
                 }
             }
+        } catch (e: IOException) {
+            Log.e("IOException", "Socket isnot connect error: ${e.message}")
+            reconnectToDevice()
         }
     }
 
@@ -463,6 +473,7 @@ class GamePlay13Activity: UnityPlayerActivity() {
     private fun sendData(deviceName: String, data: String) {
         val sendData = data + "," +  deviceName.last() // コントローラ名の末尾でユーザIndexを認識
         if(sendData != null) {
+            Log.i(TAG1, "Micon name is: ${deviceName}")
             UnityPlayer.UnitySendMessage("PiropiroSystemManager", "ReceiveMessage", "${sendData}")
         }
     }
@@ -503,9 +514,13 @@ class GamePlay13Activity: UnityPlayerActivity() {
         // deviceすべてのSocketを停止
         try {
             sockets.forEach { socket ->
-                Log.d(TAG5, "Connection closed $socket")
-                socket.close()
-                Log.d(TAG5, "Connection closed")
+                try {
+                    Log.d(TAG5, "Connection closed $socket")
+                    socket.close()
+                    Log.d(TAG5, "Connection closed")
+                } catch (e: IOException) {
+                    Log.e(TAG1, "Error closingSocket: ${e.message}")
+                }
             }
         } catch (e: Exception) {
             Log.e(TAG5, "Error string connection: ${e.message}")

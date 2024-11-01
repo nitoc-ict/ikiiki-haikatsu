@@ -12,6 +12,12 @@ class SpirometerGameSelection : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_spirometer_gameselection)
 
+        val buckButton: Button = findViewById(R.id.backbutton)
+        buckButton.setOnClickListener {
+            val intent = Intent(this, ControllerExplanationSelectionActivity::class.java)
+            startActivity(intent)
+        }
+
         val game11selection: Button = findViewById(R.id.game21)
         game11selection.setOnClickListener {
             val intent = Intent(this, GameSelection21Activity::class.java)

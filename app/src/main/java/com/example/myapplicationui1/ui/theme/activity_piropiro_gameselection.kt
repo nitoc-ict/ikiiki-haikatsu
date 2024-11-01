@@ -12,6 +12,12 @@ class PiropiroGameSelection : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_piropiro_gameselection)
 
+        val buckButton: Button = findViewById(R.id.backButton)
+        buckButton.setOnClickListener {
+            val intent = Intent(this, ControllerExplanationSelectionActivity::class.java)
+            startActivity(intent)
+        }
+
         val game11selection: Button = findViewById(R.id.game11)
         game11selection.setOnClickListener {
             val intent = Intent(this, GameSelection11Activity::class.java)

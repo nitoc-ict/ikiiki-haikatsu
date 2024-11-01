@@ -7,13 +7,13 @@
     android:padding="16dp">
 
     <Button
-        android:id="@+id/retry_button"
+        android:id="@+id/quit_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="ゲームセレクトに戻る" />
 
     <Button
-        android:id="@+id/quit_button"
+        android:id="@+id/retry_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="もう一度プレイする" />

@@ -28,7 +28,16 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/gameTitle"
         android:layout_centerHorizontal="true"
-        android:text="よにんプレイ"
+        android:text="複数人プレイ"
+        android:textSize="18sp"
+        android:textColor="@android:color/black"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/gameTitle"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:text="一緒に息を吹いて、ボートをゴールへ進めましょう"
         android:textSize="18sp"
         android:textColor="@android:color/black"/>
     <!-- あそぶボタン -->

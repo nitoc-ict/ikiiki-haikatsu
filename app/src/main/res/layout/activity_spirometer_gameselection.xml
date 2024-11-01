@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
     android:padding="16dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-60dp"
+        android:gravity="start">
+        <Button
+            android:id="@+id/backbutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="もどる"/>
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,6 +28,10 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="center">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="一気にすすれ！わんこそば"/>
             <ImageView
                 android:layout_width="200dp"
                 android:layout_height="120dp"
@@ -37,6 +52,10 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="center">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="スーッと金庫破り"/>
             <ImageView
                 android:layout_width="200dp"
                 android:layout_height="120dp"
@@ -57,6 +76,10 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="center">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="大漁を目指せ！すいすい漁船"/>
             <ImageView
                 android:layout_width="200dp"
                 android:layout_height="120dp"
@@ -64,7 +87,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="よにんプレイ"/>
+                android:text="みんなでプレイ"/>
             <Button
                 android:id="@+id/game23"
                 android:layout_width="wrap_content"
@@ -72,4 +95,4 @@
                 android:text="あそぶ"/>
         </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+</RelativeLayout>

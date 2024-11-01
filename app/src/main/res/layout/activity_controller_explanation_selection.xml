@@ -21,6 +21,12 @@
             android:orientation="vertical"
             android:gravity="center">
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="いきを吸う"/>
+
             <ImageView
                 android:layout_width="100dp"
                 android:layout_height="100dp"
@@ -45,6 +51,12 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="center">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="いきを吐く"/>
 
             <ImageView
                 android:layout_width="100dp"

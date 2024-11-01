@@ -13,6 +13,7 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.constraintlayout.widget.ConstraintLayout
 import android.view.WindowManager.LayoutParams.SCREEN_ORIENTATION_CHANGED
 import android.widget.TextView
@@ -62,8 +63,6 @@ class GamePlay21Activity: UnityPlayerActivity() {
 
     private var stateSendValue: String = "0"
 
-    private var isfinishGame: Boolean = false
-
     // CountDownLatch for synchronization
     private val latch = CountDownLatch(1)
 
@@ -78,6 +77,7 @@ class GamePlay21Activity: UnityPlayerActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_gameplay21)
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         try {
             mUnityPlayer = UnityPlayer(this as Activity)
             findViewById<ConstraintLayout>(R.id.unity)?.addView(
@@ -230,13 +230,13 @@ class GamePlay21Activity: UnityPlayerActivity() {
             try {
                 withContext(Dispatchers.IO) {
                     UnityPlayer.UnitySendMessage("SceneSelect", "ReceiveMessage", "Wankosoba")
+                    UnityPlayer.UnitySendMessage("WankosobaGameStateManager", "PauseGame", "")
                     latch.await()
                 }
                 Log.e(TAG1, "Finish async SceneSelect")
                 // bluetoothにマイコンが接続されていないとき、ゲームを停止して接続処理をする
                 if(bluetoothAdapter == null) {
                     Log.e(TAG1, "Micon is not connecting")
-                    UnityPlayer.UnitySendMessage("WankosobaGameStateManager", "PauseGame", "")
                     expressionToast("Bluetooth接続が許可されていません")
                     reconnectToDevice()
                 } else {
@@ -259,7 +259,6 @@ class GamePlay21Activity: UnityPlayerActivity() {
         mUnityPlayer.onStop()
         closeConnection()
 
-        isfinishGame = true
         unregisterReceiver(bluetoothReceiver)
 
         Log.d("GamePlay21Activity", "とめたわよ～")
@@ -302,13 +301,11 @@ class GamePlay21Activity: UnityPlayerActivity() {
 
     private fun reconnectToDevice() {
         Log.d(TAG1, "reconnect to Device")
-        if (!isfinishGame) {
-            CoroutineScope(Dispatchers.IO).launch {
-                expressionToast("Bluetoothに接続しています...")
-                delay(1000)
-                Log.d(TAG1, "Now Connecting...")
-                initializedBluetooth()
-            }
+        CoroutineScope(Dispatchers.IO).launch {
+            expressionToast("Bluetoothに接続しています...")
+            delay(2000)
+            Log.d(TAG1, "Now Connecting...")
+            initializedBluetooth()
         }
     }
 
@@ -355,29 +352,33 @@ class GamePlay21Activity: UnityPlayerActivity() {
 
     private suspend fun readData() {
         Log.d(TAG1, "Permission Available 10")
-        val buffer = ByteArray(1024)
-        while (isConnected) {
-            try {
-                val bytes = inputStream?.read(buffer) ?: 0
-                if (bytes > 0) {
-                    var incomingData = String(buffer, 0, bytes)
-                    Log.d(TAG3, "Rechieved: $incomingData")
-                    if (bytes != null) {
-                        stateSendValue = incomingData
-                        Log.d(TAG1, "incomingData is Null")
-                    } else {
-                        incomingData = stateSendValue
+        try {
+            val buffer = ByteArray(1024)
+            while (isConnected) {
+                try {
+                    val bytes = inputStream?.read(buffer) ?: 0
+                    if (bytes > 0) {
+                        var incomingData = String(buffer, 0, bytes)
+                        Log.d(TAG3, "Rechieved: $incomingData")
+                        if (bytes != null) {
+                            stateSendValue = incomingData
+                            Log.d(TAG1, "incomingData is  not Null")
+                        } else {
+                            incomingData = stateSendValue
+                        }
+                        delay(300)
+                        UnityPlayer.UnitySendMessage("WankosobaSystemManager", "ReceiveMessage", "${incomingData.first()}")
+                        Log.e(TAG1, "First riteral is ${incomingData.first()}")
                     }
-                    delay(300)
-                    UnityPlayer.UnitySendMessage("WankosobaGameStateManager", "ReceiveMessage", "${incomingData.first()}")
-                    Log.e(TAG1, "First riteral is ${incomingData.first()}")
+                } catch (e: Exception) {
+                    Log.e(TAG4, "値読み取りエラー: ${e.message}")
+                    isConnected = false
+                    UnityPlayer.UnitySendMessage("WankosobaGameStateManager", "PauseGame", "")
+                    reconnectToDevice()
                 }
-            } catch (e: Exception) {
-                Log.e(TAG4, "値読み取りエラー: ${e.message}")
-                isConnected = false
-                UnityPlayer.UnitySendMessage("WankosobaGameStateManager", "PauseGame", "")
-                reconnectToDevice()
             }
+        } catch (e: SecurityException) {
+            Log.e("SecurityException","readData is ${e.message}")
         }
     }
 

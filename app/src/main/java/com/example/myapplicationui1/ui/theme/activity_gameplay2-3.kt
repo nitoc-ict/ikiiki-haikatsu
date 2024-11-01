@@ -13,6 +13,7 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.constraintlayout.widget.ConstraintLayout
 import android.view.WindowManager.LayoutParams.SCREEN_ORIENTATION_CHANGED
 import android.widget.Toast
@@ -27,6 +28,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.io.IOException
 import java.io.InputStream
 import java.util.UUID
 import java.util.concurrent.CountDownLatch
@@ -91,6 +93,7 @@ class GamePlay23Activity: UnityPlayerActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_gameplay23)
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         try {
             mUnityPlayer = UnityPlayer(this as Activity)
             findViewById<ConstraintLayout>(R.id.unity)?.addView(
@@ -247,6 +250,7 @@ class GamePlay23Activity: UnityPlayerActivity() {
             try {
                 withContext(Dispatchers.IO) {
                     UnityPlayer.UnitySendMessage("SceneSelect", "ReceiveMessage", "Suisui")
+                    UnityPlayer.UnitySendMessage("SuisuiGameStateManager", "PauseGame", "")
                     Log.d("UnitySetting", "PlayerNum is: $playerNum")
                     UnityPlayer.UnitySendMessage("SuisuiSystemManager", "SettingsPlayers", "$playerNum")
                     latch.await()
@@ -410,45 +414,49 @@ class GamePlay23Activity: UnityPlayerActivity() {
 
     private fun readData() {
         Log.d(TAG1, "ReadData")
-        // マイコン毎にデータを送信
-        sockets.forEach { socket->
-            CoroutineScope(Dispatchers.IO).launch {
-                Log.d(TAG1, "in Couroutine scope")
-                val inputStream: InputStream = socket.inputStream
-                val buffer = ByteArray(4)
+        try {
+            // マイコン毎にデータを送信
+            sockets.forEach { socket->
+                CoroutineScope(Dispatchers.IO).launch {
+                    Log.d(TAG1, "in Couroutine scope")
+                    val inputStream: InputStream = socket.inputStream
+                    val buffer = ByteArray(4)
 
-                while(isConnected) {
-                    try {
-                        delay(700)
-                        val bytes = inputStream.read(buffer) ?: 0
-                        if(bytes > 0) {
-                            var incomingData = String(buffer, 0, bytes)
-                            Log.d(TAG3, "Rechieved: ${incomingData}")
-                            if (bytes != null) {
-                                stateSendValue = incomingData
-                                Log.d(TAG1, "incomingData is Null")
-                            } else {
-                                incomingData = stateSendValue
-                                Log.e(TAG1, "bytes == null")
+                    while(isConnected) {
+                        try {
+                            delay(700)
+                            val bytes = inputStream.read(buffer) ?: 0
+                            if(bytes > 0) {
+                                var incomingData = String(buffer, 0, bytes)
+                                Log.d(TAG3, "Rechieved: ${incomingData}")
+                                if (bytes != null) {
+                                    stateSendValue = incomingData
+                                    Log.d(TAG1, "incomingData is Null")
+                                } else {
+                                    incomingData = stateSendValue
+                                    Log.e(TAG1, "bytes == null")
+                                }
+                                delay(300)
+                                val deviceName = getDeviceName(socket)
+                                sendData(deviceName ?: "UnknownDevices", incomingData)
                             }
-                            delay(300)
-                            val deviceName = getDeviceName(socket)
-                            sendData(deviceName ?: "UnknownDevices", incomingData)
+                        } catch (e: Exception) {
+                            Log.e(TAG4, "Read failed: ${e.message}")
+
+                            // 接続停止フラグを起動
+                            isConnected = false
+
+                            // PauseのメッセージをUnityに送信
+                            Log.d(TAG1, "04PauseGame")
+                            UnityPlayer.UnitySendMessage("SuisuiGameStateManager", "PauseGame", "")
+                            Log.d(TAG1, "05PauseGame")
+                            reconnectToDevice()
                         }
-                    } catch (e: Exception) {
-                        Log.e(TAG4, "Read failed: ${e.message}")
-
-                        // 接続停止フラグを起動
-                        isConnected = false
-
-                        // PauseのメッセージをUnityに送信
-                        Log.d(TAG1, "04PauseGame")
-                        UnityPlayer.UnitySendMessage("SuisuiGameStateManager", "PauseGame", "")
-                        Log.d(TAG1, "05PauseGame")
-                        reconnectToDevice()
                     }
                 }
             }
+        } catch (e: SecurityException) {
+            Log.e("SecurityException", "readDataのエラーは${e.message}")
         }
     }
 
@@ -468,6 +476,7 @@ class GamePlay23Activity: UnityPlayerActivity() {
     private fun sendData(deviceName: String, data: String) {
         val sendData = data + "," +  deviceName.last() // コントローラ名の末尾でユーザIndexを認識
         if(sendData != null) {
+            Log.i(TAG1, "Micon name is: ${deviceName}, data is ${data}")
             UnityPlayer.UnitySendMessage("SuisuiSystemManager", "ReceiveMessage", "${sendData}")
         }
     }
@@ -508,12 +517,21 @@ class GamePlay23Activity: UnityPlayerActivity() {
         // deviceすべてのSocketを停止
         try {
             sockets.forEach { socket ->
-                Log.d(TAG5, "Connection closed $socket")
-                socket.close()
-                Log.d(TAG5, "Connection closed")
+                try {
+                    Log.d(TAG5, "Connection closed $socket")
+                    socket.close()
+                    Log.d(TAG5, "Connection closed")
+                } catch (e: IOException) {
+                    Log.e(TAG1, "Error closingSocket: ${e.message}")
+                }
             }
         } catch (e: Exception) {
             Log.e(TAG5, "Error string connection: ${e.message}")
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        closeConnection()
     }
 }
