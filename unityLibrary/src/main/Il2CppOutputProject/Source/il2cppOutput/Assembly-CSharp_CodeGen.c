@@ -99,6 +99,7 @@ extern void KinkoSystemManager_StringToInt_mCC4F543A504D62ABF9C8849CC1DE28DC3734
 extern void KinkoSystemManager_OnUseGravity_mC0290FA1AC6EE542620DBF1D2A02631138586CF2 (void);
 extern void KinkoSystemManager_OffUseGravity_mBB8B18BED203C89C2795C009CDBE2C3CD8827588 (void);
 extern void KinkoSystemManager_GameSceneLoaded_m819019EF6EE63A595B7C8DF1E033470F02A2E8B8 (void);
+extern void KinkoSystemManager_SmartPhoneInput_m94CBECA7E8785FD6FC2B150281A15D3DFCB8A304 (void);
 extern void KinkoSystemManager_Awake_m99725D4F1466AD2D442EEBE0F13670920B825C68 (void);
 extern void KinkoSystemManager_Update_mC85F1A7248DC9FD021677CE86619C01C70033398 (void);
 extern void KinkoSystemManager_IsInputKey_mFDB65C1BC29658DC53D81A30586596064478F81D (void);
@@ -186,7 +187,9 @@ extern void PinponResult_Start_m25D8FE191471219AA66B920A49A7290D34A4A301 (void);
 extern void PinponResult_SaveState_mDD634DB3D1597EB9273E089915C865882161A914 (void);
 extern void PinponResult__ctor_m537094D41FC0F8C722FF4DE69433EDC051F1EED6 (void);
 extern void PinponSystemManager_ReceiveMessage_m7520808026FC2DE997627FB23C5E8B6102505B31 (void);
+extern void PinponSystemManager_SmartPhoneInput_mAA14738538427F0A076F22683E38F7C86083BBAA (void);
 extern void PinponSystemManager_Awake_mD76982918D3702241F794EE1D8A302394EB0E5F6 (void);
+extern void PinponSystemManager_Update_m6A63A8A2EB6F9882A1E4B8D8F7D2D5E9F5872F76 (void);
 extern void PinponSystemManager__ctor_m43BFB9B0325D532061C174AB1E2DCC0CBB707CB0 (void);
 extern void RightRacket_MoveRacket_mB3D5B13A2E6A658795836051578C3D9BFF74CC3B (void);
 extern void RightRacket_WaitBuckPosition_m2C8662F6A598F53F09C7E93B213FBF03E91A2A1B (void);
@@ -411,7 +414,7 @@ extern void WankosobaSystemManager_Update_mB232E5B47916FA16FA50659ACACDCC87E1DF5
 extern void WankosobaSystemManager__ctor_m34F362BE4FB930849096444FB11113BA541771FA (void);
 extern void UnitySourceGeneratedAssemblyMonoScriptTypes_v1_Get_mBEB95BEB954BB63E9710BBC7AD5E78C4CB0A0033 (void);
 extern void UnitySourceGeneratedAssemblyMonoScriptTypes_v1__ctor_mE70FB23ACC1EA12ABC948AA22C2E78B2D0AA39B1 (void);
-static Il2CppMethodPointer s_methodPointers[399] = 
+static Il2CppMethodPointer s_methodPointers[402] = 
 {
 	Apple__ctor_m470B2E2F0F8BE1503711117A920744A0B5F4DA87,
 	AppleBlocker_OnTriggerStay_mADF42789079BE13B47AB52BF968A75E097677250,
@@ -500,6 +503,7 @@ static Il2CppMethodPointer s_methodPointers[399] =
 	KinkoSystemManager_OnUseGravity_mC0290FA1AC6EE542620DBF1D2A02631138586CF2,
 	KinkoSystemManager_OffUseGravity_mBB8B18BED203C89C2795C009CDBE2C3CD8827588,
 	KinkoSystemManager_GameSceneLoaded_m819019EF6EE63A595B7C8DF1E033470F02A2E8B8,
+	KinkoSystemManager_SmartPhoneInput_m94CBECA7E8785FD6FC2B150281A15D3DFCB8A304,
 	KinkoSystemManager_Awake_m99725D4F1466AD2D442EEBE0F13670920B825C68,
 	KinkoSystemManager_Update_mC85F1A7248DC9FD021677CE86619C01C70033398,
 	KinkoSystemManager_IsInputKey_mFDB65C1BC29658DC53D81A30586596064478F81D,
@@ -587,7 +591,9 @@ static Il2CppMethodPointer s_methodPointers[399] =
 	PinponResult_SaveState_mDD634DB3D1597EB9273E089915C865882161A914,
 	PinponResult__ctor_m537094D41FC0F8C722FF4DE69433EDC051F1EED6,
 	PinponSystemManager_ReceiveMessage_m7520808026FC2DE997627FB23C5E8B6102505B31,
+	PinponSystemManager_SmartPhoneInput_mAA14738538427F0A076F22683E38F7C86083BBAA,
 	PinponSystemManager_Awake_mD76982918D3702241F794EE1D8A302394EB0E5F6,
+	PinponSystemManager_Update_m6A63A8A2EB6F9882A1E4B8D8F7D2D5E9F5872F76,
 	PinponSystemManager__ctor_m43BFB9B0325D532061C174AB1E2DCC0CBB707CB0,
 	RightRacket_MoveRacket_mB3D5B13A2E6A658795836051578C3D9BFF74CC3B,
 	RightRacket_WaitBuckPosition_m2C8662F6A598F53F09C7E93B213FBF03E91A2A1B,
@@ -813,7 +819,7 @@ static Il2CppMethodPointer s_methodPointers[399] =
 	UnitySourceGeneratedAssemblyMonoScriptTypes_v1_Get_mBEB95BEB954BB63E9710BBC7AD5E78C4CB0A0033,
 	UnitySourceGeneratedAssemblyMonoScriptTypes_v1__ctor_mE70FB23ACC1EA12ABC948AA22C2E78B2D0AA39B1,
 };
-static const int32_t s_InvokerIndices[399] = 
+static const int32_t s_InvokerIndices[402] = 
 {
 	5349,
 	4218,
@@ -906,6 +912,7 @@ static const int32_t s_InvokerIndices[399] =
 	5349,
 	5349,
 	5349,
+	5349,
 	4190,
 	5349,
 	5166,
@@ -989,6 +996,8 @@ static const int32_t s_InvokerIndices[399] =
 	5349,
 	5349,
 	4218,
+	5349,
+	5349,
 	5349,
 	5349,
 	4190,
@@ -1219,7 +1228,7 @@ IL2CPP_EXTERN_C const Il2CppCodeGenModule g_AssemblyU2DCSharp_CodeGenModule;
 const Il2CppCodeGenModule g_AssemblyU2DCSharp_CodeGenModule = 
 {
 	"Assembly-CSharp.dll",
-	399,
+	402,
 	s_methodPointers,
 	0,
 	NULL,

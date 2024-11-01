@@ -342,15 +342,10 @@ class GamePlay12Activity: UnityPlayerActivity() {
                             Log.e(TAG1, "miss GetSocket: ${e.message}")
                         }
                     }
-                    if(sockets.size == 2 && sockets.isNullOrEmpty() == false) {
-                        Log.d(TAG1, "Socket size is 2")
-                        UnityPlayer.UnitySendMessage("PinponGameStateManager", "ResumeGame", "")
-                        isConnected = true
-                        readData()
-                    } else {
-                        Log.e(TAG4, "sockets size is not find: $sockets")
-                        reconnectToDevice()
-                    }
+                    Log.d(TAG1, "Socket size is 2")
+                    UnityPlayer.UnitySendMessage("PinponGameStateManager", "ResumeGame", "")
+                    isConnected = true
+                    readData()
                 } else {
                     reconnectToDevice()
                 }
@@ -371,12 +366,13 @@ class GamePlay12Activity: UnityPlayerActivity() {
                     Log.d(TAG1, "in Couroutine scope")
                     val inputStream: InputStream = socket.inputStream
                     val buffer = ByteArray(4)
-                    Log.d(TAG1, "MyIconName: $socket")
+                    var bytes: Int
+                    Log.d(TAG1, "MyiconName: $socket")
 
                     while(isConnected) {
                         try {
                             //delay(700)
-                            val bytes = inputStream.read(buffer) ?: 0
+                            bytes = inputStream.read(buffer) ?: 0
                             if(bytes > 0) {
                                 var incomingData = String(buffer, 0, bytes)
                                 Log.d(TAG3, "Rechieved: ${incomingData}")
@@ -396,7 +392,7 @@ class GamePlay12Activity: UnityPlayerActivity() {
                                     sendData(deviceName ?: "UnknownDevices", incomingData)
                                 }
                             }
-                        } catch (e: Exception) {
+                        } catch (e: IOException) {
                             Log.e(TAG4, "Read failed: ${e.message}")
 
                             // 接続停止フラグを起動

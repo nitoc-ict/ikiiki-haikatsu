@@ -41410,6 +41410,8 @@ struct GenerateTopwall_tD530735836DEA42CC66F76CCE446AC0C27CF5CF8  : public MonoB
 {
 	int32_t ___rand;
 	int32_t ___TodayNow;
+	float ___topHeight;
+	float ___underHeight;
 	GameObjectU5BU5D_tFF67550DFCE87096D7A3734EA15B75896B2722CF* ___objs;
 };
 struct GetFishField_t1A0773FA34408C0D6B03A1E9531626CEF47DCBB8  : public MonoBehaviour_t532A11E69716D348D8AA7F854AFCBFCB8AD17F71

@@ -11491,6 +11491,8 @@ struct GenerateTopwall_tD530735836DEA42CC66F76CCE446AC0C27CF5CF8  : public MonoB
 {
 	int32_t ___rand;
 	int32_t ___TodayNow;
+	float ___topHeight;
+	float ___underHeight;
 	GameObjectU5BU5D_tFF67550DFCE87096D7A3734EA15B75896B2722CF* ___objs;
 };
 struct GetFishField_t1A0773FA34408C0D6B03A1E9531626CEF47DCBB8  : public MonoBehaviour_t532A11E69716D348D8AA7F854AFCBFCB8AD17F71
@@ -16061,9 +16063,9 @@ IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable4307[1] =
 IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable4309[1] = 
 {
 	static_cast<int32_t>(offsetof(PoisonApple_tD52223241FACDF75B2ED1AAF7868AFFC96E7D7AD, ___score)),};
-IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable4310[3] = 
+IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable4310[5] = 
 {
-	static_cast<int32_t>(offsetof(GenerateTopwall_tD530735836DEA42CC66F76CCE446AC0C27CF5CF8, ___rand)),static_cast<int32_t>(offsetof(GenerateTopwall_tD530735836DEA42CC66F76CCE446AC0C27CF5CF8, ___TodayNow)),static_cast<int32_t>(offsetof(GenerateTopwall_tD530735836DEA42CC66F76CCE446AC0C27CF5CF8, ___objs)),};
+	static_cast<int32_t>(offsetof(GenerateTopwall_tD530735836DEA42CC66F76CCE446AC0C27CF5CF8, ___rand)),static_cast<int32_t>(offsetof(GenerateTopwall_tD530735836DEA42CC66F76CCE446AC0C27CF5CF8, ___TodayNow)),static_cast<int32_t>(offsetof(GenerateTopwall_tD530735836DEA42CC66F76CCE446AC0C27CF5CF8, ___topHeight)),static_cast<int32_t>(offsetof(GenerateTopwall_tD530735836DEA42CC66F76CCE446AC0C27CF5CF8, ___underHeight)),static_cast<int32_t>(offsetof(GenerateTopwall_tD530735836DEA42CC66F76CCE446AC0C27CF5CF8, ___objs)),};
 IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable4311[1] = 
 {
 	static_cast<int32_t>(offsetof(KeyBox_t4B774F1BCF2087679CEC1D5B5B4C105EB113D248, ___gamesystem)),};

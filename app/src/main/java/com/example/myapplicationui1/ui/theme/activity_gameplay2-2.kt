@@ -340,6 +340,7 @@ class GamePlay22Activity: UnityPlayerActivity() {
                             }
                         } catch (e: Exception) {
                             Log.e(TAG1, "miss GetSocket: ${e.message}")
+                            reconnectToDevice()
                         }
                     }
                     UnityPlayer.UnitySendMessage("KinkoGameStateManager", "ResumeGame", "")
