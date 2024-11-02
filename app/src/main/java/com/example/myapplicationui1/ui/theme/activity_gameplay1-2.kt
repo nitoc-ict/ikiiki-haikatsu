@@ -69,7 +69,7 @@ class GamePlay12Activity: UnityPlayerActivity() {
     private var isfinishGame: Boolean = false
 
     // CountDownLatch for synchronization
-    private val latch = CountDownLatch(1)
+    private var latch = CountDownLatch(1)
 
     var toastCall: Int = 0
 
@@ -300,62 +300,95 @@ class GamePlay12Activity: UnityPlayerActivity() {
     }
 
     private fun connectToDevice() {
-        if (ContextCompat.checkSelfPermission(
-                this, Manifest.permission.BLUETOOTH_CONNECT
-            ) == PackageManager.PERMISSION_GRANTED) {
-            try {
-                Log.d(TAG1, "Permission Available 04")
-                val pairedDevices: Set<BluetoothDevice>? = bluetoothAdapter?.bondedDevices
-                Log.d(TAG1, "Enable To Use devices: ${bluetoothAdapter?.bondedDevices}")
-                // 取得したデバイスをListに格納
-                if(pairedDevices != null) {
-                    pairedDevices?.forEach { device ->
-                        Log.d(TAG1, "device is: $device")
-                        when(device.name) {
-                            DEVICE_NAME11 -> {
-                                Log.d(TAG1, "01Device is ${device}")
-                                devices.add(device)
-                            }
-                            DEVICE_NAME12 -> {
-                                Log.d(TAG1, "02Device is ${device}")
-                                devices.add(device)
-                            }
+    if (ContextCompat.checkSelfPermission(
+            this, Manifest.permission.BLUETOOTH_CONNECT
+        ) == PackageManager.PERMISSION_GRANTED) {
+        try {
+            Log.d(TAG1, "Permission Available 04")
+            val pairedDevices: Set<BluetoothDevice>? = bluetoothAdapter?.bondedDevices
+            Log.d(TAG1, "Enable To Use devices: ${bluetoothAdapter?.bondedDevices}")
+            // 取得したデバイスをListに格納
+            if(pairedDevices != null) {
+                val newDevices = mutableListOf<BluetoothDevice>()
+                pairedDevices.forEach { device ->
+                    Log.d(TAG1, "device is: $device")
+                    when(device.name) {
+                        DEVICE_NAME11 -> {
+                            Log.d(TAG1, "01Device is ${device}")
+                            newDevices.add(device)
+                        }
+                        DEVICE_NAME12 -> {
+                            Log.d(TAG1, "02Device is ${device}")
+                            newDevices.add(device)
                         }
                     }
-                } else {
-                    reconnectToDevice()
                 }
+                if(newDevices.size < 2) {
+                    Log.e(TAG1, "Too few devices found")
+                    reconnectToDevice()
+                } else {
+                    devices.addAll(newDevices)
+                }
+            } else {
+                reconnectToDevice()
+            }
 
-                if(devices != null) {
-                    // 取得したDeviceすべてをsocketに接続
-                    devices.forEach { device ->
-                        try {
-                            Log.d(TAG1, "DeviceName is: $device")
-                            if(device != null) {
-                                Log.d(TAG1, "connect socket of device")
-                                val socket = device.createRfcommSocketToServiceRecord(SPP_UUID)
-                                socket.connect()
-                                sockets.add(socket)
-                                Log.d(TAG1, "01connected socket of device")
-                            }
-                        } catch (e: Exception) {
-                            Log.e(TAG1, "miss GetSocket: ${e.message}")
+            if(devices.isNotEmpty()) {
+                val newSockets = mutableListOf<BluetoothSocket>()
+                // 取得したDeviceすべてをsocketに接続
+                devices.forEach { device ->
+                    try {
+                        Log.d(TAG1, "DeviceName is: $device")
+                        if(device != null) {
+                            Log.d(TAG1, "connect socket of device")
+                            val socket = device.createRfcommSocketToServiceRecord(SPP_UUID)
+                            Log.d(TAG1, "00add socket of device")
+                            socket.connect()
+                            Log.d(TAG1, "001add socket of device")
+                            newSockets.add(socket)
+                            Log.d(TAG1, "01connected socket of device: $device")
                         }
+                    } catch (e: IOException) {
+                        Log.e(TAG1, "Failed to connect to socket: ${e.message}")
+                        Log.e(TAG1, Log.getStackTraceString(e))
+                    } catch (e: SecurityException) {
+                        Log.e(TAG1, "Security exception: ${e.message}")
+                        Log.e(TAG1, Log.getStackTraceString(e))
+                    } catch (e: Exception) {
+                        Log.e(TAG1, "Unexpected exception: ${e.message}")
+                        Log.e(TAG1, Log.getStackTraceString(e))
                     }
-                    Log.d(TAG1, "Socket size is 2")
+                }
+                sockets.addAll(newSockets)
+                Log.d(TAG1, "Socket size is ${sockets.size}")
+                if (sockets.size == devices.size) {
                     UnityPlayer.UnitySendMessage("PinponGameStateManager", "ResumeGame", "")
                     isConnected = true
                     readData()
                 } else {
                     reconnectToDevice()
                 }
-            } catch (e: Exception) {
-                Log.e(TAG1, "connected out: ${e.message}")
-                isConnected = false
+            } else {
                 reconnectToDevice()
             }
+        } catch (e: IOException) {
+            Log.e(TAG1, "Connection failed: ${e.message}")
+            Log.e(TAG1, Log.getStackTraceString(e))
+            isConnected = false
+            reconnectToDevice()
+        } catch (e: SecurityException) {
+            Log.e(TAG1, "Security exception: ${e.message}")
+            Log.e(TAG1, Log.getStackTraceString(e))
+            isConnected = false
+            reconnectToDevice()
+        } catch (e: Exception) {
+            Log.e(TAG1, "Unexpected exception: ${e.message}")
+            Log.e(TAG1, Log.getStackTraceString(e))
+            isConnected = false
+            reconnectToDevice()
         }
     }
+}
 
     private fun readData() {
         Log.d(TAG1, "ReadData")
@@ -370,6 +403,7 @@ class GamePlay12Activity: UnityPlayerActivity() {
                     Log.d(TAG1, "MyiconName: $socket")
 
                     while(isConnected) {
+                        Log.d(TAG1, "In `isConnected`")
                         try {
                             //delay(700)
                             bytes = inputStream.read(buffer) ?: 0
@@ -451,12 +485,44 @@ class GamePlay12Activity: UnityPlayerActivity() {
         if (isfinishGame == false) {
             UnityPlayer.UnitySendMessage("PinponGameStateManager", "PauseGame", "")
             CoroutineScope(Dispatchers.IO).launch {
-                expressionToast("Bluetoothに接続しています...")
-                closeConnection()
-                devices.clear()
-                delay(2000)
-                initializedBluetooth()
+               try {
+                   //expressionToast("Bluetoothに接続しています...")
+                   closeConnection()
+                   devices.clear()
+                   sockets.clear()
+                   isConnected = false
+
+                   latch = CountDownLatch(1)
+                   delay(2000)
+
+                   CoroutineScope(Dispatchers.Main).launch {
+                       initializedBluetooth()
+                   }
+               } catch (e: Exception) {
+                   Log.e(TAG1, "Reconnection failed: ${e.message}")
+                   // 再接続に失敗した場合、一定時間後に再試行
+                   delay(5000)
+                   reconnectToDevice()
+               }
             }
+        }
+    }
+
+    private fun StartLatch() {
+        try {
+            latch.countDown()
+            Log.d(TAG1, "Count Downed")
+        } catch(e: Exception) {
+            Log.e(TAG1, "Count downed error: ${e.message}")
+        }
+    }
+
+    private fun AwaitLatch() {
+        try {
+            latch.await()
+            Log.d(TAG1, "Await now")
+        } catch(e: Exception) {
+            Log.e(TAG1, "Await error: ${e.message}")
         }
     }
 
@@ -477,6 +543,7 @@ class GamePlay12Activity: UnityPlayerActivity() {
 
     private fun closeConnection() {
         // deviceすべてのSocketを停止
+        isConnected = false
         try {
             sockets.forEach { socket ->
                 try {
@@ -490,6 +557,7 @@ class GamePlay12Activity: UnityPlayerActivity() {
         } catch (e: Exception) {
             Log.e(TAG5, "Error string connection: ${e.message}")
         }
+        sockets.clear()
     }
 
     override fun onDestroy() {

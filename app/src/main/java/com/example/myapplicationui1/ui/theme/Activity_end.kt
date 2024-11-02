@@ -9,6 +9,7 @@ import android.view.Gravity
 import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.myapplicationui1.ControllerExplanationSelectionActivity
 import com.example.myapplicationui1.GamePlay11Activity
 import com.example.myapplicationui1.GameSelection11Activity
 import com.example.myapplicationui1.GameSelection12Activity
@@ -58,28 +59,9 @@ class ActivityEnd : AppCompatActivity() {
         }
         val quitButton: Button = findViewById(R.id.quit_button)
         quitButton.setOnClickListener {
-            try {
-                val firstchar: Char? = text?.firstOrNull()
-                when (firstchar) {
-                    '1' -> {
-                        Log.d("DEBUG", "01 get first char: $firstchar")
-                        val intent = Intent(this, PiropiroGameSelection::class.java)
-                        startActivity(intent)
-                    }
-
-                    '2' -> {
-                        Log.d("DEBUG", "02 get first char: $firstchar")
-                        val intent = Intent(this, SpirometerGameSelection::class.java)
-                        startActivity(intent)
-                    }
-                    else -> {
-                        Log.d("DEBUG", "03 cannot get default value")
-                    }
-                }
-            } catch (e: Exception) {
-                Log.d("WARN_GET_VALUE", "Error is: : ${e.message}")
+            val intent = Intent(this, ControllerExplanationSelectionActivity::class.java)
+            startActivity(intent)
             }
-        }
         }
     }
 }

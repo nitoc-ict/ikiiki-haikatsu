@@ -241,6 +241,7 @@ class GamePlay21Activity: UnityPlayerActivity() {
                     reconnectToDevice()
                 } else {
                     Log.d(TAG1, "Connected micon")
+                    connectToDevice()
                 }
             } catch (e: Exception){
                 Log.d(TAG1, "Error is: ", e)
