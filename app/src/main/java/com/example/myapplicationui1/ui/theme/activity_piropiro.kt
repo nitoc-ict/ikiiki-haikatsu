@@ -23,7 +23,7 @@ class PiropiroActivity : AppCompatActivity() {
         val videoView = findViewById<VideoView>(R.id.videoView)
 
         // 動画のパスを取得
-        val packageName = "android.resource://" + this.packageName + "/" + R.raw.spirometer // あとでピロピロ笛の動画作って`piropiro`に直す
+        val packageName = "android.resource://" + this.packageName + "/" + R.raw.piropiro // あとでピロピロ笛の動画作って`piropiro`に直す
 
         // 動画のパスまたはURLを指定
         val videoUri = Uri.parse(packageName)

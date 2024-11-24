@@ -356,7 +356,6 @@ IL2CPP_EXTERN_C String_t* _stringLiteral5EF172B781D82FC1765813EF429509BFAAEB3FCF
 IL2CPP_EXTERN_C String_t* _stringLiteral5FE1628106AB255B1A96A500C058D74B2CA04944;
 IL2CPP_EXTERN_C String_t* _stringLiteral5FE3A1C2083B6A4EF1A45F043528F0DF2DCB1A63;
 IL2CPP_EXTERN_C String_t* _stringLiteral61CEE05988C3CE4613E019C27F3435ED3AC44508;
-IL2CPP_EXTERN_C String_t* _stringLiteral61E2F527C6A6EF23237552084726C2D20A6AD9B7;
 IL2CPP_EXTERN_C String_t* _stringLiteral63790E8E866D6C1BEB17927A8CBA791F36FCAD78;
 IL2CPP_EXTERN_C String_t* _stringLiteral65F976C848EE973DD3D439ECEC6EBAD0CAA0F655;
 IL2CPP_EXTERN_C String_t* _stringLiteral66E071F82A148070819FB8502F4851C562CEFFD5;
@@ -382,7 +381,6 @@ IL2CPP_EXTERN_C String_t* _stringLiteral833DE2A85C1CF5157A82113375FDCFE847998307
 IL2CPP_EXTERN_C String_t* _stringLiteral839F59EB3D020B1BD9DB26CF37EEE858A262660E;
 IL2CPP_EXTERN_C String_t* _stringLiteral847773DE390FDF73EA7D29592A1737BA67E89623;
 IL2CPP_EXTERN_C String_t* _stringLiteral84D001BE27E3C5CA68816B456E4522CA0709782D;
-IL2CPP_EXTERN_C String_t* _stringLiteral881C87C63A4CBDDDB8D63D361079C769388235EF;
 IL2CPP_EXTERN_C String_t* _stringLiteral8905CADECCA6BD7F953FC9D48185D3E49E77FD20;
 IL2CPP_EXTERN_C String_t* _stringLiteral8964425D5AFA567D9602F7E19CD9E3B473DEBE0C;
 IL2CPP_EXTERN_C String_t* _stringLiteral8AAF9E783E7FC25744DE1B6EBF7E6CFC77FF4600;
@@ -502,8 +500,6 @@ IL2CPP_EXTERN_C const RuntimeMethod* GameObject_GetComponent_TisWankosobaResult_
 IL2CPP_EXTERN_C const RuntimeMethod* KinkoGameStateManager_GameSceneLoaded_m44B54BDE7F6D2E60819A7A8B32F4608613A40708_RuntimeMethod_var;
 IL2CPP_EXTERN_C const RuntimeMethod* KinkoSystemManager_GameSceneLoaded_m819019EF6EE63A595B7C8DF1E033470F02A2E8B8_RuntimeMethod_var;
 IL2CPP_EXTERN_C const RuntimeMethod* KinkoTimerManager_GameSceneLoaded_mE1132B743136154DD9470085B0AA3707D916BDD1_RuntimeMethod_var;
-IL2CPP_EXTERN_C const RuntimeMethod* Object_FindObjectOfType_TisChopstick01_t15D66697A5E89A2C90C48DC3896E88D6CFD2A2FF_mF0E3005FF9ED88356C8B41D10C6675134B51E043_RuntimeMethod_var;
-IL2CPP_EXTERN_C const RuntimeMethod* Object_FindObjectOfType_TisChopstick02_t92D40387A678ADB9B7CEBC12D68657309E0D5068_m373BB55C9FABBEC38B59B38E170CBD85C173CBCA_RuntimeMethod_var;
 IL2CPP_EXTERN_C const RuntimeMethod* Object_FindObjectOfType_TisGenerateFishes_tD3A6A1B3E4B73181A9F2D110D66EF0A1D12CF8B9_mA83E4735D7A71EBE6DC08DFEC1ACC19717E125A2_RuntimeMethod_var;
 IL2CPP_EXTERN_C const RuntimeMethod* Object_FindObjectOfType_TisKinkoSystemManager_t94E6507D6365AAD4BC78376C74DC30399C02675E_mAEB475CA19A92E8C747FAC543B5802515DB762DA_RuntimeMethod_var;
 IL2CPP_EXTERN_C const RuntimeMethod* Object_FindObjectOfType_TisLeftRacket_t2B486395B3FA98EE0A9258E0BB56DAB36ABC93BB_m6D3D4E4989C87DCCB22144C9D3F2994F683A03ED_RuntimeMethod_var;
@@ -2273,9 +2269,6 @@ struct WankosobaSystemManager_t153FF469360627EB1F477985DE5AC19D5C646455  : publi
 	GameObject_t76FEDD663AB33C991A9C9A23129337651094216F* ___owanState;
 	Soba_t8FC949899540855F53E45CE4A91AE8B38094AE87* ___sobaobj;
 	Owan_t3327AE492DFB8636653713F4236D6DD280A7996D* ___owanobj;
-	Chopstick01_t15D66697A5E89A2C90C48DC3896E88D6CFD2A2FF* ___chopstick01;
-	Chopstick02_t92D40387A678ADB9B7CEBC12D68657309E0D5068* ___chopstick02;
-	bool ___chopsticksFlag;
 	bool ___isSobaFlag;
 	int32_t ___sobaRand;
 };
@@ -3355,8 +3348,6 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR RuntimeObject* WankosobaGameStateManager_Coun
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void WankosobaGameStateManager_StartPlay_mF5E1CB800CA04C205817E7E5A0F2DBC4DEDA182E (WankosobaGameStateManager_t3838A6D84BE0C99DDC82C1819E0357607291524A* __this, const RuntimeMethod* method) ;
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR GameObject_t76FEDD663AB33C991A9C9A23129337651094216F* Soba_SpawnSoba_mAA15AE54F0A4AFF971805B03F4629E8C95AFBC50 (Soba_t8FC949899540855F53E45CE4A91AE8B38094AE87* __this, GameObject_t76FEDD663AB33C991A9C9A23129337651094216F* ___0_obj, const RuntimeMethod* method) ;
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR GameObject_t76FEDD663AB33C991A9C9A23129337651094216F* Owan_SpawnOwan_m4907A37EE19FF762F818936830BE234FBC7DC971 (Owan_t3327AE492DFB8636653713F4236D6DD280A7996D* __this, GameObject_t76FEDD663AB33C991A9C9A23129337651094216F* ___0_obj, int32_t ___1_random, const RuntimeMethod* method) ;
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Chopstick01_ChopstickAnimation_m9C437BEF703F07096F7643AFDCDDB975D68701AB (Chopstick01_t15D66697A5E89A2C90C48DC3896E88D6CFD2A2FF* __this, const RuntimeMethod* method) ;
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Chopstick02_ChopstickAnimation_mA4E2F3E800598D40B955DFA67B4D8A2B33C0B6E9 (Chopstick02_t92D40387A678ADB9B7CEBC12D68657309E0D5068* __this, const RuntimeMethod* method) ;
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Soba_SipSoba_m9924237F8460DD4DE3D16D75A80E67E59902601C (Soba_t8FC949899540855F53E45CE4A91AE8B38094AE87* __this, GameObject_t76FEDD663AB33C991A9C9A23129337651094216F* ___0_obj, int32_t ___1_sensor, const RuntimeMethod* method) ;
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void WankosobaSystemManager_FinishEatSoba_m693E7D6407C55BA7F8A21387B214897A7C327FEA (WankosobaSystemManager_t153FF469360627EB1F477985DE5AC19D5C646455* __this, const RuntimeMethod* method) ;
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void WankosobaSystemManager_SetSoba_m1B542DA61DC2B884FCF50693B9959D083F13D6CD (WankosobaSystemManager_t153FF469360627EB1F477985DE5AC19D5C646455* __this, const RuntimeMethod* method) ;
@@ -3370,16 +3361,6 @@ inline Owan_t3327AE492DFB8636653713F4236D6DD280A7996D* Component_GetComponent_Ti
 }
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void WankosobaSystemManager_ReceiveMessage_m4BE52BA2310FFEF99F2D3722A5E354C07BBF343B (WankosobaSystemManager_t153FF469360627EB1F477985DE5AC19D5C646455* __this, String_t* ___0_sensor, const RuntimeMethod* method) ;
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void WankosobaGameStateManager_UpdateScore_m3F949DBFB06E9F51AC534F2D7138D0E6A6A0DF2D (WankosobaGameStateManager_t3838A6D84BE0C99DDC82C1819E0357607291524A* __this, int32_t ___0_result, const RuntimeMethod* method) ;
-inline Chopstick01_t15D66697A5E89A2C90C48DC3896E88D6CFD2A2FF* Object_FindObjectOfType_TisChopstick01_t15D66697A5E89A2C90C48DC3896E88D6CFD2A2FF_mF0E3005FF9ED88356C8B41D10C6675134B51E043 (const RuntimeMethod* method)
-{
-	return ((  Chopstick01_t15D66697A5E89A2C90C48DC3896E88D6CFD2A2FF* (*) (const RuntimeMethod*))Object_FindObjectOfType_TisRuntimeObject_m02DFBF011F3B59F777A5E521DB2A116DD496E968_gshared)(method);
-}
-inline Chopstick02_t92D40387A678ADB9B7CEBC12D68657309E0D5068* Object_FindObjectOfType_TisChopstick02_t92D40387A678ADB9B7CEBC12D68657309E0D5068_m373BB55C9FABBEC38B59B38E170CBD85C173CBCA (const RuntimeMethod* method)
-{
-	return ((  Chopstick02_t92D40387A678ADB9B7CEBC12D68657309E0D5068* (*) (const RuntimeMethod*))Object_FindObjectOfType_TisRuntimeObject_m02DFBF011F3B59F777A5E521DB2A116DD496E968_gshared)(method);
-}
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Chopstick01_StopChopstickAnimation_mBDA0D1E6C41D50D6D65ECF2F8346772E6F0027CF (Chopstick01_t15D66697A5E89A2C90C48DC3896E88D6CFD2A2FF* __this, const RuntimeMethod* method) ;
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Chopstick02_StopChopstickAnimation_mFC8D89634D651FBBB90579C870014735DEFD5874 (Chopstick02_t92D40387A678ADB9B7CEBC12D68657309E0D5068* __this, const RuntimeMethod* method) ;
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void WankosobaSystemManager_InputKey_mDD3CD50020ADF59C81A52E9D9D4BF93DE5A904F8 (WankosobaSystemManager_t153FF469360627EB1F477985DE5AC19D5C646455* __this, const RuntimeMethod* method) ;
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR int32_t DateTime_get_Millisecond_mD47CAACAF231AA82552DA9F71836784AF8E27878 (DateTime_t66193957C73913903DDAD89FEDC46139BCA5802D* __this, const RuntimeMethod* method) ;
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void RuntimeHelpers_InitializeArray_m751372AA3F24FBF6DA9B9D687CBFA2DE436CAB9B (RuntimeArray* ___0_array, RuntimeFieldHandle_t6E4C45B6D2EA12FC99185805A7E77527899B25C5 ___1_fldHandle, const RuntimeMethod* method) ;
@@ -18432,7 +18413,6 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void WankosobaGameStateManager_Update_m066556
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&WankosobaGameStateManager_GameSceneLoaded_m4FFF244FDD0320A94E0E5001E9430A96AF1F2E45_RuntimeMethod_var);
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&_stringLiteral5D3C30DF19E57BD0DFB053F2CFC3C149FCD74E06);
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&_stringLiteral7A3A248EF79517FC2BE7E3A3B719CB2080AE149D);
-		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&_stringLiteralDA3C4754D00EF20A9AE9BEAA4EF602AAB1F54210);
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&_stringLiteralED7341DB48FCB724818C57D3C6B0C81551C67439);
 		s_Il2CppMethodInitialized = true;
 	}
@@ -18447,7 +18427,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void WankosobaGameStateManager_Update_m066556
 		il2cpp_codegen_runtime_class_init_inline(Debug_t8394C7EEAECA3689C2C9B9DE9C7166D73596276F_il2cpp_TypeInfo_var);
 		Debug_Log_m87A9A3C761FF5C43ED8A53B16190A53D08F818BB(_stringLiteralED7341DB48FCB724818C57D3C6B0C81551C67439, NULL);
 		WankosobaGameStateManager_CountDownStart_m22161FD2E6821E0D53047C4D8D25D53CD3333E95(__this, NULL);
-		goto IL_0063;
+		goto IL_0059;
 	}
 
 IL_001a:
@@ -18455,22 +18435,20 @@ IL_001a:
 		int32_t L_1 = __this->___gameState;
 		if ((!(((uint32_t)L_1) == ((uint32_t)1))))
 		{
-			goto IL_0035;
+			goto IL_002b;
 		}
 	}
 	{
-		il2cpp_codegen_runtime_class_init_inline(Debug_t8394C7EEAECA3689C2C9B9DE9C7166D73596276F_il2cpp_TypeInfo_var);
-		Debug_Log_m87A9A3C761FF5C43ED8A53B16190A53D08F818BB(_stringLiteralDA3C4754D00EF20A9AE9BEAA4EF602AAB1F54210, NULL);
 		WankosobaGameStateManager_UpdateTime_m3B1616E82BE47A4F5ED5BB2A239B4775C7A2A13F(__this, NULL);
-		goto IL_0063;
+		goto IL_0059;
 	}
 
-IL_0035:
+IL_002b:
 	{
 		int32_t L_2 = __this->___gameState;
 		if ((!(((uint32_t)L_2) == ((uint32_t)3))))
 		{
-			goto IL_0063;
+			goto IL_0059;
 		}
 	}
 	{
@@ -18483,20 +18461,20 @@ IL_0035:
 		SceneManager_LoadScene_mBB3DBC1601A21F8F4E8A5D68FED30EA9412F218E(_stringLiteral5D3C30DF19E57BD0DFB053F2CFC3C149FCD74E06, NULL);
 	}
 
-IL_0063:
+IL_0059:
 	{
 		bool L_4;
 		L_4 = Input_GetKeyDown_mB237DEA6244132670D38990BAB77D813FBB028D2(((int32_t)112), NULL);
 		if (!L_4)
 		{
-			goto IL_008b;
+			goto IL_0081;
 		}
 	}
 	{
 		int32_t L_5 = __this->___gameState;
 		if ((!(((uint32_t)L_5) == ((uint32_t)2))))
 		{
-			goto IL_007c;
+			goto IL_0072;
 		}
 	}
 	{
@@ -18504,19 +18482,19 @@ IL_0063:
 		return;
 	}
 
-IL_007c:
+IL_0072:
 	{
 		int32_t L_6 = __this->___gameState;
 		if ((!(((uint32_t)L_6) == ((uint32_t)1))))
 		{
-			goto IL_008b;
+			goto IL_0081;
 		}
 	}
 	{
 		WankosobaGameStateManager_ResumeGame_mFBE16EBF01AAD53DCA14F45AC7847453282BB4FB(__this, NULL);
 	}
 
-IL_008b:
+IL_0081:
 	{
 		return;
 	}
@@ -19105,149 +19083,137 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void WankosobaSystemManager_ReceiveMessage_m4
 		L_1 = String_Concat_m8855A6DE10F84DA7F4EC113CADDB59873A25573B(_stringLiteral23D044BF59FACADD34993EB1047197EE3DF6B1B8, L_0, _stringLiteralBF3BE46C477C0453E5C6F1177C0114A56752221C, NULL);
 		il2cpp_codegen_runtime_class_init_inline(Debug_t8394C7EEAECA3689C2C9B9DE9C7166D73596276F_il2cpp_TypeInfo_var);
 		Debug_Log_m87A9A3C761FF5C43ED8A53B16190A53D08F818BB(L_1, NULL);
-		__this->___chopsticksFlag = (bool)1;
-		Chopstick01_t15D66697A5E89A2C90C48DC3896E88D6CFD2A2FF* L_2 = __this->___chopstick01;
+		String_t* L_2 = ___0_sensor;
 		NullCheck(L_2);
-		Chopstick01_ChopstickAnimation_m9C437BEF703F07096F7643AFDCDDB975D68701AB(L_2, NULL);
-		Chopstick02_t92D40387A678ADB9B7CEBC12D68657309E0D5068* L_3 = __this->___chopstick02;
-		NullCheck(L_3);
-		Chopstick02_ChopstickAnimation_mA4E2F3E800598D40B955DFA67B4D8A2B33C0B6E9(L_3, NULL);
-		String_t* L_4 = ___0_sensor;
-		NullCheck(L_4);
-		bool L_5;
-		L_5 = String_Contains_m6D77B121FADA7CA5F397C0FABB65DA62DF03B6C3(L_4, _stringLiteralE91FE173F59B063D620A934CE1A010F2B114C1F3, NULL);
-		if (!L_5)
+		bool L_3;
+		L_3 = String_Contains_m6D77B121FADA7CA5F397C0FABB65DA62DF03B6C3(L_2, _stringLiteralE91FE173F59B063D620A934CE1A010F2B114C1F3, NULL);
+		if (!L_3)
 		{
-			goto IL_0043;
+			goto IL_0026;
 		}
 	}
 	{
 		V_0 = 1;
-		goto IL_0067;
+		goto IL_004a;
 	}
 
-IL_0043:
+IL_0026:
 	{
-		String_t* L_6 = ___0_sensor;
-		NullCheck(L_6);
-		bool L_7;
-		L_7 = String_Contains_m6D77B121FADA7CA5F397C0FABB65DA62DF03B6C3(L_6, _stringLiteral21ED4C7AF50D987589A9029FC0422151BE3A0FC2, NULL);
-		if (!L_7)
+		String_t* L_4 = ___0_sensor;
+		NullCheck(L_4);
+		bool L_5;
+		L_5 = String_Contains_m6D77B121FADA7CA5F397C0FABB65DA62DF03B6C3(L_4, _stringLiteral21ED4C7AF50D987589A9029FC0422151BE3A0FC2, NULL);
+		if (!L_5)
 		{
-			goto IL_0054;
+			goto IL_0037;
 		}
 	}
 	{
 		V_0 = 2;
-		goto IL_0067;
+		goto IL_004a;
 	}
 
-IL_0054:
+IL_0037:
 	{
-		String_t* L_8 = ___0_sensor;
-		NullCheck(L_8);
-		bool L_9;
-		L_9 = String_Contains_m6D77B121FADA7CA5F397C0FABB65DA62DF03B6C3(L_8, _stringLiteral2064F80F811DB79A33C4E51C10221454E30C74AE, NULL);
-		if (!L_9)
+		String_t* L_6 = ___0_sensor;
+		NullCheck(L_6);
+		bool L_7;
+		L_7 = String_Contains_m6D77B121FADA7CA5F397C0FABB65DA62DF03B6C3(L_6, _stringLiteral2064F80F811DB79A33C4E51C10221454E30C74AE, NULL);
+		if (!L_7)
 		{
-			goto IL_0065;
+			goto IL_0048;
 		}
 	}
 	{
 		V_0 = 3;
-		goto IL_0067;
+		goto IL_004a;
 	}
 
-IL_0065:
+IL_0048:
 	{
 		V_0 = 0;
 	}
 
-IL_0067:
+IL_004a:
 	{
-		String_t* L_10;
-		L_10 = Int32_ToString_m030E01C24E294D6762FB0B6F37CB541581F55CA5((&V_0), NULL);
-		String_t* L_11;
-		L_11 = String_Concat_m8855A6DE10F84DA7F4EC113CADDB59873A25573B(_stringLiteral1768BC25080A2778AF5494C4048C8846C033592F, L_10, _stringLiteralBF3BE46C477C0453E5C6F1177C0114A56752221C, NULL);
+		String_t* L_8;
+		L_8 = Int32_ToString_m030E01C24E294D6762FB0B6F37CB541581F55CA5((&V_0), NULL);
+		String_t* L_9;
+		L_9 = String_Concat_m8855A6DE10F84DA7F4EC113CADDB59873A25573B(_stringLiteral1768BC25080A2778AF5494C4048C8846C033592F, L_8, _stringLiteralBF3BE46C477C0453E5C6F1177C0114A56752221C, NULL);
 		il2cpp_codegen_runtime_class_init_inline(Debug_t8394C7EEAECA3689C2C9B9DE9C7166D73596276F_il2cpp_TypeInfo_var);
-		Debug_Log_m87A9A3C761FF5C43ED8A53B16190A53D08F818BB(L_11, NULL);
-		Soba_t8FC949899540855F53E45CE4A91AE8B38094AE87* L_12 = __this->___sobaobj;
+		Debug_Log_m87A9A3C761FF5C43ED8A53B16190A53D08F818BB(L_9, NULL);
+		Soba_t8FC949899540855F53E45CE4A91AE8B38094AE87* L_10 = __this->___sobaobj;
+		il2cpp_codegen_runtime_class_init_inline(Object_tC12DECB6760A7F2CBF65D9DCF18D044C2D97152C_il2cpp_TypeInfo_var);
+		bool L_11;
+		L_11 = Object_op_Inequality_mD0BE578448EAA61948F25C32F8DD55AB1F778602(L_10, (Object_tC12DECB6760A7F2CBF65D9DCF18D044C2D97152C*)NULL, NULL);
+		if (!L_11)
+		{
+			goto IL_00c7;
+		}
+	}
+	{
+		GameObject_t76FEDD663AB33C991A9C9A23129337651094216F* L_12 = __this->___sobaState;
 		il2cpp_codegen_runtime_class_init_inline(Object_tC12DECB6760A7F2CBF65D9DCF18D044C2D97152C_il2cpp_TypeInfo_var);
 		bool L_13;
 		L_13 = Object_op_Inequality_mD0BE578448EAA61948F25C32F8DD55AB1F778602(L_12, (Object_tC12DECB6760A7F2CBF65D9DCF18D044C2D97152C*)NULL, NULL);
 		if (!L_13)
 		{
-			goto IL_00e7;
+			goto IL_00c7;
 		}
 	}
 	{
-		GameObject_t76FEDD663AB33C991A9C9A23129337651094216F* L_14 = __this->___sobaState;
-		il2cpp_codegen_runtime_class_init_inline(Object_tC12DECB6760A7F2CBF65D9DCF18D044C2D97152C_il2cpp_TypeInfo_var);
-		bool L_15;
-		L_15 = Object_op_Inequality_mD0BE578448EAA61948F25C32F8DD55AB1F778602(L_14, (Object_tC12DECB6760A7F2CBF65D9DCF18D044C2D97152C*)NULL, NULL);
-		if (!L_15)
+		bool L_14 = __this->___isSobaFlag;
+		if (!L_14)
 		{
-			goto IL_00e7;
+			goto IL_00b6;
 		}
 	}
 	{
-		bool L_16 = __this->___isSobaFlag;
-		if (!L_16)
+		int32_t L_15 = V_0;
+		int32_t L_16 = __this->___sobaRand;
+		if ((((int32_t)L_15) < ((int32_t)L_16)))
 		{
-			goto IL_00d5;
+			goto IL_00ab;
 		}
 	}
 	{
-		int32_t L_17 = V_0;
-		int32_t L_18 = __this->___sobaRand;
-		if ((((int32_t)L_17) < ((int32_t)L_18)))
-		{
-			goto IL_00c9;
-		}
-	}
-	{
-		Soba_t8FC949899540855F53E45CE4A91AE8B38094AE87* L_19 = __this->___sobaobj;
-		GameObject_t76FEDD663AB33C991A9C9A23129337651094216F* L_20 = __this->___sobaState;
-		int32_t L_21 = V_0;
-		NullCheck(L_19);
-		Soba_SipSoba_m9924237F8460DD4DE3D16D75A80E67E59902601C(L_19, L_20, L_21, NULL);
+		Soba_t8FC949899540855F53E45CE4A91AE8B38094AE87* L_17 = __this->___sobaobj;
+		GameObject_t76FEDD663AB33C991A9C9A23129337651094216F* L_18 = __this->___sobaState;
+		int32_t L_19 = V_0;
+		NullCheck(L_17);
+		Soba_SipSoba_m9924237F8460DD4DE3D16D75A80E67E59902601C(L_17, L_18, L_19, NULL);
 		WankosobaSystemManager_FinishEatSoba_m693E7D6407C55BA7F8A21387B214897A7C327FEA(__this, NULL);
-		goto IL_010f;
+		return;
 	}
 
-IL_00c9:
+IL_00ab:
 	{
 		il2cpp_codegen_runtime_class_init_inline(Debug_t8394C7EEAECA3689C2C9B9DE9C7166D73596276F_il2cpp_TypeInfo_var);
 		Debug_Log_m87A9A3C761FF5C43ED8A53B16190A53D08F818BB(_stringLiteral9BED0840F67796DCA9EE73304D9C13FE2EF804A1, NULL);
-		goto IL_010f;
+		return;
 	}
 
-IL_00d5:
+IL_00b6:
 	{
 		il2cpp_codegen_runtime_class_init_inline(Debug_t8394C7EEAECA3689C2C9B9DE9C7166D73596276F_il2cpp_TypeInfo_var);
 		Debug_Log_m87A9A3C761FF5C43ED8A53B16190A53D08F818BB(_stringLiteralA154FEC58C4DF2B1047C18080280BC07DD297F3B, NULL);
 		WankosobaSystemManager_SetSoba_m1B542DA61DC2B884FCF50693B9959D083F13D6CD(__this, NULL);
-		goto IL_010f;
+		return;
 	}
 
-IL_00e7:
+IL_00c7:
 	{
 		WankosobaSystemManager_SetSoba_m1B542DA61DC2B884FCF50693B9959D083F13D6CD(__this, NULL);
 		il2cpp_codegen_runtime_class_init_inline(Debug_t8394C7EEAECA3689C2C9B9DE9C7166D73596276F_il2cpp_TypeInfo_var);
 		Debug_Log_m87A9A3C761FF5C43ED8A53B16190A53D08F818BB(_stringLiteralCD7B9D5AA4832D2E1B68700F4A8241E6F9DDF5E1, NULL);
-		Soba_t8FC949899540855F53E45CE4A91AE8B38094AE87* L_22;
-		L_22 = Component_GetComponent_TisSoba_t8FC949899540855F53E45CE4A91AE8B38094AE87_mC43FF7E74BC7A2D4109A5E0A285D4DEFA65D28A2(__this, Component_GetComponent_TisSoba_t8FC949899540855F53E45CE4A91AE8B38094AE87_mC43FF7E74BC7A2D4109A5E0A285D4DEFA65D28A2_RuntimeMethod_var);
-		__this->___sobaobj = L_22;
-		Il2CppCodeGenWriteBarrier((void**)(&__this->___sobaobj), (void*)L_22);
-		Owan_t3327AE492DFB8636653713F4236D6DD280A7996D* L_23;
-		L_23 = Component_GetComponent_TisOwan_t3327AE492DFB8636653713F4236D6DD280A7996D_mCC230821CD179E8A875BA494F836FAC0E80E9785(__this, Component_GetComponent_TisOwan_t3327AE492DFB8636653713F4236D6DD280A7996D_mCC230821CD179E8A875BA494F836FAC0E80E9785_RuntimeMethod_var);
-		__this->___owanobj = L_23;
-		Il2CppCodeGenWriteBarrier((void**)(&__this->___owanobj), (void*)L_23);
-	}
-
-IL_010f:
-	{
-		__this->___chopsticksFlag = (bool)0;
+		Soba_t8FC949899540855F53E45CE4A91AE8B38094AE87* L_20;
+		L_20 = Component_GetComponent_TisSoba_t8FC949899540855F53E45CE4A91AE8B38094AE87_mC43FF7E74BC7A2D4109A5E0A285D4DEFA65D28A2(__this, Component_GetComponent_TisSoba_t8FC949899540855F53E45CE4A91AE8B38094AE87_mC43FF7E74BC7A2D4109A5E0A285D4DEFA65D28A2_RuntimeMethod_var);
+		__this->___sobaobj = L_20;
+		Il2CppCodeGenWriteBarrier((void**)(&__this->___sobaobj), (void*)L_20);
+		Owan_t3327AE492DFB8636653713F4236D6DD280A7996D* L_21;
+		L_21 = Component_GetComponent_TisOwan_t3327AE492DFB8636653713F4236D6DD280A7996D_mCC230821CD179E8A875BA494F836FAC0E80E9785(__this, Component_GetComponent_TisOwan_t3327AE492DFB8636653713F4236D6DD280A7996D_mCC230821CD179E8A875BA494F836FAC0E80E9785_RuntimeMethod_var);
+		__this->___owanobj = L_21;
+		Il2CppCodeGenWriteBarrier((void**)(&__this->___owanobj), (void*)L_21);
 		return;
 	}
 }
@@ -19435,33 +19401,15 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void WankosobaSystemManager_Awake_mAA27BB84FF
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&Array_Empty_TisRuntimeObject_mFB8A63D602BB6974D31E20300D9EB89C6FE7C278_RuntimeMethod_var);
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&Component_GetComponent_TisOwan_t3327AE492DFB8636653713F4236D6DD280A7996D_mCC230821CD179E8A875BA494F836FAC0E80E9785_RuntimeMethod_var);
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&Component_GetComponent_TisSoba_t8FC949899540855F53E45CE4A91AE8B38094AE87_mC43FF7E74BC7A2D4109A5E0A285D4DEFA65D28A2_RuntimeMethod_var);
-		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&Debug_t8394C7EEAECA3689C2C9B9DE9C7166D73596276F_il2cpp_TypeInfo_var);
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&IDisposable_t030E0496B4E0E4E4F086825007979AF51F7248C5_il2cpp_TypeInfo_var);
-		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&Object_FindObjectOfType_TisChopstick01_t15D66697A5E89A2C90C48DC3896E88D6CFD2A2FF_mF0E3005FF9ED88356C8B41D10C6675134B51E043_RuntimeMethod_var);
-		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&Object_FindObjectOfType_TisChopstick02_t92D40387A678ADB9B7CEBC12D68657309E0D5068_m373BB55C9FABBEC38B59B38E170CBD85C173CBCA_RuntimeMethod_var);
-		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&Object_tC12DECB6760A7F2CBF65D9DCF18D044C2D97152C_il2cpp_TypeInfo_var);
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&_stringLiteral4D613657609485AE586A3379BA0E3FC13C1E1078);
-		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&_stringLiteral61E2F527C6A6EF23237552084726C2D20A6AD9B7);
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&_stringLiteral839F59EB3D020B1BD9DB26CF37EEE858A262660E);
-		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&_stringLiteral881C87C63A4CBDDDB8D63D361079C769388235EF);
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&_stringLiteralFB4AE4F77150C3A8E8E4F8B23E734E0C7277B7D9);
 		s_Il2CppMethodInitialized = true;
 	}
 	AndroidJavaClass_tE6296B30CC4BF84434A9B765267F3FD0DD8DDB03* V_0 = NULL;
 	Exception_t* V_1 = NULL;
 	il2cpp::utils::ExceptionSupportStack<RuntimeObject*, 1> __active_exceptions;
-	Chopstick01_t15D66697A5E89A2C90C48DC3896E88D6CFD2A2FF* G_B2_0 = NULL;
-	String_t* G_B2_1 = NULL;
-	Chopstick01_t15D66697A5E89A2C90C48DC3896E88D6CFD2A2FF* G_B1_0 = NULL;
-	String_t* G_B1_1 = NULL;
-	String_t* G_B3_0 = NULL;
-	String_t* G_B3_1 = NULL;
-	Chopstick02_t92D40387A678ADB9B7CEBC12D68657309E0D5068* G_B5_0 = NULL;
-	String_t* G_B5_1 = NULL;
-	Chopstick02_t92D40387A678ADB9B7CEBC12D68657309E0D5068* G_B4_0 = NULL;
-	String_t* G_B4_1 = NULL;
-	String_t* G_B6_0 = NULL;
-	String_t* G_B6_1 = NULL;
 	{
 		Soba_t8FC949899540855F53E45CE4A91AE8B38094AE87* L_0;
 		L_0 = Component_GetComponent_TisSoba_t8FC949899540855F53E45CE4A91AE8B38094AE87_mC43FF7E74BC7A2D4109A5E0A285D4DEFA65D28A2(__this, Component_GetComponent_TisSoba_t8FC949899540855F53E45CE4A91AE8B38094AE87_mC43FF7E74BC7A2D4109A5E0A285D4DEFA65D28A2_RuntimeMethod_var);
@@ -19471,110 +19419,37 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void WankosobaSystemManager_Awake_mAA27BB84FF
 		L_1 = Component_GetComponent_TisOwan_t3327AE492DFB8636653713F4236D6DD280A7996D_mCC230821CD179E8A875BA494F836FAC0E80E9785(__this, Component_GetComponent_TisOwan_t3327AE492DFB8636653713F4236D6DD280A7996D_mCC230821CD179E8A875BA494F836FAC0E80E9785_RuntimeMethod_var);
 		__this->___owanobj = L_1;
 		Il2CppCodeGenWriteBarrier((void**)(&__this->___owanobj), (void*)L_1);
-		il2cpp_codegen_runtime_class_init_inline(Object_tC12DECB6760A7F2CBF65D9DCF18D044C2D97152C_il2cpp_TypeInfo_var);
-		Chopstick01_t15D66697A5E89A2C90C48DC3896E88D6CFD2A2FF* L_2;
-		L_2 = Object_FindObjectOfType_TisChopstick01_t15D66697A5E89A2C90C48DC3896E88D6CFD2A2FF_mF0E3005FF9ED88356C8B41D10C6675134B51E043(Object_FindObjectOfType_TisChopstick01_t15D66697A5E89A2C90C48DC3896E88D6CFD2A2FF_mF0E3005FF9ED88356C8B41D10C6675134B51E043_RuntimeMethod_var);
-		__this->___chopstick01 = L_2;
-		Il2CppCodeGenWriteBarrier((void**)(&__this->___chopstick01), (void*)L_2);
-		Chopstick02_t92D40387A678ADB9B7CEBC12D68657309E0D5068* L_3;
-		L_3 = Object_FindObjectOfType_TisChopstick02_t92D40387A678ADB9B7CEBC12D68657309E0D5068_m373BB55C9FABBEC38B59B38E170CBD85C173CBCA(Object_FindObjectOfType_TisChopstick02_t92D40387A678ADB9B7CEBC12D68657309E0D5068_m373BB55C9FABBEC38B59B38E170CBD85C173CBCA_RuntimeMethod_var);
-		__this->___chopstick02 = L_3;
-		Il2CppCodeGenWriteBarrier((void**)(&__this->___chopstick02), (void*)L_3);
-		int32_t L_4;
-		L_4 = Random_Range_m6763D9767F033357F88B6637F048F4ACA4123B68(1, 4, NULL);
-		__this->___sobaRand = L_4;
-		Chopstick01_t15D66697A5E89A2C90C48DC3896E88D6CFD2A2FF* L_5 = __this->___chopstick01;
-		Chopstick01_t15D66697A5E89A2C90C48DC3896E88D6CFD2A2FF* L_6 = L_5;
-		if (L_6)
-		{
-			G_B2_0 = L_6;
-			G_B2_1 = _stringLiteral61E2F527C6A6EF23237552084726C2D20A6AD9B7;
-			goto IL_004d;
-		}
-		G_B1_0 = L_6;
-		G_B1_1 = _stringLiteral61E2F527C6A6EF23237552084726C2D20A6AD9B7;
-	}
-	{
-		G_B3_0 = ((String_t*)(NULL));
-		G_B3_1 = G_B1_1;
-		goto IL_0052;
-	}
-
-IL_004d:
-	{
-		NullCheck(G_B2_0);
-		String_t* L_7;
-		L_7 = VirtualFuncInvoker0< String_t* >::Invoke(3, G_B2_0);
-		G_B3_0 = L_7;
-		G_B3_1 = G_B2_1;
-	}
-
-IL_0052:
-	{
-		String_t* L_8;
-		L_8 = String_Concat_m9E3155FB84015C823606188F53B47CB44C444991(G_B3_1, G_B3_0, NULL);
-		il2cpp_codegen_runtime_class_init_inline(Debug_t8394C7EEAECA3689C2C9B9DE9C7166D73596276F_il2cpp_TypeInfo_var);
-		Debug_Log_m87A9A3C761FF5C43ED8A53B16190A53D08F818BB(L_8, NULL);
-		Chopstick02_t92D40387A678ADB9B7CEBC12D68657309E0D5068* L_9 = __this->___chopstick02;
-		Chopstick02_t92D40387A678ADB9B7CEBC12D68657309E0D5068* L_10 = L_9;
-		if (L_10)
-		{
-			G_B5_0 = L_10;
-			G_B5_1 = _stringLiteral881C87C63A4CBDDDB8D63D361079C769388235EF;
-			goto IL_006e;
-		}
-		G_B4_0 = L_10;
-		G_B4_1 = _stringLiteral881C87C63A4CBDDDB8D63D361079C769388235EF;
-	}
-	{
-		G_B6_0 = ((String_t*)(NULL));
-		G_B6_1 = G_B4_1;
-		goto IL_0073;
-	}
-
-IL_006e:
-	{
-		NullCheck(G_B5_0);
-		String_t* L_11;
-		L_11 = VirtualFuncInvoker0< String_t* >::Invoke(3, G_B5_0);
-		G_B6_0 = L_11;
-		G_B6_1 = G_B5_1;
-	}
-
-IL_0073:
-	{
-		String_t* L_12;
-		L_12 = String_Concat_m9E3155FB84015C823606188F53B47CB44C444991(G_B6_1, G_B6_0, NULL);
-		il2cpp_codegen_runtime_class_init_inline(Debug_t8394C7EEAECA3689C2C9B9DE9C7166D73596276F_il2cpp_TypeInfo_var);
-		Debug_Log_m87A9A3C761FF5C43ED8A53B16190A53D08F818BB(L_12, NULL);
+		int32_t L_2;
+		L_2 = Random_Range_m6763D9767F033357F88B6637F048F4ACA4123B68(1, 4, NULL);
+		__this->___sobaRand = L_2;
 	}
 	try
 	{
 		{
-			AndroidJavaClass_tE6296B30CC4BF84434A9B765267F3FD0DD8DDB03* L_13 = (AndroidJavaClass_tE6296B30CC4BF84434A9B765267F3FD0DD8DDB03*)il2cpp_codegen_object_new(AndroidJavaClass_tE6296B30CC4BF84434A9B765267F3FD0DD8DDB03_il2cpp_TypeInfo_var);
-			AndroidJavaClass__ctor_mB5466169E1151B8CC44C8FED234D79984B431389(L_13, _stringLiteral4D613657609485AE586A3379BA0E3FC13C1E1078, NULL);
-			V_0 = L_13;
+			AndroidJavaClass_tE6296B30CC4BF84434A9B765267F3FD0DD8DDB03* L_3 = (AndroidJavaClass_tE6296B30CC4BF84434A9B765267F3FD0DD8DDB03*)il2cpp_codegen_object_new(AndroidJavaClass_tE6296B30CC4BF84434A9B765267F3FD0DD8DDB03_il2cpp_TypeInfo_var);
+			AndroidJavaClass__ctor_mB5466169E1151B8CC44C8FED234D79984B431389(L_3, _stringLiteral4D613657609485AE586A3379BA0E3FC13C1E1078, NULL);
+			V_0 = L_3;
 		}
 		{
 			auto __finallyBlock = il2cpp::utils::Finally([&]
 			{
 
-FINALLY_00a4_1:
+FINALLY_004c_1:
 				{
 					{
-						AndroidJavaClass_tE6296B30CC4BF84434A9B765267F3FD0DD8DDB03* L_14 = V_0;
-						if (!L_14)
+						AndroidJavaClass_tE6296B30CC4BF84434A9B765267F3FD0DD8DDB03* L_4 = V_0;
+						if (!L_4)
 						{
-							goto IL_00ad_1;
+							goto IL_0055_1;
 						}
 					}
 					{
-						AndroidJavaClass_tE6296B30CC4BF84434A9B765267F3FD0DD8DDB03* L_15 = V_0;
-						NullCheck(L_15);
-						InterfaceActionInvoker0::Invoke(0, IDisposable_t030E0496B4E0E4E4F086825007979AF51F7248C5_il2cpp_TypeInfo_var, L_15);
+						AndroidJavaClass_tE6296B30CC4BF84434A9B765267F3FD0DD8DDB03* L_5 = V_0;
+						NullCheck(L_5);
+						InterfaceActionInvoker0::Invoke(0, IDisposable_t030E0496B4E0E4E4F086825007979AF51F7248C5_il2cpp_TypeInfo_var, L_5);
 					}
 
-IL_00ad_1:
+IL_0055_1:
 					{
 						return;
 					}
@@ -19582,15 +19457,15 @@ IL_00ad_1:
 			});
 			try
 			{
-				AndroidJavaClass_tE6296B30CC4BF84434A9B765267F3FD0DD8DDB03* L_16 = V_0;
-				NullCheck(L_16);
-				AndroidJavaObject_t8FFB930F335C1178405B82AC2BF512BB1EEF9EB0* L_17;
-				L_17 = AndroidJavaObject_GetStatic_TisAndroidJavaObject_t8FFB930F335C1178405B82AC2BF512BB1EEF9EB0_mD7D192A35EB2B2DA3775FAB081958B72088251DD(L_16, _stringLiteralFB4AE4F77150C3A8E8E4F8B23E734E0C7277B7D9, AndroidJavaObject_GetStatic_TisAndroidJavaObject_t8FFB930F335C1178405B82AC2BF512BB1EEF9EB0_mD7D192A35EB2B2DA3775FAB081958B72088251DD_RuntimeMethod_var);
-				ObjectU5BU5D_t8061030B0A12A55D5AD8652A20C922FE99450918* L_18;
-				L_18 = Array_Empty_TisRuntimeObject_mFB8A63D602BB6974D31E20300D9EB89C6FE7C278_inline(Array_Empty_TisRuntimeObject_mFB8A63D602BB6974D31E20300D9EB89C6FE7C278_RuntimeMethod_var);
-				NullCheck(L_17);
-				AndroidJavaObject_Call_mDEF7846E2AB1C5379069BB21049ED55A9D837B1C(L_17, _stringLiteral839F59EB3D020B1BD9DB26CF37EEE858A262660E, L_18, NULL);
-				goto IL_00ae_1;
+				AndroidJavaClass_tE6296B30CC4BF84434A9B765267F3FD0DD8DDB03* L_6 = V_0;
+				NullCheck(L_6);
+				AndroidJavaObject_t8FFB930F335C1178405B82AC2BF512BB1EEF9EB0* L_7;
+				L_7 = AndroidJavaObject_GetStatic_TisAndroidJavaObject_t8FFB930F335C1178405B82AC2BF512BB1EEF9EB0_mD7D192A35EB2B2DA3775FAB081958B72088251DD(L_6, _stringLiteralFB4AE4F77150C3A8E8E4F8B23E734E0C7277B7D9, AndroidJavaObject_GetStatic_TisAndroidJavaObject_t8FFB930F335C1178405B82AC2BF512BB1EEF9EB0_mD7D192A35EB2B2DA3775FAB081958B72088251DD_RuntimeMethod_var);
+				ObjectU5BU5D_t8061030B0A12A55D5AD8652A20C922FE99450918* L_8;
+				L_8 = Array_Empty_TisRuntimeObject_mFB8A63D602BB6974D31E20300D9EB89C6FE7C278_inline(Array_Empty_TisRuntimeObject_mFB8A63D602BB6974D31E20300D9EB89C6FE7C278_RuntimeMethod_var);
+				NullCheck(L_7);
+				AndroidJavaObject_Call_mDEF7846E2AB1C5379069BB21049ED55A9D837B1C(L_7, _stringLiteral839F59EB3D020B1BD9DB26CF37EEE858A262660E, L_8, NULL);
+				goto IL_0056_1;
 			}
 			catch(Il2CppExceptionWrapper& e)
 			{
@@ -19598,9 +19473,9 @@ IL_00ad_1:
 			}
 		}
 
-IL_00ae_1:
+IL_0056_1:
 		{
-			goto IL_00c8;
+			goto IL_0070;
 		}
 	}
 	catch(Il2CppExceptionWrapper& e)
@@ -19608,28 +19483,28 @@ IL_00ae_1:
 		if(il2cpp_codegen_class_is_assignable_from (((RuntimeClass*)il2cpp_codegen_initialize_runtime_metadata_inline((uintptr_t*)&Exception_t_il2cpp_TypeInfo_var)), il2cpp_codegen_object_class(e.ex)))
 		{
 			IL2CPP_PUSH_ACTIVE_EXCEPTION(e.ex);
-			goto CATCH_00b0;
+			goto CATCH_0058;
 		}
 		throw e;
 	}
 
-CATCH_00b0:
+CATCH_0058:
 	{
-		Exception_t* L_19 = ((Exception_t*)IL2CPP_GET_ACTIVE_EXCEPTION(Exception_t*));;
-		V_1 = L_19;
-		Exception_t* L_20 = V_1;
-		NullCheck(L_20);
-		String_t* L_21;
-		L_21 = VirtualFuncInvoker0< String_t* >::Invoke(5, L_20);
-		String_t* L_22;
-		L_22 = String_Concat_m9E3155FB84015C823606188F53B47CB44C444991(((String_t*)il2cpp_codegen_initialize_runtime_metadata_inline((uintptr_t*)&_stringLiteral73ED92A2DE5120A5716646E377BB552B3B4E51AF)), L_21, NULL);
+		Exception_t* L_9 = ((Exception_t*)IL2CPP_GET_ACTIVE_EXCEPTION(Exception_t*));;
+		V_1 = L_9;
+		Exception_t* L_10 = V_1;
+		NullCheck(L_10);
+		String_t* L_11;
+		L_11 = VirtualFuncInvoker0< String_t* >::Invoke(5, L_10);
+		String_t* L_12;
+		L_12 = String_Concat_m9E3155FB84015C823606188F53B47CB44C444991(((String_t*)il2cpp_codegen_initialize_runtime_metadata_inline((uintptr_t*)&_stringLiteral73ED92A2DE5120A5716646E377BB552B3B4E51AF)), L_11, NULL);
 		il2cpp_codegen_runtime_class_init_inline(((RuntimeClass*)il2cpp_codegen_initialize_runtime_metadata_inline((uintptr_t*)&Debug_t8394C7EEAECA3689C2C9B9DE9C7166D73596276F_il2cpp_TypeInfo_var)));
-		Debug_Log_m87A9A3C761FF5C43ED8A53B16190A53D08F818BB(L_22, NULL);
+		Debug_Log_m87A9A3C761FF5C43ED8A53B16190A53D08F818BB(L_12, NULL);
 		IL2CPP_POP_ACTIVE_EXCEPTION(Exception_t*);
-		goto IL_00c8;
+		goto IL_0070;
 	}
 
-IL_00c8:
+IL_0070:
 	{
 		return;
 	}
@@ -19645,31 +19520,14 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void WankosobaSystemManager_Update_mB232E5B47
 	DateTime_t66193957C73913903DDAD89FEDC46139BCA5802D V_0;
 	memset((&V_0), 0, sizeof(V_0));
 	{
-		bool L_0 = __this->___chopsticksFlag;
-		if (L_0)
-		{
-			goto IL_001e;
-		}
-	}
-	{
-		Chopstick01_t15D66697A5E89A2C90C48DC3896E88D6CFD2A2FF* L_1 = __this->___chopstick01;
-		NullCheck(L_1);
-		Chopstick01_StopChopstickAnimation_mBDA0D1E6C41D50D6D65ECF2F8346772E6F0027CF(L_1, NULL);
-		Chopstick02_t92D40387A678ADB9B7CEBC12D68657309E0D5068* L_2 = __this->___chopstick02;
-		NullCheck(L_2);
-		Chopstick02_StopChopstickAnimation_mFC8D89634D651FBBB90579C870014735DEFD5874(L_2, NULL);
-	}
-
-IL_001e:
-	{
 		WankosobaSystemManager_InputKey_mDD3CD50020ADF59C81A52E9D9D4BF93DE5A904F8(__this, NULL);
 		il2cpp_codegen_runtime_class_init_inline(DateTime_t66193957C73913903DDAD89FEDC46139BCA5802D_il2cpp_TypeInfo_var);
-		DateTime_t66193957C73913903DDAD89FEDC46139BCA5802D L_3;
-		L_3 = DateTime_get_Now_m636CB9651A9099D20BA1CF813A0C69637317325C(NULL);
-		V_0 = L_3;
-		int32_t L_4;
-		L_4 = DateTime_get_Millisecond_mD47CAACAF231AA82552DA9F71836784AF8E27878((&V_0), NULL);
-		Random_InitState_mE70961834F42FFEEB06CB9C68175354E0C255664(L_4, NULL);
+		DateTime_t66193957C73913903DDAD89FEDC46139BCA5802D L_0;
+		L_0 = DateTime_get_Now_m636CB9651A9099D20BA1CF813A0C69637317325C(NULL);
+		V_0 = L_0;
+		int32_t L_1;
+		L_1 = DateTime_get_Millisecond_mD47CAACAF231AA82552DA9F71836784AF8E27878((&V_0), NULL);
+		Random_InitState_mE70961834F42FFEEB06CB9C68175354E0C255664(L_1, NULL);
 		return;
 	}
 }

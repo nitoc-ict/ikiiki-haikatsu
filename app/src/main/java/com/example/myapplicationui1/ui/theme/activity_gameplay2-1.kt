@@ -29,6 +29,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlinx.coroutines.withTimeout
+import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
 import java.util.UUID
@@ -129,6 +131,7 @@ class GamePlay21Activity: UnityPlayerActivity() {
                     }
                 }
                 else -> {
+                    Log.i(TAG1, "checkAndRequestPermission called")
                     checkAndRequestPermissions()
                 }
             }
@@ -155,15 +158,17 @@ class GamePlay21Activity: UnityPlayerActivity() {
         when {
             missingPermissions.isEmpty() -> {
                 // 全ての権限が許可されている
+                Log.i(TAG1, "All permission granted")
                 connectToDevice()
             }
             missingPermissions.any { permission ->
                 ActivityCompat.shouldShowRequestPermissionRationale(this, permission)
             } -> {
-                // 権限が必要な理由を説明
+                Log.i(TAG1, "Show denied permission")
                 showPermissionRationaleDialog(missingPermissions.toTypedArray())
             }
             else -> {
+                Log.i(TAG1, "Request to permission")
                 // 権限をリクエスト
                 ActivityCompat.requestPermissions(
                     this,
@@ -324,23 +329,41 @@ class GamePlay21Activity: UnityPlayerActivity() {
                 if(device != null) {
                     Log.d(TAG1, "Permission Available 05")
                     CoroutineScope(Dispatchers.IO).launch {
-                        try {
-                            bluetoothSocket = device.createRfcommSocketToServiceRecord(SPP_UUID)
-                            Log.d(TAG1, "Permission Available 06")
-                            bluetoothSocket?.connect()
-                            Log.d(TAG1, "Permission Available 07")
-                            inputStream = bluetoothSocket?.inputStream
-                            Log.d(TAG1, "Permission Available 08")
-                            outputStream = bluetoothSocket?.outputStream
-                            Log.d(TAG1, "Permission Available 09")
-                            Log.d(TAG2, "Connected to $DEVICE_NAME")
-                            UnityPlayer.UnitySendMessage("WankosobaGameStateManager", "ResumeGame", "")
-                            // readDataを許可
-                            isConnected = true
-                            readData()
-                        } catch (e: Exception) {
-                            Log.e(TAG5, "Connection failed: ${e.message}")
-                            reconnectToDevice()
+                        var retryCount = 0
+                        val maxRetries = 3
+                        val duration = 5000L
+
+                        while (retryCount < maxRetries) {
+                            try {
+                                Log.d(TAG1, "Attempting to connect, try #$retryCount")
+                                withTimeout(duration) {
+                                    bluetoothSocket = device.createRfcommSocketToServiceRecord(SPP_UUID)
+                                    Log.d(TAG1, "Permission Available 06")
+                                    Log.i(TAG2, "BluetoothSocket is:$bluetoothSocket")
+                                    bluetoothSocket?.connect()
+                                    Log.d(TAG1, "Permission Available 07")
+                                }
+                                inputStream = bluetoothSocket?.inputStream
+                                Log.d(TAG1, "Permission Available 08")
+                                outputStream = bluetoothSocket?.outputStream
+                                Log.d(TAG1, "Permission Available 09")
+                                Log.d(TAG2, "Connected to $DEVICE_NAME")
+                                UnityPlayer.UnitySendMessage("WankosobaGameStateManager", "ResumeGame", "")
+                                isConnected = true
+                                readData()
+                                break // 接続が成功した場合、ループを終了
+                            } catch (e: IOException) {
+                                Log.e(TAG5, "Connection failed due to IOException: ${e.message}")
+                                retryCount++
+                                if (retryCount >= maxRetries) {
+                                    Log.e(TAG5, "Max retries reached. Could not connect.")
+                                    reconnectToDevice()
+                                }
+                            } catch (e: Exception) {
+                                Log.e(TAG5, "Connection failed due to Exception: ${e.message}")
+                                reconnectToDevice()
+                                break // 非IO例外の場合、ループを終了
+                            }
                         }
                     }
                 }
@@ -361,20 +384,19 @@ class GamePlay21Activity: UnityPlayerActivity() {
                     if (bytes > 0) {
                         var incomingData = String(buffer, 0, bytes)
                         Log.d(TAG3, "Rechieved: $incomingData")
-                        if (bytes != null) {
-                            stateSendValue = incomingData
+                        if (incomingData.isNotEmpty()) {
                             Log.d(TAG1, "incomingData is  not Null")
+                            delay(300)
+                            UnityPlayer.UnitySendMessage("WankosobaSystemManager", "ReceiveMessage", "${incomingData.first()}");
+                            Log.e(TAG1, "First riteral is ${incomingData.first()}");
+                            stateSendValue = incomingData;
                         } else {
-                            incomingData = stateSendValue
+                            incomingData = stateSendValue;
                         }
-                        delay(300)
-                        UnityPlayer.UnitySendMessage("WankosobaSystemManager", "ReceiveMessage", "${incomingData.first()}")
-                        Log.e(TAG1, "First riteral is ${incomingData.first()}")
                     }
-                } catch (e: Exception) {
+                } catch (e: IOException) {
                     Log.e(TAG4, "値読み取りエラー: ${e.message}")
                     isConnected = false
-                    UnityPlayer.UnitySendMessage("WankosobaGameStateManager", "PauseGame", "")
                     reconnectToDevice()
                 }
             }

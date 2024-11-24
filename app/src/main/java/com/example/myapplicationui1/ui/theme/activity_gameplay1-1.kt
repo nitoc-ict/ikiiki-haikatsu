@@ -29,6 +29,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlinx.coroutines.withTimeout
+import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
 import java.util.UUID
@@ -331,25 +333,41 @@ class GamePlay11Activity: UnityPlayerActivity() {
                 if(device != null) {
                     Log.d(TAG1, "Permission Available 05")
                     CoroutineScope(Dispatchers.IO).launch {
-                        try {
-                            bluetoothSocket = device.createRfcommSocketToServiceRecord(SPP_UUID)
-                            Log.d(TAG1, "Permission Available 06")
-                            Log.d(TAG2, "BluetoothSocket is ${bluetoothSocket}")
-                            bluetoothSocket?.connect()
-                            Log.d(TAG1, "Permission Available 07")
-                            inputStream = bluetoothSocket?.inputStream
-                            Log.d(TAG1, "Permission Available 08")
-                            outputStream = bluetoothSocket?.outputStream
-                            Log.d(TAG1, "Permission Available 09")
-                            Log.d(TAG2, "Connected to $DEVICE_NAME")
-                            Log.d(TAG1, "BluetoothSocket is ${bluetoothSocket}")
-                            UnityPlayer.UnitySendMessage("AppleGameStateManager", "ResumeGame", "")
-                            // readDataを許可
-                            isConnected = true
-                            readData()
-                        } catch (e: Exception) {
-                            Log.e(TAG5, "Connection failed: ${e.message}")
-                            reconnectToDevice()
+                        var retryCount = 0
+                        val maxRetries = 3
+                        val duration = 5000L
+
+                        while (retryCount < maxRetries) {
+                            try {
+                                Log.d(TAG1, "Attempting to connect, try #$retryCount")
+                                withTimeout(duration) {
+                                    bluetoothSocket = device.createRfcommSocketToServiceRecord(SPP_UUID)
+                                    Log.d(TAG1, "Permission Available 06")
+                                    Log.i(TAG2, "BluetoothSocket is:$bluetoothSocket")
+                                    bluetoothSocket?.connect()
+                                    Log.d(TAG1, "Permission Available 07")
+                                }
+                                inputStream = bluetoothSocket?.inputStream
+                                Log.d(TAG1, "Permission Available 08")
+                                outputStream = bluetoothSocket?.outputStream
+                                Log.d(TAG1, "Permission Available 09")
+                                Log.d(TAG2, "Connected to $DEVICE_NAME")
+                                UnityPlayer.UnitySendMessage("WankosobaGameStateManager", "ResumeGame", "")
+                                isConnected = true
+                                readData()
+                                break // 接続が成功した場合、ループを終了
+                            } catch (e: IOException) {
+                                Log.e(TAG5, "Connection failed due to IOException: ${e.message}")
+                                retryCount++
+                                if (retryCount >= maxRetries) {
+                                    Log.e(TAG5, "Max retries reached. Could not connect.")
+                                    reconnectToDevice()
+                                }
+                            } catch (e: Exception) {
+                                Log.e(TAG5, "Connection failed due to Exception: ${e.message}")
+                                reconnectToDevice()
+                                break // 非IO例外の場合、ループを終了
+                            }
                         }
                     }
                 }

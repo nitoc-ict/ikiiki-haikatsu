@@ -309,8 +309,6 @@ struct CanvasRenderer_tAB9A55A976C4E3B2B37D0CE5616E5685A8B43860;
 struct CaptureCollection_t38405272BD6A6DA77CD51487FD39624C6E95CC93;
 struct Character_t9B671B493FAC8D43638C69AF6AE92CBD103D80EC;
 struct CharacterController_t847C1A2719F60547D7D6077B648D6CE2D1EF3A6A;
-struct Chopstick01_t15D66697A5E89A2C90C48DC3896E88D6CFD2A2FF;
-struct Chopstick02_t92D40387A678ADB9B7CEBC12D68657309E0D5068;
 struct Collider_t1CC3163924FCD6C4CC2E816373A929C1E3D55E76;
 struct Collision_tBCC6AEBD9A63E6DA2E50660DAC03CDCB1FF7A9B0;
 struct Coroutine_t85EA685566A254C23F3FD77AB5BDFFFF8799596B;
@@ -11989,9 +11987,6 @@ struct WankosobaSystemManager_t153FF469360627EB1F477985DE5AC19D5C646455  : publi
 	GameObject_t76FEDD663AB33C991A9C9A23129337651094216F* ___owanState;
 	Soba_t8FC949899540855F53E45CE4A91AE8B38094AE87* ___sobaobj;
 	Owan_t3327AE492DFB8636653713F4236D6DD280A7996D* ___owanobj;
-	Chopstick01_t15D66697A5E89A2C90C48DC3896E88D6CFD2A2FF* ___chopstick01;
-	Chopstick02_t92D40387A678ADB9B7CEBC12D68657309E0D5068* ___chopstick02;
-	bool ___chopsticksFlag;
 	bool ___isSobaFlag;
 	int32_t ___sobaRand;
 };
@@ -16252,9 +16247,9 @@ IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable4374[12] =
 IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable4375[2] = 
 {
 	static_cast<int32_t>(offsetof(WankosobaResult_tB2C5BE161598B768220B0FC42E7CF47507DA139D, ___scoreText)),static_cast<int32_t>(offsetof(WankosobaResult_tB2C5BE161598B768220B0FC42E7CF47507DA139D, ___score)),};
-IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable4376[11] = 
+IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable4376[8] = 
 {
-	static_cast<int32_t>(offsetof(WankosobaSystemManager_t153FF469360627EB1F477985DE5AC19D5C646455, ___soba)),static_cast<int32_t>(offsetof(WankosobaSystemManager_t153FF469360627EB1F477985DE5AC19D5C646455, ___sobaState)),static_cast<int32_t>(offsetof(WankosobaSystemManager_t153FF469360627EB1F477985DE5AC19D5C646455, ___owan)),static_cast<int32_t>(offsetof(WankosobaSystemManager_t153FF469360627EB1F477985DE5AC19D5C646455, ___owanState)),static_cast<int32_t>(offsetof(WankosobaSystemManager_t153FF469360627EB1F477985DE5AC19D5C646455, ___sobaobj)),static_cast<int32_t>(offsetof(WankosobaSystemManager_t153FF469360627EB1F477985DE5AC19D5C646455, ___owanobj)),static_cast<int32_t>(offsetof(WankosobaSystemManager_t153FF469360627EB1F477985DE5AC19D5C646455, ___chopstick01)),static_cast<int32_t>(offsetof(WankosobaSystemManager_t153FF469360627EB1F477985DE5AC19D5C646455, ___chopstick02)),static_cast<int32_t>(offsetof(WankosobaSystemManager_t153FF469360627EB1F477985DE5AC19D5C646455, ___chopsticksFlag)),static_cast<int32_t>(offsetof(WankosobaSystemManager_t153FF469360627EB1F477985DE5AC19D5C646455, ___isSobaFlag)),static_cast<int32_t>(offsetof(WankosobaSystemManager_t153FF469360627EB1F477985DE5AC19D5C646455, ___sobaRand)),};
+	static_cast<int32_t>(offsetof(WankosobaSystemManager_t153FF469360627EB1F477985DE5AC19D5C646455, ___soba)),static_cast<int32_t>(offsetof(WankosobaSystemManager_t153FF469360627EB1F477985DE5AC19D5C646455, ___sobaState)),static_cast<int32_t>(offsetof(WankosobaSystemManager_t153FF469360627EB1F477985DE5AC19D5C646455, ___owan)),static_cast<int32_t>(offsetof(WankosobaSystemManager_t153FF469360627EB1F477985DE5AC19D5C646455, ___owanState)),static_cast<int32_t>(offsetof(WankosobaSystemManager_t153FF469360627EB1F477985DE5AC19D5C646455, ___sobaobj)),static_cast<int32_t>(offsetof(WankosobaSystemManager_t153FF469360627EB1F477985DE5AC19D5C646455, ___owanobj)),static_cast<int32_t>(offsetof(WankosobaSystemManager_t153FF469360627EB1F477985DE5AC19D5C646455, ___isSobaFlag)),static_cast<int32_t>(offsetof(WankosobaSystemManager_t153FF469360627EB1F477985DE5AC19D5C646455, ___sobaRand)),};
 IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable4377[5] = 
 {
 	static_cast<int32_t>(offsetof(MonoScriptData_t8F50E352855B96FFFC1D9CB07EACC90C99D73A3E, ___FilePathsData)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(MonoScriptData_t8F50E352855B96FFFC1D9CB07EACC90C99D73A3E, ___TypesData)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(MonoScriptData_t8F50E352855B96FFFC1D9CB07EACC90C99D73A3E, ___TotalTypes)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(MonoScriptData_t8F50E352855B96FFFC1D9CB07EACC90C99D73A3E, ___TotalFiles)) + static_cast<int32_t>(sizeof(RuntimeObject)),static_cast<int32_t>(offsetof(MonoScriptData_t8F50E352855B96FFFC1D9CB07EACC90C99D73A3E, ___IsEditorOnly)) + static_cast<int32_t>(sizeof(RuntimeObject)),};
